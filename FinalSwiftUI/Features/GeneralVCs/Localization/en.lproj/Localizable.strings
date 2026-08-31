@@ -1,0 +1,476 @@
+//
+//  Localizable.strings
+//  FinalSwiftUI
+//
+//  Created by Mohab Elsayed on 27/12/2024.
+//
+
+/* ============================= */
+/* Addresses Screen */
+/* ============================= */
+"address_agenda"            = "My Addresses";
+"add_address"               = "Add Address";
+"added_addresses_menu"      = "List Of Added Addresses";
+
+"Change_Password" = "Change Password";
+"enter_old_password" = "Enter Old Password";
+"enter_new_password" = "Enter New Password";
+
+//Global Keys
+"R.S"                                                                                 = "R.S"                           ;
+"Adding"                                                                              = "Adding"                        ;
+"YES"                                                                                 = "YES"                           ;
+"NO"                                                                                  = "NO"                            ;
+"Hour"                                                                                = "Hour"                          ;
+"Day"                                                                                 = "Day"                           ;
+"Total"                                                                               = "Total"                         ;
+"Next"                                                                                = "Next"                          ;
+"Confirm"                                                                             = "Confirm"                       ;
+"Cancel"                                                                              = "Cancel"                        ;
+"Language"                                                                            = "Language"                      ;
+"Save"                                                                                = "Save"                          ;
+"Add"                                                                                 = "Add"                           ;
+"Warning"                                                                             = "Warning"                       ;
+"please login first"                                                                  = "please login first"            ;
+"Ok"                                                                                  = "Ok"                            ;
+
+
+/* ============================= */
+/* Onboarding Screen */
+/* ============================= */
+"onboarding_skip"         = "Skip";
+"onboarding_text_1"       = "This is a placeholder text that can be replaced...";
+"onboarding_next"         = "Next";
+"onboarding_previous"     = "Previous";
+
+/* ============================= */
+/* Language Selection Screen */
+/* ============================= */
+"language_title"          = "Select Language";
+"language_en"             = "English";
+"language_ar"             = "Arabic";
+"save_button"             = "Save";
+
+
+/* ============================= */
+/* Login Screen */
+/* ============================= */
+"login_title"             = "Login";
+"phone_placeholder"       = "";
+"password_placeholder"    = "Password";
+"forgot_password"         = "Forgot your password?";
+"login_button"            = "Login";
+"register_button"         = "Create New Account";
+"guest_button"            = "Skip and Enter as Guest";
+
+/* ============================= */
+/* Phone Verification Screen     */
+/* شاشة التحقق من رقم الهاتف     */
+/* ============================= */
+
+"confirm_phone_number" = "Confirm your phone number";
+"verification_sent_to_number" = "We have sent you a verification code to the number";
+"resend_code_in" = "Resend code in";
+"confirm_button" = "Confirm";
+"Resen_Code" = "Resend Code";
+
+/* ============================= */
+/* Enter Mobile Number Screen   */
+/* شاشة إدخال رقم الجوال         */
+/* ============================= */
+
+"enter_mobile_number" = "Enter mobile number";
+"confirm_button" = "Confirm";
+
+
+
+
+/* ============================= */
+/* Registration Screen */
+/* ============================= */
+"register_title"          = "Create Account";
+"full_name"               = "Full Name";
+"phone_number"            = "Phone Number";
+"email"                   = "Email";
+"password"                = "Password";
+"confirm_password"        = "Confirm Password";
+"city"                    = "City";
+"area"                    = "Area";
+"id_number"               = "ID Number";
+"bank_account_number"     = "Bank Account Number";
+"agree_terms"             = "Agree to Terms and Conditions";
+"register_submit_button"  = "Register Account";
+
+/* ============================= */
+/* VerificationCode */
+/* ============================= */
+
+"confirm_phone_number" = "Confirm your phone number";
+"verification_sent_to_number" = "We have sent you a verification code to the number";
+"resend_code_in" = "Resend code in";
+"confirm_button" = "Confirm";
+
+
+/* ============================= */
+/* Side Menu */
+/* ============================= */
+"menu"                    = "Menu";
+"menu_messages"           = "Messages";
+"menu_settings"           = "Settings";
+"menu_faq"                = "FAQ";
+"menu_about_us"           = "About Us";
+"menu_privacy"            = "Privacy Policy";
+"menu_terms"              = "Terms & Conditions";
+"menu_cancellation"       = "Cancellation Policy";
+"menu_contact"            = "Contact Us";
+"menu_share"              = "Share App";
+"menu_rate"               = "Rate App";
+"menu_logout"             = "Logout";
+"menu_delete_account"     = "Delete Account";
+"menu_app_version"        = "App Version";
+"menu_filter"             = "Menu Filter";
+
+/* ============================= */
+/* Ad Pending Screen */
+/* ============================= */
+"ad_pending_text"         = "The ad will be posted within the next few hours and you will be notified once the auction starts";
+"contact_support"         = "Contact Support";
+"home"                    = "Home";
+"my_ads"                  = "My Ads";
+
+/* ============================= */
+/* Ad Type Selection Screen */
+/* ============================= */
+"choose_ad_type"          = "Choose Ad Type";
+"car_auction"             = "Car Auction";
+"other_sections"          = "Other Sections";
+
+/* ============================= */
+/* Cancellation Policy Support */
+/* ============================= */
+"cancellation_policy"     = "Cancellation Policy";
+"message_type"            = "Message Type";
+"complaint"               = "Complaint";
+"suggestion"              = "Suggestion";
+"message_subject"         = "Message Subject";
+"message_body"            = "Message Body";
+"send"                    = "Send";
+
+/* ============================= */
+/* Settings Screen */
+/* ============================= */
+"settings"                = "Settings";
+"notifications"           = "Notifications";
+"enable"                  = "Enable";
+"disable"                 = "Disable";
+"language"                = "Language";
+"arabic"                  = "Arabic";
+"english"                 = "English";
+
+
+
+/* ============================= */
+/* Contact Us Screen */
+/* ============================= */
+"Message_Type"                = "Message Type";
+"Message_Text"                = "Message Text"; 
+"Message_Title"               = "Message Title";
+"Message_body"               = "Message body";
+
+/* ============================= */
+/* Notification Screen */
+/* ============================= */
+"read_all_notifications" = "Read All Notifications";
+
+
+//Mohab's localizationssssss
+"city"                          = "City";
+"category"                      = "Category";
+"brand"                         = "Brand";
+"papers_state"                  = "Papers State";
+"color"                         = "Color";
+"auction_name"                  = "Auction Name";
+"car_description"               = "Car Description";
+"start_date"                    = "Start Date";
+"end_date"                      = "End Date";
+"car_state"                     = "Car State";
+"model"                         = "Model";
+"manufacture_year"              = "Manufacture Year";
+"accidents"                     = "Accidents";
+"ex_owners"                     = "Ex Owners";
+"license_state"                 = "License State";
+"delay_years"                   = "Delay Years";
+"kilometres"                    = "Kilometres";
+"engine_size"                   = "Engine Size";
+"fuel_type"                     = "Fuel Type";
+"transmission"                  = "Transmission";
+"starting_price"                = "Starting Price";
+"accept_terms"                  = "Accept terms and conditions";
+"cancel"                        = "Cancel";
+"add"                           = "Add";
+"add_photo"                     = "Add Photo";
+"add_ad"                        = "Add Ad";
+"product_name"                  = "Product Name";
+"product_description"           = "Product Description";
+"contact_number"                = "Contact Number";
+
+/* ============================= */
+/* Notification Screen */
+/* ============================= */
+"email"                              = "Email";
+"car_auctions"                       = "Car Auctions";
+"search"                             = "Search";
+"publish_date"                       = "Publish Date";
+"start_day_and_date"                 = "Start Day and Date";
+"end_day_and_date"                   = "End Day and Date";
+"manufacture_date"                   = "Manufacture Date";
+"price_value"                        = "Price: 6168181";
+"address"                            = "Address";
+"choose_ad_type"                     = "Choose Ad Type";
+"your_ad_will_be_published_soon"     = "Your ad will be published soon";
+"you_will_be_notified_soon"          = "You will be notified soon";
+"contact_support"                    = "Contact Support";
+"my_ads"                             = "My Ads";
+"home"                               = "Home";
+"contact_us"                         = "Contact Us";
+"electronics"                        = "Electronics";
+"search"                             = "Search";
+"favourites"                         = "Favourites";
+"filter"                             = "Filter";
+"from"                               = "From";
+"to"                                 = "To";
+"save"                               = "Save";
+"reset"                              = "Reset";
+"enter_price"                        = "Enter Price";
+"my_ads"                             = "My Ads";
+"ads"                                   = "Ads";
+"vendor"                                = "Vendor";
+"subscribed_auctions"                   = "Subscribed Auctions";
+"id"                                    = "ID";
+"ad_type"                               = "Ad Type";
+"full_price"                            = "Full Price";
+"ad_state"                              = "Ad State";
+"add_balance"                           = "Add Balance";
+"cash"                                  = "Cash";
+"addition"                              = "Addition";
+"usage"                                 = "Usage";
+"reference_number"                      = "Reference Number";
+"operation_type"                        = "Operation Type";
+"charge_method"                         = "Charge Method";
+"money_amount"                          = "Money Amount";
+"wallet"                                = "Wallet";
+"orders"                                = "Orders";
+"accept_terms_and_conditions"           = "Accept Terms And Conditions";
+"price"                                 = "Price";
+"details"                               = "Details";
+"car_details"                           = "Car Details";
+"subscribe"                             = "Subscribe";
+"remaining_time"                        = "Remaining Time";
+"charge_wallet"                         = "Charge Wallet";
+"enter_charge_value"                    = "Enter Charge Value";
+"choose_payment_method"                 = "Choose Payment Method";
+"visa"                                  = "Visa";
+"master_card"                           = "Master Card";
+"old_first"                             = "Old First";
+"new_first"                             = "New First";
+"lowest_price_first"                    = "Lowest Price First";
+"lowest_price_first"                    = "Highest Price First";
+"show_contact_info"                     = "Show Contact Info";
+"enter_phone_number"                    = "Enter Phone Number";
+"enter_new_password"                    = "Enter New Password";
+"new_password"                          = "New Password";
+"confirm_password"                      = "Confirm Password";
+"name_required"                         = "Name Required";
+"phone_number_required"                 = "Phone Number Required";
+"email_required"                        = "Email Required";
+"id_required"                           = "ID Required";
+"bank_required"                         = "Bank Account Required";
+"password_required"                     = "Password Required";
+"please_check_box"                      = "Please Check Box";
+"Agreeing_to_the_terms_and_conditions"  = "Agree To Terms And Conditions";
+"confirm_password_required"             = "Confirm Password";
+"phone_number_incorrect"                = "Incorrect Phone Number";
+"change_password"                       = "Change Password";
+"advertisements"                        = "Advertisements";
+"auctions"                              = "Auctions";
+"ratings_menu"                          = "Rating Menu";
+"enter_name"                            = "Enter Name";
+"currnt_price"                          = "Current Price";
+"sr"                                    = "SR";
+"user_name"                             = "User Name";
+"inser_phone_password"                  = "Please insert Phone Number And Password";
+        
+/* ============================= */
+/* SidMenue Screen */
+/* ============================= */
+"menu_myCars"                            = "My Cars";
+"menu_myAddresses"                       = "My Addresses";
+"menu_wallet"                            = "My Wallet";
+"privacy"                                = "Privacy";
+"about"                                  = "About Us";
+"terms"                                  = "Terms And Condition";
+
+/* ============================= */
+/* cars Screen */
+/* ============================= */
+"add_car"                                 = "Add Car";
+"choose_car_category"                     = "Select Car Category";
+"choose_car_brand"                        = "Select Car Brand";
+"chose_car_model"                         = "Select Car Model";
+"chose_manufacture_date"                  = "Select Year Of Manufacture";
+"enter_chest_number"                      = "ِEnter Chest Number";
+
+
+//MARK: Home Vendor Screen
+"home.receive_orders"           = "Receive Orders";
+"home.statistics"               = "Account Statistics";
+
+"home.sent_offers_count"        = "Sent Offers Count";
+"home.sent_offers_total"        = "Total Sent Offers Value";
+"home.orders_count"             = "Orders Count";
+"home.orders_total"             = "Total Orders Value";
+"home.completed_orders"         = "Completed Orders";
+"home.cancelled_orders"         = "Cancelled Orders";
+
+"home.last_orders"              = "Last 5 New Orders";
+"home.show_all"                 = "Show All";
+
+"order.id"                      = "ID";
+"order.type"                    = "Order Type";
+"order.pieces"                  = "Pieces Count";
+"order.city"                    = "City";
+"order.date"                    = "Date";
+"order.time"                    = "Time";
+
+//MARK: Wallet Vendor Screen
+"wallet.title"                  = "Wallet";
+"wallet.total_earnings"         = "Total Earnings";
+"wallet.current_balance"        = "Current Balance Due";
+"wallet.withdraw_request"       = "Request Withdrawal";
+"wallet.withdrawals_tab"        = "Withdrawals";
+"wallet.additions_tab"          = "Additions";
+
+"wallet.col_index"              = "#";
+"wallet.col_reference"           = "Reference ID";
+"wallet.col_request"             = "Request ID";
+"wallet.col_amount"             = "Amount";
+"wallet.col_date"               = "Date";
+"wallet.col_time"               = "Time";
+
+
+"merchant.profile_title"        = "Merchant Profile";
+
+"merchant.basic_info"           = "Basic Information";
+"merchant.name_ar"              = "Store Name (Arabic)";
+"merchant.name_en"              = "Store Name (English)";
+"merchant.logo"                  = "Logo";
+
+"merchant.images_docs"          = "Images & Documents";
+
+"merchant.desc_ar"              = "Store Description (Arabic)";
+"merchant.desc_en"              = "Store Description (English)";
+
+"merchant.address_details"      = "Address Details";
+"merchant.country"               = "Country";
+"merchant.region"               = "Region";
+"merchant.city"                 = "City";
+"merchant.show_map"             = "Show Location on Map";
+
+"merchant.commercial_register"  = "Commercial Register";
+"merchant.cr_number"            = "Commercial Register Number";
+
+"merchant.bank_info"            = "Bank Account Details";
+"merchant.bank_name"             = "Bank Name";
+"merchant.beneficiary_name"     = "Beneficiary Name";
+"merchant.account_number"       = "Account Number";
+"merchant.iban"                 = "IBAN";
+
+
+"commercial_request_title"              = "Register Your Commercial Request";
+
+"username_en"                           = "Username (in English)";
+"mobile_number"                         = "Mobile Number";
+"email_address"                         = "Email Address";
+
+"upload_logo"                           = "Upload Logo";
+"upload_images"                         = "Upload Images";
+
+"business_description"                  = "Business Description";
+"business_description_en"               = "Business Description (in English)";
+
+"country"                               = "Country";
+"region"                                = "Region";
+"city"                                  = "City";
+"select_location_on_map"                = "Select Location on Map";
+
+"upload_commercial_registration"        = "Upload Commercial Registration";
+
+"bank_name"                             = "Bank Name";
+"beneficiary_name"                      = "Beneficiary Name";
+"account_number"                        = "Account Number";
+"iban"                                  = "IBAN";
+
+"submit"                                = "Submit";
+
+"validation_required"                   = "This field is required";
+"validation_invalid_field"              = "This field is invalid";
+
+
+"local_order"                            = "Local Order";
+"national_order"                         = "National Order";
+"custom_order"                           = "Special Order";
+
+
+"vendor_name"                            = "Vendor Name";
+"order_now"                              = "Order Now";
+"most_rated_vendors"                     = "Most Rated Vendors";
+"show_pictures"                          = "Show Pictures";
+"delete_piece"                           = "Delete Piece";
+"take_away"                              = "Pick-up from the branch";
+"delivery"                               = "Home delivery";
+"add_country"                            = "Add Country";
+"country_city_selector"                  = "By Country Or City";
+"vendor_selector"                        = "By Vendor";
+"show_vendors_menu"                      = "Show Vendor List";
+"distance_between_vendor_customer"       = "Distance Between Vendor And Customer";
+"reference_number"                       = "Reference Number";
+"amount"                                 = "Amount";
+"transaction_type"                       = "Transaction Type";
+"transaction_date"                       = "Transaction Date";
+"order_number"                           = "Order Number";
+"transaction_time"                       = "Transaction Time";
+"refund"                                 = "Refund";
+"sar"                                    = "SAR";
+"sort_list"                              = "Sort List";
+"oldest_to_newest"                       = "Oldest to Newest";
+"newest_to_oldest"                       = "Newest to Oldest";
+"farthest_to_nearest"                    = "Farthest to Nearest";
+"nearest_to_farthest"                    = "Nearest to Farthest";
+"lowest_to_highest_price"                = "Lowest to Highest Price";
+"highest_to_lowest_price"                = "Highest to Lowest Price";
+"create_order"                           = "Create Order";
+
+"logout_confirm_title"    = "Logout";
+"logout_confirm_message" = "Are you sure you want to logout?";
+"delete_account_confirm_title"   = "Delete Account";
+"delete_account_confirm_message" = "Are you sure you want to delete your account? This action cannot be undone.";
+
+/* Order Details - Rating & Address & Payment */
+"rating details"                        = "Rating Details";
+"no additional address description"     = "No additional address description";
+"Wallet"                                = "Wallet";
+"Visa"                                  = "Visa";
+
+/* Send / Update Offer */
+"Update offer"                          = "Update Offer";
+"Order Status"                          = "Status";
+"Offer Details"                         = "Offer Details";
+"Total price"                           = "Total Price";
+"Value Added Tax"                       = "Value Added Tax";
+"Shipping cost"                         = "Shipping Cost";
+"Total price offer"                     = "Total";
+"Charge Price"                          = "Shipping Price";
+
+/* Parts details */
+"part notes"                            = "Part Notes";
+"part availability"                     = "Part availability";

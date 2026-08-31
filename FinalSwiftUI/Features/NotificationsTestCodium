@@ -1,0 +1,26 @@
+import SwiftUI
+
+struct NotificationView: View {
+    @State private var notifications = [
+        "New event added to your calendar",
+        "Reminder: Meeting at 3 PM",
+        "Your subscription is about to expire"
+    ]
+    
+    var body: some View {
+        NavigationView {
+            List {
+                ForEach(notifications, id: \.self) { notification in
+                    Text(notification)
+                }
+            }
+            .navigationTitle("Notifications")
+        }
+    }
+}
+
+struct NotificationView_Previews: PreviewProvider {
+    static var previews: some View {
+        NotificationView()
+    }
+}

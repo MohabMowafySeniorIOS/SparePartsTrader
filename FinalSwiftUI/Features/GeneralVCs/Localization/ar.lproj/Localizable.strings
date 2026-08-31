@@ -1,0 +1,664 @@
+//
+//  Localizable.strings
+//  FinalSwiftUI
+//
+//  Created by Mohab Elsayed on 27/12/2024.
+//
+
+
+//Order Details
+"Contact Client"            = "محادثة العميل";
+"add_car"                   = "أضف سيارة";
+"choose_car_category"       = "اختار فئة السيارة";
+"choose_car_brand"          = "اختار ماركة السيارة";
+"chose_car_model"           = "اختار مودل السيارة";
+"chose_manufacture_date"    = "اختار سنة التصنيع";
+"enter_chest_number"        = "أدخل رقم الشاسيه";
+"Report a problem"          = "ابلاغ عن مشكلة";
+"Cancel"                    = "إلغاء العملية";
+"Rate"                      = "تقييم";
+"Confirm receipt"           = "تأكيد الإستلام";
+"Confirm cancellation"      = "تاكيد الالغاء";
+"Confirm report"            = "تاكيد الابلاغ";
+"Cancel order"              = "الغاء الطلب";
+"Rating"                    = "التقييم";
+"Don't want"                = "لا أرغب";
+"Bad service"               = "الخدمة سيئة";
+"Found another"             = "وجدت غيرها";
+"Images of added part"      = "صور القطعة المضافة";
+"Reason"                    = "السبب";
+"show pictures"             = "إظهار الصور";
+"part name"                 = "اسم القطعة";
+"part number"               = "رقم القطعة";
+"parts count"               = "عدد القطع";
+"part type"                 = "نوع القطعة";
+"order details"             = "تفاصيل الطلب";
+"car details"               = "تفاصيل السيارة";
+"ordered parts menu"        = "قائمة القطع المطلوبة";
+"offers menu"               = "قائمة العروض";
+"payment details"           = "تفاصيل الدفع";
+"address more details"      = "وصف إضافي للعنوان";
+"show offer details"        = "عرض تفاصيل العرض";
+"address details"           = "تفاصيل العنوان";
+"problem details"           = "تفاصيل المشكلة";
+"Download bill"             = "تحميل فاتورة الدفع";
+"Send price offer"          = "إرسال عرض سعر";
+"Waiting for receipt"       = "في انتظار الاستلام";
+"Shipping done"             = "تم الشحن";
+"Shipping"                  = "جاري الشحن";
+"Date and Time"             = "التاريخ والوقت";
+"Used Payment Methods"      = "طرق الدفع المستخدمة";
+"Used Wallet Balance"       = "قيمة الرصيد المستخدم";
+"Payment Method Name"       = "اسم الطريقة المستخدمة";
+"Paid Amount"               = "القيمة المدفوعة";
+"Transaction Reference Number" = "الرقم المرجعي للعملية";
+"chest_number"                  = "رقم الشاسيه";
+
+/* ============================= */
+/* Addresses Screen */
+/* ============================= */
+"address_agenda"            = "عناويني";
+"add_address"               = "أضف عنوان";
+"added_addresses_menu"      = "قائمة العناوين المضافة";
+
+"Change_Password"           = "تغير الرقم السري";
+"enter_old_password"        = "أدخل الرقم السري القديم";
+"enter_new_password"        = "أدخل الرقم السري الجديد";
+// Alerts VC
+"Something went wrong! 🔧"   = "حدث خطأ ما !🔧" ;
+
+//Global Keys
+"R.S"                                                       = "ر.س";
+"adding"                                                    = "إضافة";
+"yES"                                                       = "نعم";
+"nO"                                                        = "لا";
+"hour"                                                      = "ساعة";
+"day"                                                       = "يوم";
+"total"                                                     = "الاجمالي";
+"next"                                                      = "التالي";
+"Next"                                                      = "التالي";
+"Start"                                                     = "ابدأ";
+"confirm"                                                   = "تأكيد";
+"cancel"                                                    = "الغاء";
+"language"                                                  = "اللغة";
+"Save"                                                      = "حفظ";
+"add"                                                       = "إضافة";
+"warning"                                                   = "تنبيه";
+"please login first"                                        = "من فضلك سجل أولاً";
+"ok"                                                        = "حسناً";
+"seconds"                                                   = "ثواني";
+"Skip"                                                      = "تخطي";
+
+
+/* ============================= */
+/* شاشة اختيار اللغة */
+/* ============================= */
+"language_title"          = "اختيار اللغة";
+"language_en"             = "الإنجليزية";
+"language_ar"             = "العربية";
+"save_button"             = "حفظ";
+
+/* ============================= */
+/* شاشة الترحيب / Onboarding */
+/* ============================= */
+"onboarding_skip"         = "تخطي";
+"onboarding_text_1"       = "هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة...";
+"onboarding_next"         = "التالي";
+"onboarding_previous"     = "السابق";
+
+/* ============================= */
+/* شاشة تسجيل الدخول */
+/* ============================= */
+"login_title"             = "تسجيل الدخول";
+"phone_placeholder"       = "";
+"password_placeholder"    = "كلمة المرور";
+"forgot_password"         = "نسيت كلمة المرور؟";
+"login_button"            = "تسجيل الدخول";
+"register_button"         = "تسجيل حساب جديد";
+"guest_button"            = "التخطي والدخول كزائر";
+
+/* ============================= */
+/* شاشة التحقق من رقم الهاتف     */
+/* Phone Verification Screen     */
+/* ============================= */
+
+"confirm_phone_number" = "قم بتأكيد رقم هاتفك";
+"verification_sent_to_number" = "لقد أرسلنا لك رمز التحقق على الرقم";
+"resend_code_in" = "إعادة إرسال الكود خلال";
+"confirm_button" = "تأكيد";
+"Resen_Code" = "اعادة ارسال الكود";
+
+/* ============================= */
+/* شاشة إدخال رقم الجوال         */
+/* Enter Mobile Number Screen   */
+/* ============================= */
+
+"enter_mobile_number" = "دخل رقم الجوال";
+"confirm_button" = "تأكيد";
+
+
+
+/* ============================= */
+/* شاشة تسجيل حساب جديد */
+/* ============================= */
+"register_title"          = "تسجيل حساب جديد";
+"full_name"               = "الاسم";
+"phone_number"            = "رقم الجوال";
+"email"                   = "البريد الإلكتروني";
+"password"                = "كلمة المرور";
+"confirm_password"        = "تأكيد كلمة المرور";
+"city"                    = "المدينة";
+"area"                    = "المنطقة";
+"id_number"               = "رقم الهوية";
+"bank_account_number"     = "رقم الحساب البنكي";
+"agree_terms"             = "الموافقة على الشروط والأحكام";
+"register_submit_button"  = "تسجيل الحساب";
+
+/* ============================= */
+/* القائمة الجانبية (Side Menu) */
+/* ============================= */
+"menu"                    = "القائمة";
+"menu_messages"           = "الرسائل";
+"menu_settings"           = "الإعدادات";
+"menu_faq"                = "الأسئلة الشائعة";
+"menu_about_us"           = "من نحن";
+"menu_privacy"            = "سياسة الخصوصية";
+"menu_terms"              = "الشروط والأحكام";
+"menu_cancellation"       = "سياسة الإلغاء";
+"menu_contact"            = "اتصل بنا";
+"menu_share"              = "مشاركة التطبيق";
+"menu_rate"               = "تقييم التطبيق";
+"menu_logout"             = "تسجيل الخروج";
+"menu_delete_account"     = "حذف الحساب";
+"menu_app_version"        = "إصدار التطبيق";
+"menu_filter"             = "فلتر القائمة";
+/* ============================= */
+/* شاشة انتظار الإعلان */
+/* ============================= */
+"ad_pending_text"         = "سيتم طرح الإعلان خلال الساعات المقبلة و إشعاركم حال بدء المزاد";
+"contact_support"         = "تواصل مع الدعم";
+"home"                    = "الرئيسية";
+"my_ads"                  = "إعلاناتي";
+
+/* ============================= */
+/* شاشة اختيار نوع الإعلان */
+/* ============================= */
+"choose_ad_type"          = "اختر نوع الإعلان";
+"car_auction"             = "مزاد السيارات";
+"other_sections"          = "الأقسام الأخرى";
+
+/* ============================= */
+/* شاشة سياسة الإلغاء - الدعم */
+/* ============================= */
+"cancellation_policy"     = "سياسة الإلغاء";
+"message_type"            = "نوع الرسالة";
+"complaint"               = "شكوى";
+"suggestion"              = "مقترح";
+"message_subject"         = "عنوان الرسالة";
+"message_body"            = "نص الرسالة";
+"send"                    = "إرسال";
+
+/* ============================= */
+/* شاشة الإعدادات */
+/* ============================= */
+"settings"                = "الإعدادات";
+"notifications"           = "الإشعارات";
+"enable"                  = "تفعيل";
+"disable"                 = "تعطيل";
+"language"                = "اللغة";
+"arabic"                  = "عربي";
+"english"                 = "إنجليزي";
+
+
+/* ============================= */
+/* Contact Us Screen */
+/* ============================= */
+"Message_Type"                = "نوع الرسالة";
+"Message_Text"                = "نص الرسالة"; 
+"Opened"                      = "مفتوح";
+"Complaint"                   = "شكوى";
+"Message_Title"              = "عنوان الرسالة";
+"Message_body"               = "نص الرسالة";
+
+
+/* ============================= */
+/* Notification Screen */
+/* ============================= */
+"Notifications"          = "الاشعارات";
+"read_all_notifications" = "قراءة جميع الإشعارات";
+
+/* ============================= */
+/* Settings Screen */
+/* ============================= */
+"Settings" = "الاعدادات";
+"Enabled" = "تفعيل";
+"Disable" = "تعطيل";
+"Language" = "اللغة";
+"Arabic" = "عربي";
+"English" = "إنجليزي";
+
+/* ============================= */
+/* Profile Screen */
+/* ============================= */
+
+"Profile" = "الحساب الشخصي";
+
+//Mohab's localizationssssss
+"city"              = "المدينة";
+"category"          = "الفئة";
+"brand"             = "العلامة التجارية";
+"papers_state"      = "حالة الأوراق";
+"color"             = "اللون";
+"auction_name"      = "اسم المزاد";
+"car_description"   = "وصف السيارة";
+"start_date"        = "تاريخ البدء";
+"end_date"          = "تاريخ الانتهاء";
+"car_state"         = "حالة السيارة";
+"model"             = "الموديل";
+"manufacture_year"  = "سنة التصنيع";
+"accidents"         = "الحوادث";
+"ex_owners"         = "عدد الملاك السابقين";
+"license_state"     = "حالة الرخصة";
+"delay_years"       = "سنوات التأخير";
+"kilometres"        = "عدد الكيلومترات";
+"engine_size"       = "حجم المحرك";
+"fuel_type"         = "نوع الوقود";
+"transmission"      = "ناقل الحركة";
+"starting_price"    = "السعر الابتدائي";
+"accept_terms"      = "أوافق على الشروط والأحكام";
+"cancel"            = "إلغاء";
+"add"               = "إضافة";
+"add_photo"         = "إضافة صورة";
+"add_ad"            = "إضافة إعلان";
+"product_name"      = "اسم المنتج";
+
+/* ============================= */
+/* Product Screen */
+/* ============================= */
+
+"product_description"                    = "وصف المنتج";
+"contact_number"                         = "رقم التواصل";
+"email"                                  = "البريد الإلكتروني";
+"car_auctions"                           = "مزادات السيارات";
+"search"                                 = "بحث";
+"publish_date"                           = "تاريخ النشر";
+"start_day_and_date"                     = "يوم و تاريخ البداية";
+"end_day_and_date"                       = "يوم و تاريخ النهاية";
+"manufacture_date"                       = "تاريخ التصنيع";
+"price_value"                            = "السعر: 6168181";
+"address"                                = "العنوان";
+"choose_ad_type"                         = "اختر نوع الإعلان";
+"your_ad_will_be_published_soon"         = "سيتم نشر إعلانك قريبًا";
+"you_will_be_notified_soon"              = "سيتم إشعارك قريبًا";
+"contact_support"                        = "تواصل مع الدعم";
+"my_ads"                                 = "إعلاناتي";
+"home"                                   = "الرئيسية";
+"contact_us"                             = "بيانات التواصل";
+"electronics"                            = "إلكترونيات";
+"search"                                 = "بحث";
+"favourites"                             = "المفضلة";
+"filter"                                 = "تصفية";
+"from"                                   = "من";
+"to"                                     = "إلى";
+"save"                                   = "حفظ";
+"reset"                                  = "إعادة تعيين";
+"enter_price"                            = "أدخل السعر";
+"my_ads"                                 = "إعلاناتي";
+"ads"                                    = "إعلانات";
+"vendor"                                 = "التاجر";
+"subscribed_auctions"                    = "المزادات المشترك بها";
+"id"                                     = "رقم المعرف";
+"ad_type"                                = "نوع الإعلان";
+"full_price"                             = "السعر الكامل";
+"ad_state"                               = "حالة الإعلان";
+"add_balance"                            = "إضافة رصيد";
+"cash"                                   = "نقدًا";
+"addition"                               = "إضافة";
+"usage"                                  = "استخدام";
+"reference_number"                       = "رقم المرجع";
+"operation_type"                         = "نوع العملية";
+"charge_method"                          = "طريقة الشحن";
+"money_amount"                           = "قيمة المبلغ";
+"wallet"                                 = "المحفظة";
+"orders"                                 = "سجل الطلبات";
+"accept_terms_and_conditions"            = "الموافقة علي الشروط و الاحكام";
+"price"                                  = "السعر";
+"details"                                = "التفاصيل";
+"car_details"                            = "تفاصيل السياره";
+"subscribe"                              = "اشتراك";
+"remaining_time"                         = "الوقت المتبقي";
+"charge_wallet"                          = "شحن المحفظة";
+"enter_charge_value"                     = "ادخل قيمة الشحن";
+"choose_payment_method"                  = "إختر طريقة الدفع";
+"visa"                                   = "فيزا";
+"master_card"                            = "بطاقة دفع";
+"new_first"                              = "الاحدث اولا";
+"old_first"                              = "الاقدم اولا";
+"lowest_price_first"                     = "الاقل سعرا";
+"highest_price_first"                    = "الاعلي سعرا";
+"show_contact_info"                      = "تواصل مع البائع";
+"enter_phone_number"                     = "أدخل رقم الجوال";
+"enter_new_password"                     = "كلمة المرور الجديدة";
+"new_password"                           = "كلمة المرور الجديدة";
+"confirm_password"                       = "تأكيد كلمة المرور";
+"Log In"                                 = "تسجيل دخول";
+"You Should Login First"                 = "يجب تسجيل الدخول أولاً";
+"Log In"                                 = "تسجيل دخول";
+"Cancel"                                 = "إلغاء";
+"name_required"                          = "ادخل الاسم";
+"phone_number_required"                  = "ادخل رقم الهاتف";
+"email_required"                         = " ادخل البريد الالكتروني";
+"id_required"                            = "ادخل رقم الهويه";
+"bank_required"                          = "ادخل رقم الحساب";
+"password_required"                      = "ادخل كلمة المرور";
+"please_check_box"                       = "البوكس يا اعمي";
+"Agreeing_to_the_terms_and_conditions"   = "الموافقة علي الشروط والاحكام";
+"confirm_password_required"              = "ادخل كلمة المرور";
+"phone_number_incorrect"                 = "رقم الهاتف غير صحيح";
+"change_password"                        = "تغيير كلمة المرور";
+"advertisements"                         = "الإعلانات";
+"auctions"                               = "المزادات";
+"ratings_menu"                           = "قائمة التقييمات";
+"enter_name"                             = "أدخل الإسم";
+"current_price"                          = "السعر الحالي";
+"sr"                                     = "رس";
+"user_name"                              = "إسم المستخدم";
+"inser_phone_password"                   = "من فضلك قم بإدخال رقم الجوال وكلمة المرور";
+/* ============================= */
+/* SidMenue Screen */
+/* ============================= */
+
+"menu_myCars"                            = "سياراتي";
+"menu_myAddresses"                       = "عناويني";
+"menu_wallet"                            = "محفظتي";
+"privacy"                                = "سياسة الخصوصية";
+"about"                                  = "عن التطبيق";
+"terms"                                  = "الشروط والأحكام";
+/* ============================= */
+/* Cars Screen */
+/* ============================= */
+
+"add_car"                                = "أضف سيارة";
+"choose_car_category"                    = "اختار فئة السيارة";
+"choose_car_brand"                       = "اختار ماركة السيارة";
+"chose_car_model"                        = "اختار مودل السيارة";
+"chose_manufacture_date"                 = "اختار سنة التصنيع";
+"enter_chest_number"                     = "أدخل رقم الشاسيه";
+"Edit Phone Number"                      = "تعديل رقم الجوال";
+"Wallet"                                 = "المحفظة";
+/* ============================= */
+/* WithDraw Screen               */
+/* ============================= */
+
+"IBAN number"                           = "رقم الأيبان";
+"Beneficiary's name"                    = "اسم المستفيد";
+"Bank Name"                             = "اسم البنك";
+"The amount of money to be withdrawn"   = "قيمة المبلغ المطلوب سحبة";
+"Request Confirmation"                    = "تأكيد الطلب";
+
+//MARK: Home Vendor Screen
+"home.receive_orders"                    = "زر استقبال الطلبات";
+"home.statistics"                        = "إحصائية الحساب";
+
+"home.sent_offers_count"                 = "عدد العروض المرسلة";
+"home.sent_offers_total"                 = "إجمالي قيمة العروض المرسلة";
+"home.orders_count"                      = "عدد الطلبات";
+"home.orders_total"                      = "إجمالي قيمة الطلبات";
+"home.completed_orders"                  = "عدد الطلبات المكتملة";
+"home.cancelled_orders"                  = "عدد الطلبات الملغية";
+
+"home.last_orders"                       = "آخر خمس طلبات جديدة";
+"home.show_all"                          = "عرض الكل";
+
+"order.id"                               = "الرقم التعريفي";
+"order.type"                             = "نوع الطلب";
+"order.pieces"                           = "عدد القطع";
+"order.city"                             = "المدينة";
+"order.date"                             = "التاريخ";
+"order.time"                             = "الوقت";
+
+//MARK: Wallet Vendor Screen
+"wallet.title"                           = "المحفظة";
+"wallet.total_earnings"                  = "قيمة الأرباح";
+"wallet.current_balance"                 = "الرصيد الحالي المستحق";
+"wallet.withdraw_request"                = "طلب السحب";
+"wallet.withdrawals_tab"                 = "طلبات السحب";
+"wallet.additions_tab"                   = "الإضافات";
+
+"wallet.col_index"                       = "م";
+"wallet.col_reference"                   = "الرقم التعريفي";
+"wallet.col_request"                     = "رقم الطلب";
+"wallet.col_amount"                      = "قيمة المستحق";
+"wallet.col_date"                        = "تاريخ العملية";
+"wallet.col_time"                        = "وقت العملية";
+
+
+"merchant.profile_title"                 = "الملف التجاري";
+
+"merchant.basic_info"                    = "البيانات الأساسية";
+"merchant.name_ar"                       = "اسم المتجر العربي";
+"merchant.name_en"                       = "اسم المتجر الإنجليزي";
+"merchant.logo"                          = "الشعار";
+
+"merchant.images_docs"                   = "الصور والوثائق";
+
+"merchant.desc_ar"                       = "نبذة عن المتجر عربي";
+"merchant.desc_en"                       = "نبذة عن المتجر إنجليزي";
+
+"merchant.address_details"               = "تفاصيل العنوان";
+"merchant.country"                       = "الدولة";
+"merchant.region"                        = "المنطقة";
+"merchant.city"                          = "المدينة";
+"merchant.show_map"                      = "عرض الموقع على الخريطة";
+
+"merchant.commercial_register"           = "السجل التجاري";
+"merchant.cr_number"                     = "رقم السجل التجاري";
+
+"merchant.bank_info"                     = "بيانات الحساب البنكي";
+"merchant.bank_name"                     = "اسم البنك";
+"merchant.beneficiary_name"              = "اسم المستفيد";
+"merchant.account_number"                = "رقم الحساب";
+"merchant.iban"                          = "رقم الآيبان";
+
+"commercial_request_title"               = "سجل طلبك التجاري";
+
+"username_en"                            = "اسم المستخدم (باللغة الإنجليزية)";
+"mobile_number"                          = "رقم الجوال";
+"email_address"                          = "البريد الإلكتروني";
+
+"upload_logo"                            = "رفع الشعار";
+"upload_images"                          = "رفع الصور";
+
+"business_description"                   = "وصف النشاط";
+"business_description_en"                = "وصف النشاط (باللغة الإنجليزية)";
+
+"country"                                = "الدولة";
+"region"                                 = "المنطقة";
+"city"                                   = "المدينة";
+"select_location_on_map"                 = "تحديد الموقع على الخريطة";
+
+"upload_commercial_registration"         = "رفع السجل التجاري";
+
+"bank_name"                              = "اسم البنك";
+"beneficiary_name"                       = "اسم المستفيد";
+"account_number"                         = "رقم الحساب";
+"iban"                                   = "رقم الآيبان";
+
+"submit"                                 = "إرسال";
+
+"validation_required"                    = "هذا الحقل مطلوب";
+"validation_invalid_field"               = "هذا الحقل غير صالح";
+
+"Withdrawal of balance"                  = "سحب الرصيد";
+
+"create_order"                           = "إنشاء طلب";
+"delivery_type"                          = "نوع التوصيل";
+"choose_order_method"                    = "نوع الطلب المحدد";
+"country_city_selector"                  = "حسب الدولة أو المدينة";
+"vendor_selector"                        = "حسب التاجر";
+"add_country"                            = "أضف دولة";
+"added_address_menu"                     = "قائمة العنوايين المضافة";
+"added_cars_menu"                        = "قائمة السيارات المضاف";
+"show_vendors_menu"                      = "عرض قائمة التجار";
+"added_parts_menu"                       = "قائمة القطع المضافة";
+
+"local_order"                            = "طلب عام محلي";
+"national_order"                         = "طلب دولي";
+"custom_order"                           = "طلب مخصص";
+"vendor_name"                            = "اسم التاجر";
+"order_now"                              = "اطلب الأن"; 
+"most_rated_vendors"                     = "التجار الأكثر تقيماً";
+"show_pictures"                          = "عرض الصور";
+"delete_piece"                           = "حذف القطعة";
+"take_away"                              = "استلام من المحل";
+"delivery"                               = "توصيل المنزل";
+"add_piece"                              = "إضافة قطعة";
+"add_piece_title"                        = "إضافة قطعة";
+"required_piece_type"                    = "نوع القطعة المطلوبة";
+"new (original)"                         = "جديدة ( أصلية )";
+"new (wekala)"                           = "جديدة ( وكالة )";
+"used (local)"                           = "مستعملة ( استعمال محلي )";
+"user (foreign)"                         = "مستعملة ( استيراد من الخارج )";
+"add_piece_images"                       = "إرفاق صور القطعة";
+"add_text_description"                   = "إضافة وصف نصي";
+"Piece Name"                             = "اسم القطعة";
+"Please enter a valid piece name."       = "من فضلك ادخل اسم القطعه صحيح";
+"Enter Piece Name"                       = "ادخل اسم القطعة";
+"Piece Number"                           = "رقم القطعة";
+"Please enter a valid piece number."     = "من فضلك ادخل رقم القطعة صحيح";
+"Enter Piece number"                     = "ادخل رقم القطعة";
+"Piece Count"                            = "عدد القطع";
+"Please enter a valid piece Count."      = "من فضلك ادخل عدد القطع صحيح";
+"Enter Piece Count"                      = "ادخل عدد القطع";
+"Piece Type"                             = "نوع القطعة";
+"Rating Text"                            = "نص التقييم";
+"Show Ratings List"                      = "عرض قائمة التقيمات";
+"Vendor Details"                         = "تفاصيل التاجر";
+"About Vendor"                           = "نبذه عن التاجر";
+"distance_between_vendor_customer"       = "المسافة بين التاجر وموقع العميل";
+"Show Location"                          = "عرض الموقع";
+"Vendors List"                           = "قائمة التجار";
+"My Orders"                              = "طلباتي";
+"Expired"                                = "منتهي";
+"On Progress"                            = "جاري المعاجة";
+"Running"                                = "جاري";
+"Edit"                                   = "تعديل";
+"Delete"                                 = "حذف";
+"Please Choose Images"                   = "من فضلك اختر الصور";
+"Please Insert Describtion"              = "من فضلك اختر الوصف";
+"Please Select Car"                      = "من فضلك اختر السيارة";
+"Please Select Part"                     = "من فضلك اختر القطعة";
+"Please Select Address"                  = "من فضلك اختر العنوان";
+"Please Select Vendor"                   = "من فضلك اختر التاجر";
+"Please Select Country"                  = "من فضلك اختر الدولة";
+"Please Insert Message Text"             = "من فضلك أدخل نص الرسالة";
+"Please Inser Message Title"             = "من فضلك أدخل عنوان الرسالة";
+"Country Is Required"                    = "الدولة مطلوبة";
+"City Is Required"                       = "المدينة مطلوبة";
+"Choose Country And City"                = "اختر الدوله والمدينة";
+"Choose Country"                         = "اختر الدولة";
+"Business File"                          = "الملف التجاري";
+"Update"                                 = "تعديل";
+"Contact Us"                             = "تواصل معنا";
+"reference_number"                       = "الرقم المرجعي";
+"amount"                                 = "قيمة المبلغ";
+"transaction_type"                       = "نوع العملية";
+"transaction_date"                       = "تاريخ العملية";
+"order_number"                           = "رقم الطلب";
+"transaction_time"                       = "وقت العملية";
+"refund"                                 = "استرداد";
+"sar"                                    = "ر.س";
+"sort_list"                              = "ترتيب القائمة حسب";
+"oldest_to_newest"                       = "من الأقدم للأحدث";
+"newest_to_oldest"                       = "من الأحدث للأقدم";
+"farthest_to_nearest"                    = "من الأبعد إلى الأقرب";
+"nearest_to_farthest"                    = "من الأقرب إلى الأبعد";
+"lowest_to_highest_price"                = "من الأقل تقييماً إلى الأكثر تقييماً";
+"highest_to_lowest_price"                = "من الأكثر تقييماً إلى الأقل تقييماً";
+"Payment"                                = "الدفع";
+"No Results found"                       = "لا يوجد نتائج";
+"Please try again"                       = "من فضلك حاول مرة أخري";
+"Write Here"                             = "اكتب هنا";
+"Messages"                               = "الرسائل";
+"View bank account details"              = "عرض بيانات الحساب البنكي";
+"View conversion image"                  = "عرض صوره التحويل";
+"Please Select Category"                 = "من فضلك اختر الفئة";
+"Please Select Brand"                    = "من فضلك اختر الماركة";
+"Please Select Model"                    = "من فضلك اختر الموديل";
+"Please Select Year"                     = "من فضلك اختر سنة الصنع";
+"Please Insert Chest Number"             = "من فضلك أدخل رقم الشاسيه";
+"Trade name (in Arabic)"                 = "الإسم التجاري ( باللغة العربية )";
+"Trade name (in English)"                = "الإسم التجاري ( باللغة الإنجليزية )";
+"Attach the logo"                        = "إرفاق الشعار";
+"Attach additional photos"               = "إرفاق صور إضافية";
+"About the Commercial (in Arabic)"       = "نبذة عن التجاري ( باللغة العربية )";
+"About the business (in English)"        = "نبذة عن التجاري ( باللغة الإنجليزية )";
+"Enter the commercial registration number"      = "إدخال رقم السجل التجاري";
+"Attach a copy of the commercial registration." = "إرفاق صورة السجل التجاري";
+"Enter the commercial registration number"      = "إدخال رقم السجل التجاري";
+"Locate the site on the map"                    = "تحديد الموقع على الخريطة";
+"Attach Logo"                                   = "إرفاق الشعار";
+"Attach Added Images"                           = "إرفاق صور إضافية";
+"Attach a copy of the commercial registration." = "إرفاق صورة السجل التجاري";
+"Payment"                                       = "الدفع";
+"Offer Details"                                 = "تفاصيل العرض";
+"Pieces List"                                   = "قائمة القطع";
+"Piece Name"                                    = "اسم القطعة";
+"Piece Number"                                  = "رقم القطعة";
+"Piece Type"                                    = "نوع القطعة";
+"Count"                                         = "العدد";
+"Price (incl. tax)"                             = "السعر ( شامل الضريبة )";
+"Total Price"                                   = "إجمالي السعر";
+"Charge Price"                                  = "سعر الشحن";
+"Total Cost"                                    = "إجمالي التكلفة";
+"Accept Offer"                                  = "قبول العرض"; 
+"Payment Failed"                                = "فشل الدفع";
+"Offer"                                         = "عرض";
+"R.S"                                           = "ريال";
+"Order"                                         = "طلب";
+"Locate the site on the map"                    = "تحديد الموقع على الخريطة";
+"New"                                           = "جديدة";
+"Send a price quote"                            = "ارسال عرض سعر";
+"List of required parts"                        = "قائمة القطع المطلوبة";
+"Total price"                                   = "إجمالي السعر";
+"Value Added Tax"                               = "قيمة الضريبة المضافة";
+"Total price including tax"                     = "إجمالي السعر بالضريبة";
+"Shipping cost"                                 = "سعر الشحن";
+"Total price offer"                             = "إجمالي عرض السعر";
+"Total platform commission"                     = "إجمالي عمولة المنصة";
+"Amount Due"                                    = "إجمالي السعر";
+"Part Price"                                    = "سعر القطعة";
+"Parts Count: "                                 = "عدد القطع: ";
+"Done"                                          = "تم";
+"Expand Your Sales with Drivak.⁠" = "وسّع نطاق مبيعاتك مع درايفاك";
+"Receive daily spare parts requests from customers across Saudi Arabia and grow your business effortlessly.⁠" = "ستقبل طلبات قطع الغيار يومياً من عملاء في جميع أنحاء المملكة العربية السعودية، وزد من حجم مبيعاتك بكل سهولة.";
+
+"Send Quotes in Seconds." = "أرسل عروض أسعارك بضغطة زر";
+"View parts requests with VIN numbers and photos, then send competitive quotes with warranty and shipping options instantly." = "اطلع على طلبات القطع المرفقة برقم الهيكل (VIN) والصور، وقدم عروضك المنافسة وسعر الضمان والتوصيل فوراً.";
+
+"Smart Management & Guaranteed Profits" = "إدارة متكاملة ومبيعات مضمونة";
+
+"Track accepted quotes, manage shipments, and withdraw your earnings securely through an intuitive dashboard." = "تابع حالة العروض المقبولة، نظم عمليات الشحن، واصرف أرباحك بأمان وسرعة من خلال لوحة تحكم ذكية.";
+
+
+"logout_confirm_title"    = "تسجيل الخروج";
+"logout_confirm_message" = "هل أنت متأكد أنك تريد تسجيل الخروج؟";
+"delete_account_confirm_title"   = "حذف الحساب";
+"delete_account_confirm_message" = "هل أنت متأكد أنك تريد حذف حسابك؟ لا يمكن التراجع عن هذا الإجراء.";
+
+/* Order Details - Rating & Address & Payment */
+"rating details"                        = "تفاصيل التقييم";
+"no additional address description"     = "لا يوجد وصف إضافي للعنوان";
+"Visa"                                  = "فيزا";
+
+/* Send / Update Offer */
+"Update offer"                          = "تحديث العرض";
+"Order Status"                          = "الحالة";
+"Hello"                                 = "مرحباً";
+"Loading"                               = "تحميل";
+
+/* Parts details */
+"part notes"                            = "ملاحظات القطعة";
+"part availability"                     = "توفر / عدم توفر القطعة";
+"View conversion image"                 = "عرض صورة التحويل";
+"Order Number"                          = "رقم الطلب";

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleIconName</key>
+	<string>AppIcon</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>IBMPlexSansArabic-Bold.ttf</string>
+		<string>IBMPlexSansArabic-ExtraLight.ttf</string>
+		<string>IBMPlexSansArabic-Light.ttf</string>
+		<string>IBMPlexSansArabic-Medium.ttf</string>
+		<string>IBMPlexSansArabic-Regular.ttf</string>
+		<string>IBMPlexSansArabic-SemiBold.ttf</string>
+		<string>IBMPlexSansArabic-Thin.ttf</string>
+	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
+	<key>apples_count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@apples@</string>
+		<key>apples</key>
+		<dict>
+			<key>one</key>
+			<string>1 apple</string>
+			<key>other</key>
+			<string>%d apples</string>
+		</dict>
+	</dict>
+</dict>
+</plist>
