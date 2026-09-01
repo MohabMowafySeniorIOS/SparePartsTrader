@@ -42,7 +42,7 @@ struct chatView: View {
 private extension chatView {
     
     var headerView: some View {
-        AppHeaderView(Title: "Messages".localized) {
+        AppHeaderView(Title: viewModel.title) {
             viewModel.coordinator.disMiss()
         }
     }

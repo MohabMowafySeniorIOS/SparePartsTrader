@@ -100,10 +100,9 @@ final class MainCoordinator: ObservableObject {
         path.append(MainRoute.messages)
     }
     
-    func showChatView(roomId: String) {
-        path.append(MainRoute.chatView(roomId: roomId))
+    func showChatView(roomId: String,title: String) {
+        path.append(MainRoute.chatView(roomId: roomId,title: title))
     }
-    
     
     func showSettings() {
         path.append(MainRoute.settings)

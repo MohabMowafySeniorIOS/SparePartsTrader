@@ -53,8 +53,8 @@ struct MainCoordinatorView: View {
                 case .messages:
                     MessagesView(viewModel: MessagesViewModel(coordinator: coordinator))
                          .navigationBarHidden(true)
-                case .chatView(let roomId):
-                    chatView(viewModel: ChatViewModel(coordinator: coordinator, roomId: roomId))
+                case .chatView(let roomId,let title):
+                    chatView(viewModel: ChatViewModel(coordinator: coordinator, roomId: roomId, title: title))
                          .navigationBarHidden(true)
                     
                 case .settings:

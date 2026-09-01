@@ -54,8 +54,7 @@ struct HomeVendor: View {
             userName: AuthService.userData?.full_name ?? "",
             notificationAction: {
                 viewModel.coordinator.showNotification()
-            }
-        )
+            }, notificationCount: viewModel.unreadNotificationsCount)
     }
     
     // MARK: Toggle Section

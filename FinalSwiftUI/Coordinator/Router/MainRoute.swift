@@ -27,7 +27,7 @@ enum MainRoute: Equatable, Hashable {
     case Wallet
     case WithDraw
     case messages
-    case chatView(roomId: String)
+    case chatView(roomId: String,title: String)
     case settings
     case FAQ
     case About_us(page: String)

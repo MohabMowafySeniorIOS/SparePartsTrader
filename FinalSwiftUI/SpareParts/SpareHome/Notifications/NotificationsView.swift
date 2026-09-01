@@ -55,7 +55,7 @@ struct NotificationsView: View {
         if type == "new_order" || type == "new_offer" || type == "offer_accepted" || type == "rating_received" || type == "problem_reported" || type == "problem_resolved" || type == "problem_rejected" {
             viewModel.coordinator.showOrderDetails(orderId: notifyId ?? "")
         } else if type == "new_message" {
-            viewModel.coordinator.showChatView(roomId: notifyId ?? "")
+            viewModel.coordinator.showChatView(roomId: notifyId ?? "", title: "Messages".localized)
         }else if type == "payment_received" {
             viewModel.coordinator.showWallet()
         }

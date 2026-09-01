@@ -32,7 +32,7 @@ struct MessagesView: View {
                    
                     ForEach(viewModel.rooms, id: \.id) { conversation in
                         ConversationRow(conversation: conversation).onTapGesture {
-                            viewModel.coordinator.showChatView(roomId: "\(conversation.chatId ?? 0)")
+                            viewModel.coordinator.showChatView(roomId: "\(conversation.chatId ?? 0)", title: "\(conversation.other_party?.name ?? "")-\(conversation.order?.orderNumber ?? "")")
                         }
                     }
                     Spacer()
@@ -63,9 +63,10 @@ struct ConversationRow: View {
             VStack(alignment: .trailing, spacing: 6) {
                 
                 HStack {
-                    Text(conversation.last_message?.created_at ?? "")
-                        .font(.caption)
-                        .foregroundColor(.gray)
+                    Text("\(conversation.other_party?.name ?? "")-\(conversation.order?.orderNumber ?? "")")
+                        .font(.headline)
+                        .foregroundColor(.black)
+                        .fontWeight(.bold)
                     
                     Spacer()
                     
@@ -74,6 +75,14 @@ struct ConversationRow: View {
                 }
                 
                 HStack {
+                    Text(conversation.last_message?.created_at ?? "")
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                        .lineLimit(1)
+                        .fontWeight(.bold)
+                   
+                    
+                    Spacer()
                     
                     if (conversation.unread_count ?? 0) > 0 {
                         Text("\(conversation.unread_count ?? 0)")
@@ -84,13 +93,7 @@ struct ConversationRow: View {
                             .clipShape(Circle())
                     }
                     
-                    Spacer()
-                    
-                    Text(conversation.last_message?.message ?? "")
-                        .font(.subheadline)
-                        .foregroundColor(.black)
-                        .lineLimit(1)
-                        .fontWeight(.bold)
+                   
                 }
             }
         }

@@ -11,7 +11,7 @@ struct HomeTopBar: View {
 
     var userName: String
     var notificationAction: (()->Void)
-    @State var notificationCount: Int = 10
+    var notificationCount: Int = 0
     var body: some View {
         ZStack {
 
@@ -26,6 +26,22 @@ struct HomeTopBar: View {
                 Image(systemName: "bell.fill")
                     .font(.title)
                     .foregroundColor(.white)
+                    .overlay(alignment: .topTrailing) {
+                        if notificationCount > 0 {
+                            Text(notificationCount > 99 ? "99+" : "\(notificationCount)")
+                                .font(.system(size: 10, weight: .bold))
+                                .foregroundStyle(Color.CWhite)
+                                .padding(.horizontal, 5)
+                                .frame(minWidth: 18, minHeight: 18)
+                                .background(
+                                    Capsule().fill(Color.CRed)
+                                )
+                                .overlay(
+                                    Capsule().stroke(Color.CWhite, lineWidth: 1.5)
+                                )
+                                .offset(x: 10, y: -8)
+                        }
+                    }
                     .onTapGesture {
                         notificationAction()
                     }

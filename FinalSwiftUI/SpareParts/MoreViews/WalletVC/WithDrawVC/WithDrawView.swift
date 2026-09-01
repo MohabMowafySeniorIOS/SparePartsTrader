@@ -9,10 +9,10 @@ import SwiftUI
 
 struct WithDrawView: View {
     @StateObject var balanceField            = CustomTFieldState(validationLabel: "validation_required".localized)
-//    @StateObject var bankNameField            = CustomTFieldState(validationLabel: "validation_required".localized)
-//    @StateObject var benefitField            = CustomTFieldState(validationLabel: "validation_required".localized)
-//    @StateObject var accountNumberField            = CustomTFieldState(validationLabel: "validation_required".localized)
-//    @StateObject var IBANField            = CustomTFieldState(validationLabel: "validation_required".localized)
+    @StateObject var bankNameField           = CustomTFieldState(validationLabel: "validation_required".localized)
+    @StateObject var benefitField            = CustomTFieldState(validationLabel: "validation_required".localized)
+    @StateObject var accountNumberField      = CustomTFieldState(validationLabel: "validation_required".localized)
+    @StateObject var IBANField               = CustomTFieldState(validationLabel: "validation_required".localized)
     
    @ObservedObject var viewModel: WithDrawViewModel
     init(viewModel: WithDrawViewModel) {
@@ -21,6 +21,13 @@ struct WithDrawView: View {
     
     var body: some View {
         mainContent
+            .onAppear() {
+                bankNameField.input = AuthService.userData?.trader?.bank_name ?? ""
+                benefitField.input = AuthService.userData?.trader?.bank_account_name ?? ""
+                accountNumberField.input = AuthService.userData?.trader?.bank_account_number ?? ""
+                IBANField.input = AuthService.userData?.trader?.bank_iban ?? ""
+                
+            }
             .background(
                 Color(Color.backGroundColor)
             )
@@ -58,37 +65,37 @@ struct WithDrawView: View {
                     textType: .balance,
                 )
                 
-//                CustomTextField(
-//                    text: $bankNameField.input,
-//                    Validation_label: $bankNameField.validationLabel,
-//                    is_validation_label: $bankNameField.isValidationHidden,
-//                    is_title_label: true,
-//                    textType: .BankName
-//                )
-//                
-//                CustomTextField(
-//                    text: $benefitField.input,
-//                    Validation_label: $benefitField.validationLabel,
-//                    is_validation_label: $benefitField.isValidationHidden,
-//                    is_title_label: true,
-//                    textType: .benefiterName
-//                )
-//                
-//                CustomTextField(
-//                    text: $accountNumberField.input,
-//                    Validation_label: $accountNumberField.validationLabel,
-//                    is_validation_label: $accountNumberField.isValidationHidden,
-//                    is_title_label: true,
-//                    textType: .BankAccount
-//                )
-//                
-//                CustomTextField(
-//                    text: $IBANField.input,
-//                    Validation_label: $IBANField.validationLabel,
-//                    is_validation_label: $IBANField.isValidationHidden,
-//                    is_title_label: true,
-//                    textType: .IBAN
-//                )
+                CustomTextField(
+                    text: $bankNameField.input,
+                    Validation_label: $bankNameField.validationLabel,
+                    is_validation_label: $bankNameField.isValidationHidden,
+                    is_title_label: true,
+                    textType: .BankName
+                ).disabled(true)
+                
+                CustomTextField(
+                    text: $benefitField.input,
+                    Validation_label: $benefitField.validationLabel,
+                    is_validation_label: $benefitField.isValidationHidden,
+                    is_title_label: true,
+                    textType: .benefiterName
+                ).disabled(true)
+                
+                CustomTextField(
+                    text: $accountNumberField.input,
+                    Validation_label: $accountNumberField.validationLabel,
+                    is_validation_label: $accountNumberField.isValidationHidden,
+                    is_title_label: true,
+                    textType: .BankAccount
+                ).disabled(true)
+                
+                CustomTextField(
+                    text: $IBANField.input,
+                    Validation_label: $IBANField.validationLabel,
+                    is_validation_label: $IBANField.isValidationHidden,
+                    is_title_label: true,
+                    textType: .IBAN
+                ).disabled(true)
                 
             }.padding(16)
         }

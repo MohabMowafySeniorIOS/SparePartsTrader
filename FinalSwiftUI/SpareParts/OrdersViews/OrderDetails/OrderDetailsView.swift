@@ -65,7 +65,7 @@ struct OrderDetailsView: View {
         ScrollView {
             VStack(spacing: 16) {
                 OrderInfoSection(data: data, onChat: {
-                    viewModel.openChat(with: data)
+                    viewModel.openChat(with: data, title: "\(data.trader?.tradeName ?? "")-\(data.orderNumber ?? "")")
                 })
                 if data.address != nil {
                     TitleLabel(title: "address details".localized)

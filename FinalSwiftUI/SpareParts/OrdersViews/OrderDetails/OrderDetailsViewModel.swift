@@ -27,9 +27,9 @@ class OrderDetailsViewModel: ObservableObject {
     
     
     /// فتح المحادثة مع العميل: لو فيه شات موجود يفتحه، غير كده ينشئ واحد جديد
-    func openChat(with data: OrderDetailsModel?) {
+    func openChat(with data: OrderDetailsModel?,title: String) {
         if let chatId = data?.chatID, chatId > 0 {
-            coordinator.showChatView(roomId: "\(chatId)")
+            coordinator.showChatView(roomId: "\(chatId)", title: title)
             return
         }
 

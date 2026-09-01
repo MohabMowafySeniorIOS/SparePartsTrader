@@ -21,14 +21,14 @@ class ChatViewModel: ObservableObject {
     private let socketService = SocketService.shared
 
     var roomId: String
-
+    var title: String
     private var currentPage = 1
     private var canLoadMore = true
 
-    init(coordinator: MainCoordinator, roomId: String) {
+    init(coordinator: MainCoordinator, roomId: String,title: String) {
         _coordinator = ObservedObject(wrappedValue: coordinator)
         self.roomId = roomId
-
+        self.title = title
         connectSocket()
         getChats()
     }
