@@ -7,9 +7,9 @@
 
 import Foundation
 import SwiftUI
-import GoogleMaps
+//import GoogleMaps
 
-struct GoogleMapView: UIViewRepresentable {
+struct GoogleMapView : UIViewRepresentable {
     
     @Binding var camera: GMSCameraPosition
     
@@ -34,7 +34,7 @@ struct AdditionalAddressDescribtionView: View {
         longitude: 46.6753,
         zoom: 16
     )
-    
+//    
     @State private var address = ""
     @State private var details = ""
     
@@ -87,11 +87,8 @@ extension AdditionalAddressDescribtionView {
             Image(systemName: "magnifyingglass")
                 .foregroundColor(.gray)
             
-            PlainUIKitTextField(
-                text: $address,
-                placeholder: "ابحث عن العنوان"
-            )
-            .frame(height: 30)
+            TextField("ابحث عن العنوان", text: $address)
+                .multilineTextAlignment(.trailing)
             
             Image(systemName: "location.fill")
                 .foregroundColor(Color.MainColor)
@@ -120,23 +117,16 @@ extension AdditionalAddressDescribtionView {
                 .cornerRadius(14)
                 .shadow(color: Color.black.opacity(0.06), radius: 6, x: 0, y: 2)
 
-            HStack(spacing: 12) {
-                
-                Button("إضافة") {}
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 25)
-                            .stroke(Color.MainColor, lineWidth: 1.5)
-                    )
-                
-                Button("تحديد الموقع تلقائياً") {}
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.MainColor)
-                    .foregroundColor(.white)
-                    .cornerRadius(25)
+            HStack{
+                SimpleSpareButton(buttonTitle: "automatic_gps".localized, action: {
+                    viewModel.disMiss()
+                }, widthValue: 150, heightValue: 35)
+                Spacer()
+                SmallButtonWithBorder(action: {
+                    viewModel.AddAddressData(paramter: .init(is_default: "1", title:"dasdas",latitude: "30.21332",longitude: "30.21332",address_text: "dasdasdas",description: "dasd"))
+                }, title: "add".localized)
             }
+            .padding(.horizontal)
         }
         .padding()
         .background(Color(.systemGray6))

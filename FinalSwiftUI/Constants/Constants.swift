@@ -7,7 +7,7 @@
 
 import Foundation
 import SwiftUI
-let Google_Key = "AIzaSyBO9YeOCVVBLG74bNs14sxItJxruAbeQDU"
+let Google_Key = "AIzaSyAS6rZi6-fUT5bkkVNorjfjDXi3gUNlNLU"
 let appName = (Bundle.main.infoDictionary!["CFBundleName"] as? String) ?? ""
 
 let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
