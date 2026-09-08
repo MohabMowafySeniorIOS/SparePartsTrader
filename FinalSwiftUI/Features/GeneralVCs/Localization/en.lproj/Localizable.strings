@@ -432,7 +432,7 @@
 "country_city_selector"                  = "By Country Or City";
 "vendor_selector"                        = "By Vendor";
 "show_vendors_menu"                      = "Show Vendor List";
-"distance_between_vendor_customer"       = "Distance Between Vendor And Customer";
+"distance_between_vendor_customer"       = "The distance between you and the customer";
 "reference_number"                       = "Reference Number";
 "amount"                                 = "Amount";
 "transaction_type"                       = "Transaction Type";

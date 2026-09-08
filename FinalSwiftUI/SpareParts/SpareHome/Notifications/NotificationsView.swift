@@ -52,7 +52,7 @@ struct NotificationsView: View {
     }
     
     func handleNotification(type: String, notifyId: String?) {
-        if type == "new_order" || type == "new_offer" || type == "offer_accepted" || type == "rating_received" || type == "problem_reported" || type == "problem_resolved" || type == "problem_rejected" {
+        if type == "new_order" || type == "new_offer" || type == "offer_accepted" || type == "rating_received" || type == "problem_reported" || type == "problem_resolved" || type == "problem_rejected" || type == "order_status" {
             viewModel.coordinator.showOrderDetails(orderId: notifyId ?? "")
         } else if type == "new_message" {
             viewModel.coordinator.showChatView(roomId: notifyId ?? "", title: "Messages".localized)
