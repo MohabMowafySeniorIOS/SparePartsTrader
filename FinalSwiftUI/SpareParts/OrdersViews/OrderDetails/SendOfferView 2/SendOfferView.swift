@@ -26,6 +26,8 @@ struct SendOfferView: View {
     @State private var chargePriceInput = ""
     var totalPrice: Double {
         items.reduce(0) { result, item in
+            // Only active/available parts are included in the offer total.
+            guard item.isAvailable else { return result }
             let price = Double(item.partPrice) ?? 0
             let quantity = Double(item.quantity ?? 0)
             return result + (price * quantity)
@@ -49,7 +51,7 @@ struct SendOfferView: View {
     
     var totalPlatformCommissionPrice: Double {
         
-        return totalOfferPrice * (viewModel.orderModel?.platform_commision ?? 15)/100
+        return totalOfferPrice * (viewModel.orderModel?.platform_commision ?? 0)/100
     }
     
     
@@ -187,21 +189,36 @@ struct SendOfferView: View {
         if isPickup {
             // استلام من المحل: مفيش سعر شحن أصلاً
             is_charge_validation_label = true
-        } else if chargePriceInput.count == 0 {
+        } else if chargePriceInput.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             is_charge_validation_label = false
             isValid = false
         } else {
             is_charge_validation_label = true
         }
         
+        // لازم يكون فيه قطعة واحدة على الأقل مفعلة.
+        let hasActivePart = items.contains { $0.isAvailable }
+        if !hasActivePart {
+            isValid = false
+            is_parts_validation_label = false
+        } else {
+            is_parts_validation_label = true
+        }
+        
         for index in items.indices {
-            if self.items[index].partPrice == "" {
-                isValid = false
-                items[index].toggleisValid(value: false)
-            }else {
+            if items[index].isAvailable {
+                // القطعة المفعلة: السعر إجباري.
+                if items[index].partPrice.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                    isValid = false
+                    items[index].toggleisValid(value: false)
+                } else {
+                    items[index].toggleisValid(value: true)
+                }
+            } else {
+                // القطعة غير المفعلة: السعر غير مطلوب ويتم تجاهله.
+                items[index].partPrice = ""
                 items[index].toggleisValid(value: true)
             }
-            
         }
         
         return isValid
@@ -241,7 +258,10 @@ extension SendOfferView {
                 detailRow(title: "Shipping cost".localized, value: "\(chargePriceInput) " + "R.S".localized)
             }
             detailRow(title: "Total price offer".localized , value: "\(totalOfferPrice) " + "R.S".localized)
-            detailRow(title: "Total platform commission".localized , value: "\(totalPlatformCommissionPrice) " + "R.S".localized)
+            if totalPlatformCommissionPrice > 0.0 {
+                detailRow(title: "Total platform commission".localized , value: "\(totalPlatformCommissionPrice) " + "R.S".localized)
+            }
+           
             detailRow(title: "Amount Due".localized, value: "\(totalSummaryPrice) " + "R.S".localized)
             
         }
@@ -326,13 +346,15 @@ struct PartCardView: View {
                             keyboardType: .numberPad,
                             isNumeric: true
                         )
+                            .disabled(!part.isAvailable)
+                            .opacity(part.isAvailable ? 1.0 : 0.5)
                             .frame(height: 24)
                             .padding(10)
                             .background(
                                 RoundedRectangle(cornerRadius: 10)
                                     .stroke(Color.gray.opacity(0.4))
                             )
-                        if !part.isValid {
+                        if part.isAvailable && !part.isValid {
                             validationLabel(label: "validation_required".localized)
                         }
                     }
@@ -380,9 +402,21 @@ struct PartCardView: View {
                 .fontWeight(.semibold)
             Spacer()
             
-            Toggle("", isOn: $part.isAvailable)
-                .labelsHidden()
-                .toggleStyle(SwitchToggleStyle(tint: Color.SecondaryColor))
+            Toggle("", isOn: Binding(
+                get: { part.isAvailable },
+                set: { newValue in
+                    part.isAvailable = newValue
+                    
+                    // لو القطعة اتقفلت، امسح سعرها فوراً
+                    // عشان المستخدم مايدخلش سعر لقطعة غير مفعلة.
+                    if !newValue {
+                        part.partPrice = ""
+                        part.toggleisValid(value: true)
+                    }
+                }
+            ))
+            .labelsHidden()
+            .toggleStyle(SwitchToggleStyle(tint: Color.SecondaryColor))
         }
     }
 }

@@ -36,7 +36,7 @@ class MyOrdersViewModel: ObservableObject {
    
     init(coordinator: MainCoordinator) {
         _coordinator = ObservedObject(wrappedValue: coordinator)
-        getMyOrdersData()
+      //  getMyOrdersData()
     }
     
     func loadMoreIfNeeded(currentOrder: Order) {

@@ -27,7 +27,9 @@ struct MyOrdersView: View {
            
         mainContent.background(
             Color(Color.backGroundColor)
-        )
+        ).onAppear {
+            viewModel.getMyOrdersData()
+        }
     }
     
     private var mainContent: some View {

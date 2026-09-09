@@ -43,11 +43,20 @@ class SendOfferViewModel: ObservableObject {
         dict["shipping_cost"] = shipping_cost
         if parts.count > 0 {
             for item in 0...parts.count - 1 {
-                dict["items[\(item)][order_item_id]"] = parts[item].order_item_id
-                dict["items[\(item)][price]"] = parts[item].price
-                dict["items[\(item)][is_available]"] = "1"
+                if parts[item].is_available == "true" {
+                    dict["items[\(item)][order_item_id]"] = parts[item].order_item_id
+                    dict["items[\(item)][price]"] = parts[item].price
+                    dict["items[\(item)][is_available]"] = parts[item].is_available
+                }else {
+                    dict["items[\(item)][order_item_id]"] = parts[item].order_item_id
+                    dict["items[\(item)][price]"] = parts[item].price
+                    dict["items[\(item)][is_available]"] = parts[item].is_available
+                }
+               
             }
         }
+        
+        print(dict)
       
        
         APIClient.shared.uploadMultipartWithAlamofire(urlString: url,parameters: dict,methodType: methodType) { [weak self] (Model: BaseModel<SendOfferData>? , err : String? )in

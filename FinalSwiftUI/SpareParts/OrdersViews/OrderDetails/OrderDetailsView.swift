@@ -12,6 +12,7 @@ struct OrderDetailsView: View {
     @State private var showSheet = false
     @State private var bottomSheetType: BottomSheetType = .cancel
     @State private var showImages = false
+    @State private var selectedImages: [OrderImage] = []
     
     init(viewModel: OrderDetailsViewModel) {
         self._viewModel = ObservedObject(wrappedValue: viewModel)
@@ -39,8 +40,7 @@ struct OrderDetailsView: View {
                 if let model = Model {
                     getClientScrollView(data: model)
                         .overlay {
-                            let allImages = model.items?.compactMap { $0.images }.flatMap { $0 } ?? []
-                            OfferImagesViewPopup(isPresented: $showImages, images: allImages)
+                            OfferImagesViewPopup(isPresented: $showImages, images: selectedImages)
                         }
                 }
             }
@@ -77,7 +77,7 @@ struct OrderDetailsView: View {
                 CarDetailsSection(data: data)
                 TitleLabel(title: "ordered parts menu".localized)
                     .padding(.horizontal)
-                OrderedPartsSection(data: data, showImages: $showImages)
+                OrderedPartsSection(data: data, showImages: $showImages, selectedImages: $selectedImages)
                 TitleLabel(title: "offers menu".localized)
                     .padding(.horizontal)
                 OffersSection(data: data) { offer in
@@ -651,6 +651,7 @@ struct CarDetailsSection: View {
 struct OrderedPartsSection: View {
     let data: OrderDetailsModel?
     @Binding var showImages: Bool
+    @Binding var selectedImages: [OrderImage]
     var body: some View {
         LazyVStack(spacing: 12) {
             ForEach(data?.items ?? [], id: \.id) { item in
@@ -664,9 +665,10 @@ struct OrderedPartsSection: View {
                     ),
                     id: item.id ?? 0
                 ) {
-                    print("show pictures tapped")
+                    print("show pictures tapped for item: \(item.id ?? 0)")
+                    // Keep the images scoped to the exact part that was tapped.
+                    selectedImages = item.images ?? []
                     showImages = true
-
                 }
             }
         }
