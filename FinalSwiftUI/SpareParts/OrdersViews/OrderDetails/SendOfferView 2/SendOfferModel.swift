@@ -6,48 +6,114 @@
 //
 
 import Foundation
-struct SendOfferData : Codable {
-    let order_id : Int?
-    let trader_id : Int?
-    let status : String?
-    let subtotal : String?
-    let tax_amount : String?
-    let shipping_cost : String?
-    let total_amount : String?
-    let platform_commission : String?
-    let trader_earning : String?
-    let updated_at : String?
-    let created_at : String?
-    let id : Int?
-    let items : [Items]?
-    let order : OfferOrder?
-    let trader_profile : Trader_profile?
-    let trader : OfferTraderModel?
+struct SendOfferData: Codable {
+
+    let order_id: Int?
+
+    let trader_id: Int?
+
+    let status: String?
+
+    let subtotal: String?
+
+    let tax_amount: String?
+
+    let shipping_cost: String?
+
+    let total_amount: String?
+
+    let platform_commission: String?
+
+    let trader_earning: String?
+
+    let updated_at: String?
+
+    let created_at: String?
+
+    let id: Int?
+
+    let items: [Items]?
+
+    let order: OfferOrder?
+
+    let trader_profile: Trader_profile?
+
+    let trader: OfferTraderModel?
 
     enum CodingKeys: String, CodingKey {
 
-        case order_id = "order_id"
-        case trader_id = "trader_id"
-        case status = "status"
-        case subtotal = "subtotal"
-        case tax_amount = "tax_amount"
-        case shipping_cost = "shipping_cost"
-        case total_amount = "total_amount"
-        case platform_commission = "platform_commission"
-        case trader_earning = "trader_earning"
-        case updated_at = "updated_at"
-        case created_at = "created_at"
-        case id = "id"
-        case items = "items"
-        case order = "order"
-        case trader_profile = "trader_profile"
-        case trader = "trader"
+        case order_id
+
+        case trader_id
+
+        case status
+
+        case subtotal
+
+        case tax_amount
+
+        case shipping_cost
+
+        case total_amount
+
+        case platform_commission
+
+        case trader_earning
+
+        case updated_at
+
+        case created_at
+
+        case id
+
+        case items
+
+        case order
+
+        case trader_profile
+
+        case trader
+
     }
 
-   
-
 }
+struct OfferUser: Codable {
+    let id: Int?
+    let uuid: String?
+    let fullName: String?
+    let email: String?
+    let phone: String?
+    let phoneCode: String?
+    let locale: String?
+    let userType: String?
 
+    let avatar: Avatar?
+
+    let cityId: Int?
+    let isActive: Bool?
+    let isNotify: Int?
+    let isBan: Int?
+    let isBanned: Bool?
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case uuid
+        case fullName = "full_name"
+        case email
+        case phone
+        case phoneCode = "phone_code"
+        case locale
+        case userType = "user_type"
+
+        case avatar
+
+        case cityId = "city_id"
+        case isActive = "is_active"
+        case isNotify = "is_notify"
+        case isBan = "is_ban"
+        case isBanned = "is_banned"
+    }
+}
 struct OfferTraderModel : Codable {
     let id : Int?
     let uuid : String?
@@ -133,7 +199,8 @@ struct OfferOrder : Codable {
     let created_at : String?
     let updated_at : String?
     let deleted_at : String?
-    let user : User?
+    let user : OfferUser?
+    
 
     enum CodingKeys: String, CodingKey {
 
