@@ -141,7 +141,7 @@ struct SidMenueVC: View {
                 myMessages
                 settingView
                 FAQView
-                pagesView
+               // pagesView
                 contactUsView
                 shareView
                 rateView
@@ -218,19 +218,19 @@ struct SidMenueVC: View {
         }
     }
     
-    private var pagesView: some View {
-        ForEach(viewModel.pagesArray,id: \.self) { item in
-            
-            SidMEnueView(
-                title: item.localized,
-                textColor: normaltextinsideSideMenuColor,
-                image: getImage(page: item)
-            )
-            .onTapGesture {
-                self.viewModel.coordinator.showAboutUs(page: item)
-            }
-        }
-    }
+//    private var pagesView: some View {
+//        ForEach(viewModel.pagesArray,id: \.self) { item in
+//            
+//            SidMEnueView(
+//                title: item.localized,
+//                textColor: normaltextinsideSideMenuColor,
+//                image: getImage(page: item)
+//            )
+//            .onTapGesture {
+//                self.viewModel.coordinator.showAboutUs(page: item)
+//            }
+//        }
+//    }
     
     func getImage(page: String) -> String {
         var image = ""

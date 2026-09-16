@@ -28,6 +28,7 @@ struct MyOrdersView: View {
         mainContent.background(
             Color(Color.backGroundColor)
         ).onAppear {
+            viewModel.orders.removeAll()
             viewModel.getMyOrdersData()
         }
     }
