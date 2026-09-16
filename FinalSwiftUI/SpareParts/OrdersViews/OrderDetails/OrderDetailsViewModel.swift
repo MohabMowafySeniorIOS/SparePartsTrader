@@ -104,6 +104,21 @@ class OrderDetailsViewModel: ObservableObject {
         }
     }
     
+    
+    func cancelOffer(methodType: HTTPMethodType = .post, offerId: String) {
+        let url = "\(hostName)trader/offers/\(offerId)/cancel"
+        print(url)
+        state = .loading(loading: .progress)
+        APIClient.shared.performRequestWithAlamofire(urlString: url, method: methodType, parameters: nil) { [weak self] (Model: BaseModel<SendOfferData>? , err : String? )in
+            guard let self = self else { return }
+            if Model?.status == "success" {
+                getOrderData(orderId: orderId)
+            }else {
+                state = .error(err ?? "")
+            }
+        }
+    }
+    
     func payMent(urlEndPoint:EndPoints = .orders, methodType: HTTPMethodType = .post, orderId: String) {
         let url = "\(hostName)\(urlEndPoint.rawValue)/\(orderId)/confirm-receipt"
         state = .loading(loading: .progress)

@@ -100,6 +100,8 @@ struct OrderDetailsView: View {
                             orderModel: data,
                             ItemsModel: itemsPrefilledWithMyOffer(data: data)
                         )
+                    } onCancel: {
+                        viewModel.cancelOffer(offerId: "\(data.myOffer?.id ?? 0)")
                     }
                 }
 
@@ -517,6 +519,7 @@ struct MyOfferSection: View {
     var isPickup: Bool = false
     var isShowOfferButton: Bool
     var onUpdate: () -> Void
+    var onCancel: () -> Void
    
 
     var body: some View {
@@ -573,9 +576,22 @@ struct MyOfferSection: View {
                         .foregroundStyle(Color.MainColor)
                         .frame(maxWidth: .infinity, minHeight: 50)
                         .background(
-                            RoundedRectangle(cornerRadius: 20)
+                            RoundedRectangle(cornerRadius: 25)
                                 .stroke(Color.MainColor, lineWidth: 1)
                         )
+                }
+                
+                Button {
+                    onCancel()
+                } label: {
+                    Text("Cancel offer".localized)
+                        .font(addFont(fontType: .bold, size: 15))
+                        .foregroundStyle(Color.white)
+                        .frame(maxWidth: .infinity, minHeight: 50)
+                        .background(
+                            Color.red
+                        )
+                        .cornerRadius(25)
                 }
             }
            

@@ -88,6 +88,7 @@
 /* ============================= */
 /* Registration Screen */
 /* ============================= */
+"Cancel offer"            = "الغاء العرض";
 "register_title"          = "Create Account";
 "full_name"               = "Full Name";
 "phone_number"            = "Phone Number";
