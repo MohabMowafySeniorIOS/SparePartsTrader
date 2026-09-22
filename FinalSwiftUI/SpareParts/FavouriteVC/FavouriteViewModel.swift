@@ -14,30 +14,67 @@ class FavouritsViewModel: ObservableObject {
     @Published var state: viewState<[Trader]?> = .idle
     @Published var traders:[Trader] = []
     var canLoadMore: Bool = false
+    @Published var isLoadingMore: Bool = false
     private var currentPage = 1
+    private var isLoading: Bool = false
+    private var requestToken = 0
     @ObservedObject var coordinator: MainCoordinator
     
     init(coordinator: MainCoordinator) {
         _coordinator = ObservedObject(wrappedValue: coordinator)
+        refresh()
+    }
+    
+    // MARK: - Pagination
+    func refresh() {
+        requestToken += 1          // ignore any in-flight response of the old list
+        currentPage = 1
+        canLoadMore = false
+        isLoading = false
+        isLoadingMore = false
         getFavourite()
     }
+    
     func loadMoreIfNeeded(currentTrader: Trader) {
-        guard let last = state.data??.last else { return }
+        guard let last = traders.last else { return }
         
-        if (currentTrader.id == last.id) && canLoadMore {
+        if (currentTrader.id == last.id) && canLoadMore && !isLoading {
             getFavourite()
         }
     }
     
     
     func getFavourite(urlEndPoint:EndPoints = .favorites, methodType: HTTPMethodType = .get) {
-        let url = "\(hostName)\(urlEndPoint.rawValue)?page=\(currentPage)"
-        state = .loading(loading: .progress)
+        guard !isLoading else { return }
+        let page = currentPage
+        let token = requestToken
+        let url = "\(hostName)\(urlEndPoint.rawValue)?page=\(page)"
+        isLoading = true
+        if page == 1 {
+            state = .loading(loading: .progress)
+        } else {
+            isLoadingMore = true
+        }
         APIClient.shared.performRequestWithAlamofire(urlString: url, method: methodType, parameters: nil) { [weak self] (Model: BaseModelPaginate<[Trader]>? , err : String? )in
-            guard let self = self else { return }
+            guard let self = self, token == self.requestToken else { return }
+            self.isLoading = false
+            self.isLoadingMore = false
             if Model?.status == "success" {
-                state = .loaded(data: Model?.data?.data)
-                traders = Model?.data?.data ?? []
+                let newItems = Model?.data?.data ?? []
+                if page == 1 {
+                    traders = newItems
+                } else {
+                    traders.append(contentsOf: newItems)
+                }
+                
+                if page < (Model?.data?.lastPage ?? 0) {
+                    currentPage = page + 1
+                    canLoadMore = true
+                } else {
+                    canLoadMore = false
+                }
+                
+                state = .loaded(data: traders)
                 if traders.count == 0 {
                     state = .emptyScreen
                 }

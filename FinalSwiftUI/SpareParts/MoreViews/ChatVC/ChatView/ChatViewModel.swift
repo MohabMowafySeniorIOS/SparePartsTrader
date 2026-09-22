@@ -24,6 +24,7 @@ class ChatViewModel: ObservableObject {
     var title: String
     private var currentPage = 1
     private var canLoadMore = true
+    private var isLoading = false
 
     init(coordinator: MainCoordinator, roomId: String,title: String) {
         _coordinator = ObservedObject(wrappedValue: coordinator)
@@ -54,7 +55,8 @@ extension ChatViewModel {
         methodType: HTTPMethodType = .get
     ) {
 
-        guard canLoadMore else { return }
+        guard canLoadMore, !isLoading else { return }
+        isLoading = true
 
         let url = "\(hostName)\(urlEndPoint.rawValue)/\(roomId)/messages?page=\(currentPage)"
 
@@ -65,6 +67,7 @@ extension ChatViewModel {
         ) { [weak self] (Model: BaseModel<messageModelPaginate>?, err: String?) in
 
             guard let self else { return }
+            DispatchQueue.main.async { self.isLoading = false }
 
             if Model?.status == "success" {
 

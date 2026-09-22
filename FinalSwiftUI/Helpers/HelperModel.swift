@@ -35,10 +35,18 @@ struct BaseModelWithPagination<T:Codable>: Codable {
     let data : T?
     let pagination : Pagination?
     let Links : Links?
+    /// Laravel resource collections return pagination info inside `meta`
+    let meta : Meta?
     enum CodingKeys: String, CodingKey {
         case data = "data"
         case pagination = "pagination"
         case Links = "Links"
+        case meta = "meta"
+    }
+    
+    /// Works whether the API sends `meta` or `pagination`
+    var lastPage: Int {
+        meta?.lastPage ?? pagination?.lastPage ?? 0
     }
 }
 

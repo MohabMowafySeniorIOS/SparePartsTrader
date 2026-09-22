@@ -12,6 +12,9 @@ struct VendorsListView: View {
      var vendors: [Trader]
     var orderNow: (Trader)->()
     var favouriteAction: (Trader)->()
+    /// Called when a card appears (used for pagination)
+    var onItemAppear: ((Trader)->())? = nil
+    var isLoadingMore: Bool = false
     private let columns = [
         GridItem(.flexible(), spacing: 16),
         GridItem(.flexible(), spacing: 16)
@@ -26,10 +29,18 @@ struct VendorsListView: View {
                     }, vendorsModel: vendor, favouriteAction: {
                         favouriteAction(vendor)
                     })
+                    .onAppear {
+                        onItemAppear?(vendor)
+                    }
 //                        .frame(maxWidth: .infinity)
                 }
             }
             .padding()
+            
+            if isLoadingMore {
+                ProgressView()
+                    .padding()
+            }
         }
     }
 }

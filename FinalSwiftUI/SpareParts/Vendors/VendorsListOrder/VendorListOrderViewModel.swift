@@ -15,7 +15,10 @@ class VendorListOrderViewModel: ObservableObject {
     @Published var state: viewState<BaseModel<String>> = .idle
     private var cancellables = Set<AnyCancellable>()
     var canLoadMore: Bool = false
+    @Published var isLoadingMore: Bool = false
     private var currentPage = 1
+    private var isLoading: Bool = false
+    private var requestToken = 0
     
     
     init() {
@@ -26,14 +29,14 @@ class VendorListOrderViewModel: ObservableObject {
         $countryAndCities
             .debounce(for: .milliseconds(300), scheduler: RunLoop.main)
             .sink { [weak self] value in
-                self?.getVendorsData()
+                self?.refresh()
             }
            .store(in: &cancellables)
         
         $filterObject
             .debounce(for: .milliseconds(300), scheduler: RunLoop.main)
             .sink { [weak self] value in
-                self?.getVendorsData()
+                self?.refresh()
             }
            .store(in: &cancellables)
     }
@@ -51,14 +54,52 @@ class VendorListOrderViewModel: ObservableObject {
         }
     }
     
+    // MARK: - Pagination
+    func refresh() {
+        requestToken += 1          // ignore any in-flight response of the old query
+        currentPage = 1
+        canLoadMore = false
+        isLoading = false
+        isLoadingMore = false
+        getVendorsData()
+    }
+    
+    func loadMoreIfNeeded(currentVendor: Trader) {
+        guard let last = vendorData?.data?.last else { return }
+        if currentVendor.id == last.id && canLoadMore && !isLoading {
+            getVendorsData()
+        }
+    }
+    
     func getVendorsData() {
-        let url = "\(hostName)\(EndPoints.vendorsList.rawValue)"
-        state = .loading(loading: .progress)
+        guard !isLoading else { return }
+        let page = currentPage
+        let token = requestToken
+        let url = "\(hostName)\(EndPoints.vendorsList.rawValue)?page=\(page)"
+        isLoading = true
+        if page == 1 {
+            state = .loading(loading: .progress)
+        } else {
+            isLoadingMore = true
+        }
         APIClient.shared.performRequestWithAlamofire(urlString: url, method: .get, parameters:nil) { [weak self] (Model: BaseModel<TradersResponse>? , err : String? )in
           
-            guard let self = self else { return }
+            guard let self = self, token == self.requestToken else { return }
+            self.isLoading = false
+            self.isLoadingMore = false
             if Model?.status == "success" {
-                vendorData = Model?.data
+                if page == 1 || vendorData == nil {
+                    vendorData = Model?.data
+                } else {
+                    vendorData?.data?.append(contentsOf: Model?.data?.data ?? [])
+                }
+                
+                if page < (Model?.data?.meta?.lastPage ?? 0) {
+                    currentPage = page + 1
+                    canLoadMore = true
+                } else {
+                    canLoadMore = false
+                }
                 state = .loaded(data: nil)
            } else {
                state = .error(err ?? "")

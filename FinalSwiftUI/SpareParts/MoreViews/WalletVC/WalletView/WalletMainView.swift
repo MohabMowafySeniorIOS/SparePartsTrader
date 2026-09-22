@@ -163,6 +163,14 @@ struct WalletMainView: View {
 
                         }
                     )
+                    .onAppear {
+                        viewModel.loadMoreIfNeeded(currentItem: item)
+                    }
+                }
+                
+                if viewModel.isLoadingMore {
+                    ProgressView()
+                        .padding()
                 }
             }
             .padding(.horizontal)

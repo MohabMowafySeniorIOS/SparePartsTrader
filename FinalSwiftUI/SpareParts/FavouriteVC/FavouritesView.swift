@@ -18,7 +18,7 @@ struct FavouritsView: View {
             )
             .onChange(of: selectedTab) { newTab in
                 if newTab == 1 {
-                    viewModel.getFavourite()
+                    viewModel.refresh()
                 }
            
             
@@ -40,7 +40,9 @@ struct FavouritsView: View {
                 viewModel.coordinator.vendorDetails(rating: vendor.ratingAvg ?? 0.0, vendorId: "\(vendor.id)")
             }, favouriteAction: {vendor in
                 viewModel.handleFavourite(traderModel: vendor)
-            })
+            }, onItemAppear: { vendor in
+                viewModel.loadMoreIfNeeded(currentTrader: vendor)
+            }, isLoadingMore: viewModel.isLoadingMore)
     }
    
 }

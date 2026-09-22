@@ -90,9 +90,17 @@ struct VendorListOrderView: View {
                         }, pressFavourite: {
                             viewModel.handleFavourite(traderModel: vendor)
                         })
+                        .onAppear {
+                            viewModel.loadMoreIfNeeded(currentVendor: vendor)
+                        }
                     }
                     .frame(maxWidth: 150)
                 }
+            
+            if viewModel.isLoadingMore {
+                ProgressView()
+                    .padding()
+            }
         }
         .padding(.top)
         .padding(.horizontal, 12)

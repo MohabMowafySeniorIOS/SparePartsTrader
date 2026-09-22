@@ -14,6 +14,7 @@ class NotificationsViewModel: ObservableObject {
     @Published var state: viewState<[Notification]?> = .idle
     var canLoadMore: Bool = false
     private var currentPage = 1
+    private var isLoading: Bool = false
     @ObservedObject var coordinator: MainCoordinator
     
     
@@ -25,18 +26,30 @@ class NotificationsViewModel: ObservableObject {
     func loadMoreIfNeeded(currentOrder: Notification) {
         guard let last = notifications.last else { return }
         
-        if (currentOrder.id == last.id) && canLoadMore {
+        if (currentOrder.id == last.id) && canLoadMore && !isLoading {
             fetchNotifications()
         }
     }
     
+    /// Reload the list from the first page
+    func refresh() {
+        currentPage = 1
+        canLoadMore = false
+        isLoading = false
+        notifications.removeAll()
+        fetchNotifications()
+    }
+    
     func fetchNotifications() {
+        guard !isLoading else { return }
+        isLoading = true
         let url = "\(hostName)\(EndPoints.notifications.rawValue)?page=\(currentPage)"
         if currentPage == 1 {
             state = .loading(loading: .progress)
         }
         APIClient.shared.performRequestWithAlamofire(urlString: url, method: .get, parameters: nil) { [weak self] (Model: NotificationModel? , err : String? )in
             guard let self = self else { return }
+            self.isLoading = false
             if Model?.status == "success" {
                 self.notifications.append(contentsOf: Model?.data ?? [])
                 if currentPage == 1 {
@@ -92,8 +105,8 @@ class NotificationsViewModel: ObservableObject {
              if Model?.status == "success" {
                  
                  if self.notifications.count > 0 {
-                     self.fetchNotifications()
-                     self.state = .loaded(data: self.notifications)
+                     // reload from page 1 (calling fetchNotifications directly would append the next page)
+                     self.refresh()
                  }else {
                      self.state = .emptyScreen
                  }

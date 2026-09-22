@@ -17,12 +17,16 @@ class MyOrdersViewModel: ObservableObject {
     @ObservedObject var coordinator: MainCoordinator
     var canLoadMore: Bool = false
     private var currentPage = 1
+    private var isLoading: Bool = false
+    private var requestToken = 0
     @Published var selectedOrderType: MyOrderType = .new {
         didSet {
             guard oldValue != selectedOrderType else { return }
             orders.removeAll()
             canLoadMore = false
             currentPage = 1
+            isLoading = false
+            requestToken += 1
             getMyOrdersData()
         }
     }
@@ -31,6 +35,8 @@ class MyOrdersViewModel: ObservableObject {
         orders.removeAll()
         canLoadMore = false
         currentPage = 1
+        isLoading = false
+        requestToken += 1
         getMyOrdersData()
     }
    
@@ -42,19 +48,23 @@ class MyOrdersViewModel: ObservableObject {
     func loadMoreIfNeeded(currentOrder: Order) {
         guard let last = orders.last else { return }
         
-        if (currentOrder.id == last.id) && canLoadMore {
+        if (currentOrder.id == last.id) && canLoadMore && !isLoading {
             getMyOrdersData()
         }
     }
     
     func getMyOrdersData() {
+        guard !isLoading else { return }
+        isLoading = true
+        let token = requestToken
         let url = "\(hostName)trader/orders/my-orders?status_type=\(selectedOrderType.rawValue)&page=\(currentPage)"
         if currentPage == 1 {
             state = .loading(loading: .progress)
         }
        
         APIClient.shared.performRequestWithAlamofire(urlString: url, method: .get, parameters: nil) { [weak self] (Model: BaseModel<MyOrdersCardModel>? , err : String? )in
-            guard let self = self else { return }
+            guard let self = self, token == self.requestToken else { return }
+            self.isLoading = false
            
             if Model?.status == "success" {
                 self.orders.append(contentsOf: Model?.data?.data ?? [])
