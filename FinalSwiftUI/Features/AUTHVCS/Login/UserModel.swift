@@ -63,6 +63,9 @@ struct LoginTrader : Codable, Equatable, Hashable {
     var country : Country?
     let city_id : Int?
     var city : City?
+    let brand_id: Int?
+    var brand: categoryModel?
+    var brands: [categoryModel]?
     let address : String?
     let latitude : Double?
     let longitude : Double?
@@ -105,6 +108,9 @@ struct LoginTrader : Codable, Equatable, Hashable {
         case country = "country"
         case city_id = "city_id"
         case city = "city"
+        case brand_id = "brand_id"
+        case brand = "brand"
+        case brands = "brands"
         case address = "address"
         case latitude = "latitude"
         case longitude = "longitude"

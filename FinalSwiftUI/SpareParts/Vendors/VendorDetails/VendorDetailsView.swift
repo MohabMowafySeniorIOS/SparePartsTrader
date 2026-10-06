@@ -168,15 +168,27 @@ struct VendorDetailsView: View {
        
     }
     
-    @ViewBuilder
-    private var distanceView: some View {
-        HStack{
+@ViewBuilder
+private var distanceView: some View {
+    Button {
+        viewModel.openGoogleMaps(
+            lat: viewModel.vendorModel?.latitude ?? 0.0,
+            lng: viewModel.vendorModel?.longitude ?? 0.0
+        )
+    } label: {
+        HStack {
             Text("distance_between_vendor_customer".localized)
+                .foregroundStyle(Color.MainColor)
             Image.darkLocation
             Spacer()
+            Image(systemName: "chevron.left")
+                .foregroundStyle(Color.MainColor)
         }
         .padding(.horizontal)
+        .contentShape(Rectangle())
     }
+    .buttonStyle(.plain)
+}
     
     @ViewBuilder
     private var buttonsView: some View {
@@ -200,7 +212,7 @@ struct VendorDetailsView: View {
     @ViewBuilder
     private var handleNavigation: some View {
         NavigationLink("",
-                       destination:  RatingsView(viewModel: RatingViewModel(traderId: "\(viewModel.vendorModel?.id ?? 0)")), isActive: $goRating)
+                       destination: RatingsView(viewModel: RatingViewModel(traderId: viewModel.vendorId)), isActive: $goRating)
         .navigationBarHidden(true)
         .hidden()
         

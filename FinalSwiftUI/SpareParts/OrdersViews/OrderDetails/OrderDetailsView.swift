@@ -27,7 +27,7 @@ struct OrderDetailsView: View {
             }
             
             .overlay {
-                GenaricOrderBottomSheet(reasons: viewModel.problemTypes , isPresented: $showSheet, orderId: viewModel.orderId, type: bottomSheetType)
+                GenaricOrderBottomSheet(reasons: viewModel.problemTypes, cancellationReasons: viewModel.cancellationReasons, isPresented: $showSheet, orderId: viewModel.orderId, type: bottomSheetType)
             }
             
             
@@ -643,7 +643,11 @@ struct CarDetailsSection: View {
         HStack {
             VStack(alignment: .leading, spacing: 14) {
                 InfoRow(icon: "car-1", text: data?.vehicle?.category ?? "")
-                InfoRow(icon: "Car type", text: data?.vehicle?.brand ?? "")
+                HStack(spacing: 8) {
+                    InfoRow(icon: "Car type", text: data?.vehicle?.brand?.name ?? "")
+                    RemoteImageView(imageUrl: data?.vehicle?.brand?.logo?.path ?? "")
+                        .frame(width: 32, height: 32)
+                }
                 InfoRow(icon: "Car model", text: data?.vehicle?.chassisNumber ?? "")
             }
 

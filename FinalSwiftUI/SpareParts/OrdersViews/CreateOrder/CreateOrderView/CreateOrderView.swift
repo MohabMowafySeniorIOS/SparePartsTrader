@@ -301,10 +301,14 @@ struct CreateOrderView: View {
         if isAddedCarSelectionBar {
             ForEach(viewModel.myCars.indices, id: \.self) { index in
                 var item = viewModel.myCars[index]
-                CreateOrderSelectionBar(
-                    isChecked: item.id == viewModel.selectedCar?.id, title: "\(item.full_name ?? "")",
-                    imageName: ""
-                )
+                HStack(spacing: 8) {
+                    RemoteImageView(imageUrl: item.brand?.logo?.path ?? "")
+                        .frame(width: 40, height: 40)
+                    CreateOrderSelectionBar(
+                        isChecked: item.id == viewModel.selectedCar?.id, title: "\(item.full_name ?? "")",
+                        imageName: ""
+                    )
+                }
                 .onTapGesture {
                     viewModel.selectedCar = viewModel.myCars[index]
                 }
@@ -410,4 +414,3 @@ struct CreateOrderView: View {
             }, widthValue: 330, heightValue: 50)
     }
 }
-

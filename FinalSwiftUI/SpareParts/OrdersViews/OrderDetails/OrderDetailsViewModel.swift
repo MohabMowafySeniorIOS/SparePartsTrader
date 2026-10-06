@@ -15,6 +15,7 @@ class OrderDetailsViewModel: ObservableObject {
     @Published var state: viewState<OrderDetailsModel> = .idle
    
     @Published var problemTypes = [OrderType]()
+    @Published var cancellationReasons = [CancellationReason]()
     @ObservedObject var coordinator: MainCoordinator
     var orderId: String
     init(coordinator: MainCoordinator, orderId: String) {
@@ -22,6 +23,7 @@ class OrderDetailsViewModel: ObservableObject {
         self.orderId = orderId
         getOrderData(orderId: orderId)
         getProblemTypes()
+        getCancellationReasons()
     }
     
     
@@ -64,6 +66,20 @@ class OrderDetailsViewModel: ObservableObject {
             }
         }
     }
+
+    func getCancellationReasons() {
+        let url = "\(hostName)trader/orders/cancellation-reasons"
+        APIClient.shared.performRequestWithAlamofire(urlString: url, method: .get, parameters: nil) { [weak self] (model: BaseModel<[CancellationReason]>?, err: String?) in
+            guard let self = self else { return }
+            if model?.status == "success" {
+                self.cancellationReasons = model?.data ?? []
+            } else if self.cancellationReasons.isEmpty {
+                let message = err ?? model?.message ?? "unknown error"
+                print("Failed to load trader cancellation reasons: \(message)")
+            }
+        }
+    }
+
     
     func getBill() {
         let url = "\(hostName)orders/\(orderId)/invoice"

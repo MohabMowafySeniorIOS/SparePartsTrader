@@ -45,8 +45,10 @@ enum BottomSheetType {
 
 struct GenaricOrderBottomSheet: View {
      var reasons: [OrderType]
+    var cancellationReasons: [CancellationReason] = []
     @Binding var isPresented: Bool
     @State private var selectedReason: String?
+    @State private var selectedCancellationReasonId: Int?
     @State private var description: String = ""
     var orderId: String
     @State private var rating: Int = 0
@@ -94,12 +96,23 @@ struct GenaricOrderBottomSheet: View {
                 }
                 
                 LazyVGrid(columns: [GridItem(), GridItem()], spacing: 12) {
-                    ForEach(reasons, id: \.value) { reason in
-                        RadioButton(
-                            title: reason.label ?? "",
-                            isSelected: selectedReason == reason.value ?? ""
-                        ) {
-                            selectedReason = reason.value ?? ""
+                    if type == .cancel {
+                        ForEach(cancellationReasons) { reason in
+                            RadioButton(
+                                title: reason.title,
+                                isSelected: selectedCancellationReasonId == reason.id
+                            ) {
+                                selectedCancellationReasonId = reason.id
+                            }
+                        }
+                    } else {
+                        ForEach(reasons, id: \.value) { reason in
+                            RadioButton(
+                                title: reason.label ?? "",
+                                isSelected: selectedReason == reason.value ?? ""
+                            ) {
+                                selectedReason = reason.value ?? ""
+                            }
                         }
                     }
                 }
@@ -167,6 +180,7 @@ struct GenaricOrderBottomSheet: View {
     private func dismiss() {
         isPresented = false
         selectedReason = nil
+        selectedCancellationReasonId = nil
         rating = 0
         description = ""
     }
@@ -188,7 +202,11 @@ struct GenaricOrderBottomSheet: View {
                 dismiss()
             }
         case .cancel:
-            viewModel.cancel(orderId: orderId, parameters: .init(rating: String(rating), comment: description))
+            guard let selectedCancellationReasonId else { return }
+            var parameters = BaseParameters()
+            parameters.cancellation_reason_id = String(selectedCancellationReasonId)
+            parameters.cancellation_notes = description
+            viewModel.cancel(orderId: orderId, parameters: parameters)
             viewModel.onSuccess = {
                 dismiss()
             }

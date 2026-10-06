@@ -15,6 +15,8 @@ struct BaseParameters {
     var email    : String       = ""
     var phone    : String       = ""
     var city_id  : String       = ""
+    var brand_id : String       = ""
+    var brand_ids: [Int]        = []
     var auth     : String       = ""
     var code     : String       = ""
     var current_password        = ""
@@ -24,6 +26,8 @@ struct BaseParameters {
     var device_token            = ""
     var type     : String       = ""
     var problem_type: String            = ""
+    var cancellation_reason_id: String  = ""
+    var cancellation_notes: String      = ""
     var agree_terms             = ""
 
     //MARK: Chat
@@ -115,6 +119,13 @@ extension BaseParameters {
         
         if !phone.isEmpty {
             parameters["phone"] = phone
+        }
+
+        if !brand_id.isEmpty {
+            parameters["brand_id"] = brand_id
+        }
+        if !brand_ids.isEmpty {
+            parameters["brand_ids"] = brand_ids
         }
         
         if !city_id.isEmpty {
@@ -358,6 +369,13 @@ extension BaseParameters {
         if !problem_type.isEmpty {
             parameters["problem_type"] = problem_type
         }
+        if !cancellation_reason_id.isEmpty {
+            parameters["cancellation_reason_id"] = cancellation_reason_id
+        }
+        if !cancellation_notes.isEmpty {
+            parameters["cancellation_notes"] = cancellation_notes
+        }
+
 
         //MARK: Chat
         if !order_id.isEmpty {

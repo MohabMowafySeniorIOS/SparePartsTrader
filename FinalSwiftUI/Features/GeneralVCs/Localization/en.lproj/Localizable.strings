@@ -320,6 +320,12 @@
 "chose_car_model"                         = "Select Car Model";
 "chose_manufacture_date"                  = "Select Year Of Manufacture";
 "enter_chest_number"                      = "ِEnter Chest Number";
+"enter_authority_number"                  = "Enter Authority Number";
+"authority_number"                         = "Authority Number";
+"Please Insert Authority Number"           = "Please Insert Authority Number";
+"piece_number_hint"                        = "Adding the piece number is preferred";
+"Choose from library"                       = "Choose from library";
+"Take a photo"                             = "Take a photo";
 
 
 //MARK: Home Vendor Screen

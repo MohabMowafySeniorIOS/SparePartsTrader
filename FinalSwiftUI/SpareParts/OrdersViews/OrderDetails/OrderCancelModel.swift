@@ -67,3 +67,12 @@ struct OrderCancelModel: Codable {
     }
 }
 
+struct CancellationReason: Codable, Identifiable, Hashable {
+    let id: Int?
+    let reason: String?
+    let name: String?
+    let label: String?
+    let value: String?
+
+    var title: String { reason ?? label ?? name ?? value ?? "" }
+}

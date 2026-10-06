@@ -224,6 +224,7 @@ struct OTPView: View {
     }
     
     private func startTimer() {
+        timer?.invalidate()
         timerSeconds = 30
         isResendButtonEnabled = false
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
@@ -232,6 +233,7 @@ struct OTPView: View {
             } else {
                 isResendButtonEnabled = true
                 timer?.invalidate()
+                timer = nil
             }
         }
     }
@@ -248,4 +250,3 @@ struct OTPView: View {
        
     }
 }
-

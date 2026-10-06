@@ -59,7 +59,7 @@ struct OrderStatus: Codable {
 struct Vehicle: Codable, Hashable {
     let id: Int?
     let category: String?
-    let brand: String?
+    let brand: Brand?
     let model: String?
     let year: Int?
     let chassisNumber: String?
@@ -82,9 +82,28 @@ struct VehicleCategory: Codable {
 }
 
 
-struct Brand: Codable {
+struct Brand: Codable, Hashable {
     let id: Int?
     let name: String?
+    let logo: Logo?
+
+    init(from decoder: Decoder) throws {
+        if let values = try? decoder.container(keyedBy: CodingKeys.self) {
+            id = try values.decodeIfPresent(Int.self, forKey: .id)
+            name = try values.decodeIfPresent(String.self, forKey: .name)
+            logo = try values.decodeIfPresent(Logo.self, forKey: .logo)
+            return
+        }
+
+        let value = try decoder.singleValueContainer()
+        id = nil
+        name = try? value.decode(String.self)
+        logo = nil
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case id, name, logo
+    }
 }
 
 struct VehicleModel: Codable {

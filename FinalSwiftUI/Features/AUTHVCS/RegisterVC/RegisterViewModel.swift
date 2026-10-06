@@ -17,8 +17,11 @@ final class RegisterViewModel: ObservableObject {
     
     @Published var countryArray = [CountryData]()
     @Published var cityArray = [CityData]()
+    @Published var brandArray = [categoryModel]()
     @Published var selectedCcountry: CountryData? = nil
     @Published var selectedCity: CityData? = nil
+    @Published var selectedBrand: categoryModel? = nil
+    @Published var selectedBrands: [categoryModel] = []
     
     private let coordinator: AuthCoordinator
     
@@ -26,6 +29,7 @@ final class RegisterViewModel: ObservableObject {
         self.coordinator = coordinator
         fetchCountries()
         fetchCities()
+        fetchBrands()
     }
     
     func disMiss(){
@@ -61,6 +65,18 @@ final class RegisterViewModel: ObservableObject {
              }
         }
     }
+
+    func fetchBrands(urlEndPoint: EndPoints = .brands, methodType: HTTPMethodType = .get) {
+        let url = "\(hostName)\(urlEndPoint.rawValue)"
+        APIClient.shared.performRequestWithAlamofire(urlString: url, method: methodType, parameters: nil) { [weak self] (model: BaseModel<[categoryModel]>?, err: String?) in
+            guard let self = self else { return }
+            if model?.status == "success" {
+                self.brandArray = model?.data ?? []
+            } else {
+                self.state = .error(err ?? "")
+            }
+        }
+    }
     
     func fetchUsers(urlEndPoint:EndPoints, methodType: HTTPMethodType  ,parameters : BaseParameters) {
         let url = "\(hostName)\(urlEndPoint.rawValue)"
@@ -78,4 +94,3 @@ final class RegisterViewModel: ObservableObject {
         }
     }
 }
-

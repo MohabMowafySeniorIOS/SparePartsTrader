@@ -92,6 +92,12 @@ struct AddPieceView: View {
                 text: $pieceNumFieldText,
                 is_validation_label: $isPieceNumFieldValid,
                 is_title_label: true, fieldtype: .constant(.PieceNum))
+            HStack {
+                Text("piece_number_hint".localized)
+                    .font(addFont(fontType: .Regular, size: 12))
+                    .foregroundStyle(Color.CGray1)
+                Spacer()
+            }
 
             SpareTextFieldWithLabel(
                 text: $pieceCountFieldText,
@@ -195,7 +201,7 @@ struct AddPieceView: View {
     func isValid() -> Bool {
         var x: Bool = true
         FieldChecker(text: pieceNameFieldText, chVar: &x, labelHidden: &isPieceNameFieldValid)
-        FieldChecker(text: pieceNumFieldText, chVar: &x, labelHidden: &isPieceNumFieldValid)
+        isPieceNumFieldValid = true
         FieldChecker(text: pieceCountFieldText, chVar: &x, labelHidden: &isPieceCountFieldValid)
         
         FieldChecker(text: descriptionText, chVar: &x, labelHidden: &isDescribtionFieldValid)
@@ -211,4 +217,3 @@ struct AddPieceView: View {
         return x
     }
 }
-

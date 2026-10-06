@@ -32,8 +32,11 @@ class AddMerchantViewModel: ObservableObject {
     
     @Published var countryArray = [CountryData]()
     @Published var cityArray = [CityData]()
+    @Published var brandArray = [categoryModel]()
     @Published var selectedCcountry: CountryData? = nil
     @Published var selectedCity: CityData? = nil
+    @Published var selectedBrand: categoryModel? = nil
+    @Published var selectedBrands: [categoryModel] = []
     
     
     @Published var logoAttachMent: Logo?
@@ -51,6 +54,7 @@ class AddMerchantViewModel: ObservableObject {
       
         fetchCountries()
         fetchCities()
+        fetchBrands()
         getAddressAgenda()
     }
     
@@ -89,6 +93,26 @@ class AddMerchantViewModel: ObservableObject {
              }else {
                  state = .error(err ?? "")
              }
+        }
+    }
+
+    func fetchBrands(urlEndPoint: EndPoints = .brands, methodType: HTTPMethodType = .get) {
+        let url = "\(hostName)\(urlEndPoint.rawValue)"
+        APIClient.shared.performRequestWithAlamofire(urlString: url, method: methodType, parameters: nil) { [weak self] (model: BaseModel<[categoryModel]>?, err: String?) in
+            guard let self = self else { return }
+            if model?.status == "success" {
+                self.brandArray = model?.data ?? []
+                if let brands = AuthService.userData?.trader?.brands, !brands.isEmpty {
+                    self.selectedBrands = brands.compactMap { brand in
+                        self.brandArray.first { $0.id == brand.id } ?? brand
+                    }
+                } else if let selectedID = AuthService.userData?.trader?.brand_id,
+                          let brand = self.brandArray.first(where: { $0.id == selectedID }) {
+                    self.selectedBrands = [brand]
+                }
+            } else {
+                self.state = .error(err ?? "")
+            }
         }
     }
     

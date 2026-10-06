@@ -26,7 +26,7 @@ struct AddCarView: View {
     
     init(viewModel: AddCarViewModel) {
         _viewModel = ObservedObject(wrappedValue: viewModel)
-        fieldText = viewModel.carModel?.chassis_number ?? ""
+        _fieldText = State(initialValue: viewModel.carModel?.chassis_number ?? "")
     }
     var body: some View {
         ShowViewState(state: viewModel.state) { Model in
@@ -80,7 +80,7 @@ struct AddCarView: View {
             VStack(spacing: 8) {
                 chestView
                 if !is_chest_validation_label {
-                    validationLabel(label: "Please Insert Chest Number".localized)
+                    validationLabel(label: "Please Insert Authority Number".localized)
                 }
             }
             
@@ -92,7 +92,7 @@ struct AddCarView: View {
     
     private var categoriesView: some View {
         VStack {
-            DropDownBar(isDropDownActive: $isCountryDropDownActive, title: "choose_car_category".localized)
+            DropDownBar(isDropDownActive: $isCountryDropDownActive, title: viewModel.carCategorySelected?.name ?? "choose_car_category")
                 .onTapGesture {
                     isCountryDropDownActive.toggle()
                 }
@@ -117,7 +117,7 @@ struct AddCarView: View {
     
     private var carBrandView: some View {
         VStack {
-            DropDownBar(isDropDownActive: $isCityDropDownActive, title: "choose_car_brand".localized)
+            DropDownBar(isDropDownActive: $isCityDropDownActive, title: viewModel.carBrandSelected?.name ?? "choose_car_brand")
                 .onTapGesture {
                     isCityDropDownActive.toggle()
                 }
@@ -126,6 +126,8 @@ struct AddCarView: View {
                 VStack(alignment: .leading){
                     ForEach(viewModel.getCarBrand,id: \.id) { item in
                         HStack{
+                            RemoteImageView(imageUrl: item.logo?.path ?? "")
+                                .frame(width: 36, height: 36)
                             SpareCityFilterBox(isBoxActive: item.id == (viewModel.carBrandSelected?.id ?? 0), city: item.name ?? "")
                                 .onTapGesture {
                                     viewModel.carBrandSelected = item
@@ -143,7 +145,7 @@ struct AddCarView: View {
     
     private var carModelView: some View {
         VStack {
-            DropDownBar(isDropDownActive: $isRegionDropDownActive, title: "chose_car_model".localized)
+            DropDownBar(isDropDownActive: $isRegionDropDownActive, title: viewModel.carModelSelected?.name ?? "chose_car_model")
                 .onTapGesture {
                     isRegionDropDownActive.toggle()
                 }
@@ -169,7 +171,7 @@ struct AddCarView: View {
     
     private var yearsView: some View {
         VStack {
-            DropDownBar(isDropDownActive: $isdateDropDownActive, title: "chose_manufacture_date".localized)
+            DropDownBar(isDropDownActive: $isdateDropDownActive, title: viewModel.carYearSelected ?? "chose_manufacture_date")
                 .onTapGesture {
                     isdateDropDownActive.toggle()
                 }
@@ -194,7 +196,7 @@ struct AddCarView: View {
     
     private var chestView: some View {
         VStack {
-            TitleLabel(title: "enter_chest_number".localized)
+            TitleLabel(title: "enter_authority_number".localized)
                 .padding(.horizontal)
             HStack{
                 PlainUIKitTextField(
@@ -288,6 +290,3 @@ struct AddCarView: View {
       }.padding(.horizontal,16)
     }
 }
-
-
-

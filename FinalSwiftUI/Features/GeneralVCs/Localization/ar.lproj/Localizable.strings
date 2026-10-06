@@ -16,6 +16,12 @@
 "chose_car_model"           = "اختار مودل السيارة";
 "chose_manufacture_date"    = "اختار سنة التصنيع";
 "enter_chest_number"        = "أدخل رقم الشاسيه";
+"enter_authority_number"    = "أدخل رقم الهيئة";
+"authority_number"           = "رقم الهيئة";
+"Please Insert Authority Number" = "من فضلك أدخل رقم الهيئة";
+"piece_number_hint"              = "يفضل إضافة رقم القطعة";
+"Choose from library"             = "اختيار من مكتبة الصور";
+"Take a photo"                    = "التقاط صورة";
 "Report a problem"          = "ابلاغ عن مشكلة";
 "Cancel"                    = "إلغاء العملية";
 "Rate"                      = "تقييم";

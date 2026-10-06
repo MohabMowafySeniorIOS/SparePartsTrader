@@ -148,6 +148,14 @@ struct AddMerchantView: View {
         
         arabicAboutBody = userModel?.trader?.description_ar ?? ""
         englishAboutBody = userModel?.trader?.description_en ?? ""
+        if let brands = userModel?.trader?.brands, !brands.isEmpty {
+            viewModel.selectedBrands = brands
+        } else if let brand = userModel?.trader?.brand {
+            viewModel.selectedBrands = [brand]
+        } else if let brandID = userModel?.trader?.brand_id,
+                  let brand = viewModel.brandArray.first(where: { $0.id == brandID }) {
+            viewModel.selectedBrands = [brand]
+        }
         
     }
     
@@ -230,6 +238,12 @@ struct AddMerchantView: View {
                 selectedItem: $viewModel.selectedCity,
                 items: viewModel.cityArray,
                 displayText: { $0.name ?? "" }
+            )
+
+            BrandMultiSelect(
+                title: "brand".localized,
+                selectedItems: $viewModel.selectedBrands,
+                items: viewModel.brandArray
             )
             
             addAddressView
@@ -331,6 +345,8 @@ struct AddMerchantView: View {
                 params.description_en = englishAboutBody
                 params.country_id = "\(viewModel.selectedCcountry?.id ?? 0)"
                 params.city_id = "\(viewModel.selectedCity?.id ?? 0)"
+                params.brand_id = "\(viewModel.selectedBrands.first?.id ?? 0)"
+                params.brand_ids = viewModel.selectedBrands.compactMap(\.id)
                 params.address = address
                 params.latitude = lat
                 params.longitude = lng
@@ -651,4 +667,3 @@ struct UploadBox: View {
         }
     }
 }
-

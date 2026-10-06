@@ -81,10 +81,15 @@ struct AddCarCard: View {
     var body: some View {
         VStack(spacing: 14) {
             carRow(label: "category".localized, value: Model.category?.name ?? "")
-            carRow(label: "brand".localized, value: Model.brand?.name ?? "")
+            HStack {
+                carRow(label: "brand".localized, value: Model.brand?.name ?? "")
+                Spacer()
+                RemoteImageView(imageUrl: Model.brand?.logo?.path ?? "")
+                    .frame(width: 44, height: 44)
+            }
             carRow(label: "model".localized, value: Model.model?.name ?? "")
             carRow(label: "manufacture_year".localized, value: "\(Model.year ?? 0)")
-            carRow(label: "chest_number".localized, value: Model.chassis_number ?? "")
+                    carRow(label: "authority_number".localized, value: Model.chassis_number ?? "")
 
             Divider()
 

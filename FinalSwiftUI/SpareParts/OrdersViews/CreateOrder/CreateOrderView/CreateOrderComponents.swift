@@ -257,22 +257,15 @@ struct CreateOrderSelectionBar: View {
     var imageName: String
     var body: some View {
         HStack {
-            if !isChecked {
-                RoundedRectangle(cornerRadius: 2)
-                    .stroke(style: StrokeStyle())
-                    .fill(Color.CGray1)
-                    .frame(width: 20, height: 20)
-                    .padding(.trailing)
-            } else {
-                RoundedRectangle(cornerRadius: 2)
-                    .fill(Color.MainColor)
-                    .frame(width: 20, height: 20)
-                    .overlay {
-                        Image(systemName: "checkmark")
-                            .foregroundStyle(Color.CWhite)
-                    }
-                    .padding(.trailing)
-            }
+            Circle()
+                .stroke(isChecked ? Color.MainColor : Color.CGray1, lineWidth: 2)
+                .frame(width: 20, height: 20)
+                .overlay {
+                    Circle()
+                        .fill(isChecked ? Color.MainColor : Color.clear)
+                        .frame(width: 10, height: 10)
+                }
+                .padding(.trailing)
             
             Text(title.localized)
                 .foregroundStyle(isChecked ? Color.MainColor : Color.CGray1)

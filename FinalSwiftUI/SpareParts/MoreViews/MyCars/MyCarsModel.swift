@@ -54,14 +54,16 @@ struct CarsData : Codable, Equatable, Hashable {
     
 }
 
-struct categoryModel : Codable, Equatable, Hashable {
+struct categoryModel : Codable, Equatable, Hashable, Identifiable {
     let id : Int?
     let name : String?
+    let logo: Logo?
     var isChoosen: Bool = false
 
     enum CodingKeys: String, CodingKey {
         case id = "id"
         case name = "name"
+        case logo = "logo"
     }
     
     mutating func toggleIsChoosen() {
