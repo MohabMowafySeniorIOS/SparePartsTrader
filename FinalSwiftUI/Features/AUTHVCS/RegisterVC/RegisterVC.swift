@@ -74,6 +74,10 @@ struct RegisterVC: View {
                 Color(Color.backGroundColor)
             )
         }
+        .onChange(of: viewModel.selectedCcountry?.id) { _, countryID in
+            viewModel.selectedCity = nil
+            viewModel.fetchCities(countryID: countryID)
+        }
     }
     
     private var mainContent: some View {
@@ -155,6 +159,8 @@ struct RegisterVC: View {
                 items: viewModel.cityArray,
                 displayText: { $0.name ?? "" }
             )
+            .disabled(viewModel.selectedCcountry == nil)
+            .opacity(viewModel.selectedCcountry == nil ? 0.55 : 1)
 
             BrandMultiSelect(
                 title: "brand".localized,

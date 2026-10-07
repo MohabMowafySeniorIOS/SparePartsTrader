@@ -45,17 +45,19 @@ struct AuthCoordinatorView: View {
                     
                 case .UpdateFileBusniss(userModel: let userModel):
                     AddMerchantView(viewModel: AddMerchantViewModel(onAddress: {
-                        AdditionalAddressDescribtionView(viewModel: AdditionalAddressDescribtionViewModel(addressModel: nil, onDismiss: {
-                            coordinator.path.removeLast()
-                        }))
-                            .navigationBarHidden(true)
+                        coordinator.showAddAddresses()
                     }, onDismiss: {
                         coordinator.path.removeLast(2)
                     }, onSuccess: {
                         coordinator.path.removeLast(2)
                     }), userModel: userModel)
                         .navigationBarHidden(true)
-                    
+
+                case .addAddress:
+                    TraderAdditionalAddressDescribtionView(viewModel: AdditionalAddressDescribtionViewModel(addressModel: nil, onDismiss: {
+                            coordinator.path.removeLast()
+                        }))
+                            .navigationBarHidden(true)
                 }
             }
         }

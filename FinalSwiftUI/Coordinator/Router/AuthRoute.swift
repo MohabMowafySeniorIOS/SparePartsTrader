@@ -11,6 +11,7 @@ enum AuthRoute: Hashable {
     case changePassword(otp: String, phone: String)
     case register
     case UpdateFileBusniss(userModel: LoginData?)
+    case addAddress
     case phone
     case verify(isForgetPass: Bool, phone: String)
 }

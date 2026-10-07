@@ -52,6 +52,7 @@ struct AddMerchantView: View {
     @State private var showImagePicker: Bool = false
     
     @State private var termsIsSelected = false
+    @State private var isLocationPickerPresented = false
     
     @State private var naviToOtp: Bool = false
     @State private var checkboxalert: Bool = false
@@ -69,9 +70,9 @@ struct AddMerchantView: View {
     @State var isTerms: Bool = false
     @State var termsMandatory: Bool = false
     
-    var address = "123 Main Street"
-    var lat = "30.0444"
-    var lng = "31.2357"
+    @State private var address = ""
+    @State private var lat = ""
+    @State private var lng = ""
     
    @ObservedObject var viewModel: AddMerchantViewModel
     init(viewModel: AddMerchantViewModel,userModel: LoginData?) {
@@ -96,8 +97,10 @@ struct AddMerchantView: View {
         }
         .onAppear {
             fillData()
-            
-           
+        }
+        .onChange(of: viewModel.selectedCcountry?.id) { _, countryID in
+            viewModel.selectedCity = nil
+            viewModel.fetchCities(countryID: countryID)
         }
         .background(Color.backGroundColor)
         .sheet(isPresented: $showImagePicker, onDismiss: {
@@ -120,10 +123,27 @@ struct AddMerchantView: View {
         }) {
             ImageOnePicker(image: $pickedImage)
         }
+        .fullScreenCover(isPresented: $isLocationPickerPresented) {
+            TraderAdditionalAddressDescribtionView(
+                viewModel: AdditionalAddressDescribtionViewModel(
+                    addressModel: nil,
+                    onDismiss: { isLocationPickerPresented = false },
+                    onLocationSelected: { selectedAddress, selectedLatitude, selectedLongitude in
+                        address = selectedAddress
+                        lat = selectedLatitude
+                        lng = selectedLongitude
+                        isLocationPickerPresented = false
+                    }
+                )
+            )
+        }
     }
     
     func fillData(){
         viewModel.logoAttachMent = userModel?.trader?.logo
+        address = userModel?.trader?.address ?? ""
+        lat = userModel?.trader?.latitude.map { "\($0)" } ?? ""
+        lng = userModel?.trader?.longitude.map { "\($0)" } ?? ""
         viewModel.commercialAttachMent = userModel?.trader?.commercial_register_image
         if (userModel?.trader?.images?.count ?? 0) > 0 {
             viewModel.image1AttachMent = userModel?.trader?.images?[0]
@@ -239,6 +259,8 @@ struct AddMerchantView: View {
                 items: viewModel.cityArray,
                 displayText: { $0.name ?? "" }
             )
+            .disabled(viewModel.selectedCcountry == nil)
+            .opacity(viewModel.selectedCcountry == nil ? 0.55 : 1)
 
             BrandMultiSelect(
                 title: "brand".localized,
@@ -325,14 +347,25 @@ struct AddMerchantView: View {
   
     @ViewBuilder
     private var addAddressView: some View {
-       
-        HStack {
-            Text("Locate the site on the map".localized)
-            Image("darkLocation")
-            Spacer()
-        }.onTapGesture {
-            viewModel.onAddress()
+        Button {
+            isLocationPickerPresented = true
+        } label: {
+            HStack {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Locate the site on the map".localized)
+                    if address.isEmpty == false {
+                        Text(address)
+                            .font(.caption)
+                            .foregroundStyle(Color.CGray1)
+                            .lineLimit(2)
+                    }
+                }
+                Image("darkLocation")
+                Spacer()
+            }
+            .contentShape(Rectangle())
         }
+        .buttonStyle(.plain)
     }
     
     private var updateButton: some View {

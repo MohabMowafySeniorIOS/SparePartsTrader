@@ -197,6 +197,7 @@ struct DataItem: Codable, Hashable {
     var isAvailable: Bool = true
     var partPrice: String = ""
     var isValid = true
+    var priceValidationMessage = "validation_required"
     
     enum CodingKeys: String, CodingKey {
         case id

@@ -495,6 +495,7 @@
 "submit"                                 = "إرسال";
 
 "validation_required"                    = "هذا الحقل مطلوب";
+"valid_price_required"                   = "أدخل سعرًا صحيحًا باستخدام الأرقام الإنجليزية";
 "validation_invalid_field"               = "هذا الحقل غير صالح";
 
 "Withdrawal of balance"                  = "سحب الرصيد";
@@ -670,3 +671,12 @@
 "part availability"                     = "توفر / عدم توفر القطعة";
 "View conversion image"                 = "عرض صورة التحويل";
 "Order Number"                          = "رقم الطلب";
+"selected_location" = "الموقع المحدد";
+"move_map_to_select" = "حرّك الخريطة لتحديد الموقع";
+"address_description_hint" = "مثال: الدور الثالث، شقة 5، بجوار الصيدلية";
+"no_search_results" = "لا توجد نتائج مطابقة";
+"location_permission_denied" = "خدمة الموقع غير مفعّلة. فعّلها من الإعدادات لتحديد موقعك تلقائيًا.";
+"open_settings" = "فتح الإعدادات";
+"Additional description of the title" = "وصف إضافي للعنوان";
+"Search About Address" = "ابحث عن العنوان";
+"loading" = "جارٍ التحميل...";

@@ -18,7 +18,8 @@ struct FinalSwiftUIApp: App {
     @StateObject private var appStatusManager = AppStatusManager.shared
     init() {
         UIView.appearance().overrideUserInterfaceStyle = .light
-        GMSServices.provideAPIKey("YOUR_API_KEY")
+        UITextField.appearance().overrideUserInterfaceStyle = .light
+        UITextView.appearance().overrideUserInterfaceStyle = .light
     }
  
     @StateObject var languageManager = LanguageManager()
@@ -40,6 +41,7 @@ struct FinalSwiftUIApp: App {
             
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.gray.opacity(0.2)) // Background color
+            .preferredColorScheme(.light)
             .onAppear {
                     print("Monitoring network status...")
                 }
@@ -62,6 +64,8 @@ class AppDelegate: NSObject, UIApplicationDelegate, MessagingDelegate {
         FirebaseApp.configure()
         AppStatusManager.shared.startListening()
 
+        GMSServices.provideAPIKey(Google_Key)
+
              UNUserNotificationCenter.current().delegate = self
              Messaging.messaging().delegate = self   // ✅ مهم
 
@@ -73,8 +77,6 @@ class AppDelegate: NSObject, UIApplicationDelegate, MessagingDelegate {
                      }
                  }
              }
-//        GMSServices.provideAPIKey(Google_Key)
-//        GMSPlacesClient.provideAPIKey(Google_Key)
         return true
     }
     
@@ -128,5 +130,4 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         print("Failed to register for remote notifications: \(error.localizedDescription)")
     }
 }
-
 

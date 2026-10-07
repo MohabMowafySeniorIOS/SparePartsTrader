@@ -35,7 +35,7 @@ struct MainCoordinatorView: View {
                     AddressAgendaView(viewModel: AddressAgendaViewModel(coordinator: coordinator))
                         .navigationBarHidden(true)
                 case .AddAddress(let addressModel):
-                    AdditionalAddressDescribtionView(viewModel: AdditionalAddressDescribtionViewModel(addressModel: addressModel, onDismiss: {
+                    TraderAdditionalAddressDescribtionView(viewModel: AdditionalAddressDescribtionViewModel(addressModel: addressModel, onDismiss: {
                         coordinator.path.removeLast()
                     }))
                         .navigationBarHidden(true)

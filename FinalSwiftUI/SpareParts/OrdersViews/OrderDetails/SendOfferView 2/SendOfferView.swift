@@ -22,13 +22,14 @@ struct PartItem: Identifiable {
 struct SendOfferView: View {
     @State var is_charge_validation_label: Bool = true
     @State var is_parts_validation_label: Bool = true
+    @State private var chargeValidationMessage = "validation_required"
     @State var items: [DataItem]
     @State private var chargePriceInput = ""
     var totalPrice: Double {
         items.reduce(0) { result, item in
             // Only active/available parts are included in the offer total.
             guard item.isAvailable else { return result }
-            let price = Double(item.partPrice) ?? 0
+            let price = Double(item.partPrice.trimmingCharacters(in: .whitespacesAndNewlines)) ?? 0
             let quantity = Double(item.quantity ?? 0)
             return result + (price * quantity)
         }
@@ -141,7 +142,7 @@ struct SendOfferView: View {
                                         .stroke(Color.gray.opacity(0.4))
                                 )
                             if !is_charge_validation_label {
-                                validationLabel(label: "validation_required".localized)
+                                validationLabel(label: chargeValidationMessage.localized)
                             }
                         }
 
@@ -191,6 +192,11 @@ struct SendOfferView: View {
             is_charge_validation_label = true
         } else if chargePriceInput.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             is_charge_validation_label = false
+            chargeValidationMessage = "validation_required"
+            isValid = false
+        } else if Double(chargePriceInput.trimmingCharacters(in: .whitespacesAndNewlines)) == nil {
+            is_charge_validation_label = false
+            chargeValidationMessage = "valid_price_required"
             isValid = false
         } else {
             is_charge_validation_label = true
@@ -208,15 +214,23 @@ struct SendOfferView: View {
         for index in items.indices {
             if items[index].isAvailable {
                 // القطعة المفعلة: السعر إجباري.
-                if items[index].partPrice.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                let enteredPrice = items[index].partPrice.trimmingCharacters(in: .whitespacesAndNewlines)
+                if enteredPrice.isEmpty {
                     isValid = false
+                    items[index].priceValidationMessage = "validation_required"
+                    items[index].toggleisValid(value: false)
+                } else if Double(enteredPrice) == nil {
+                    isValid = false
+                    items[index].priceValidationMessage = "valid_price_required"
                     items[index].toggleisValid(value: false)
                 } else {
+                    items[index].priceValidationMessage = "validation_required"
                     items[index].toggleisValid(value: true)
                 }
             } else {
                 // القطعة غير المفعلة: السعر غير مطلوب ويتم تجاهله.
                 items[index].partPrice = ""
+                items[index].priceValidationMessage = "validation_required"
                 items[index].toggleisValid(value: true)
             }
         }
@@ -355,7 +369,7 @@ struct PartCardView: View {
                                     .stroke(Color.gray.opacity(0.4))
                             )
                         if part.isAvailable && !part.isValid {
-                            validationLabel(label: "validation_required".localized)
+                            validationLabel(label: part.priceValidationMessage.localized)
                         }
                     }
                     
@@ -411,6 +425,7 @@ struct PartCardView: View {
                     // عشان المستخدم مايدخلش سعر لقطعة غير مفعلة.
                     if !newValue {
                         part.partPrice = ""
+                        part.priceValidationMessage = "validation_required"
                         part.toggleisValid(value: true)
                     }
                 }

@@ -38,6 +38,10 @@ final class AuthCoordinator: Coordinator {
         path.append(AuthRoute.phone)
     }
 
+    func showAddAddresses() {
+        path.append(AuthRoute.addAddress)
+    }
+
 
     func showOTP(phone: String,isForgetPass: Bool) {
         path.append(AuthRoute.otp(phone: phone, isForgetPass: isForgetPass))

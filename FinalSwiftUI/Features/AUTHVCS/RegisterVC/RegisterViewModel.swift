@@ -28,7 +28,6 @@ final class RegisterViewModel: ObservableObject {
     init(coordinator: AuthCoordinator) {
         self.coordinator = coordinator
         fetchCountries()
-        fetchCities()
         fetchBrands()
     }
     
@@ -53,8 +52,13 @@ final class RegisterViewModel: ObservableObject {
         }
     }
     
-    func fetchCities(urlEndPoint:EndPoints = .cities, methodType: HTTPMethodType = .get) {
-        let url = "\(hostName)\(urlEndPoint.rawValue)"
+    func fetchCities(countryID: Int?, urlEndPoint:EndPoints = .cities, methodType: HTTPMethodType = .get) {
+        guard let countryID else {
+            cityArray = []
+            selectedCity = nil
+            return
+        }
+        let url = "\(hostName)\(urlEndPoint.rawValue)?country_id=\(countryID)"
         
         APIClient.shared.performRequestWithAlamofire(urlString: url, method: methodType, parameters: nil) { [weak self] (Model: BaseModel<[CityData]>? , err : String? )in
             guard let self = self else { return }

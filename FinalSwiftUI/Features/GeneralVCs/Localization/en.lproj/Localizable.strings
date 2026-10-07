@@ -420,6 +420,7 @@
 "submit"                                = "Submit";
 
 "validation_required"                   = "This field is required";
+"valid_price_required"                  = "Enter a valid price using English numbers";
 "validation_invalid_field"              = "This field is invalid";
 
 
@@ -481,3 +482,12 @@
 /* Parts details */
 "part notes"                            = "Part Notes";
 "part availability"                     = "Part availability";
+"selected_location" = "Selected location";
+"move_map_to_select" = "Move the map to pick a location";
+"address_description_hint" = "e.g. 3rd floor, apartment 5, next to the pharmacy";
+"no_search_results" = "No matching results";
+"location_permission_denied" = "Location services are off. Enable them in Settings to use your current location.";
+"open_settings" = "Open Settings";
+"Additional description of the title" = "Additional address description";
+"Search About Address" = "Search for an address";
+"loading" = "Loading...";

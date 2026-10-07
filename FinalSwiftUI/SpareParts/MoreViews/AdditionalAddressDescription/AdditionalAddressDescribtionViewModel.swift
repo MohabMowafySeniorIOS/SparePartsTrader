@@ -19,9 +19,11 @@ class AdditionalAddressDescribtionViewModel: ObservableObject {
     @Published var addressModel:AddressData?
     
     var onDismiss: ()->Void
+    var onLocationSelected: ((String, String, String) -> Void)?
    
-    init(addressModel:AddressData?,onDismiss: @escaping ()->Void ) {
+    init(addressModel:AddressData?, onDismiss: @escaping ()->Void, onLocationSelected: ((String, String, String) -> Void)? = nil) {
         self.onDismiss = onDismiss
+        self.onLocationSelected = onLocationSelected
     }
     
     func disMiss(){

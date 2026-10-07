@@ -57,7 +57,7 @@ struct NotificationsView: View {
         } else if type == "new_message" {
             viewModel.coordinator.showChatView(roomId: notifyId ?? "", title: "Messages".localized)
         }else if type == "payment_received" {
-            viewModel.coordinator.showWallet()
+            viewModel.coordinator.showOrderDetails(orderId: notifyId ?? "")
         }
         
     }
@@ -103,4 +103,3 @@ struct NotificationCard: View {
         .shadow(color: Color.black.opacity(0.06), radius: 6, x: 0, y: 2)
     }
 }
-
