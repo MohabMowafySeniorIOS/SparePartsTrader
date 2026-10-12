@@ -25,6 +25,18 @@ final class AuthCoordinator: Coordinator {
     func openCompleteProfile(userModel: LoginData?) {
         path.append(AuthRoute.UpdateFileBusniss(userModel: userModel))
     }
+
+    func showWaitingForApproval() {
+        path = NavigationPath()
+        path.append(AuthRoute.waitingForApproval)
+    }
+
+    func returnToLogin() {
+        // Pending traders must return to the sign-in form, not be auto-routed
+        // into the app by a token retained from registration or a prior session.
+        AuthService.userData = nil
+        path = NavigationPath()
+    }
     
     func showRegister() {
         path.append(AuthRoute.register)

@@ -161,6 +161,9 @@
 "bank_account_number"     = "رقم الحساب البنكي";
 "agree_terms"             = "الموافقة على الشروط والأحكام";
 "register_submit_button"  = "تسجيل الحساب";
+"trader_approval_title" = "حسابك بانتظار الموافقة";
+"trader_approval_message" = "تم استلام طلب تسجيلك التجاري. سنراجع بياناتك ونُشعرك فور اعتماد الحساب.";
+"trader_approval_back_to_login" = "العودة إلى تسجيل الدخول";
 
 /* ============================= */
 /* القائمة الجانبية (Side Menu) */

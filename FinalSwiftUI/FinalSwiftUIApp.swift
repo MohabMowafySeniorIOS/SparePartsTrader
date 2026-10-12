@@ -125,9 +125,62 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                                     withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
             completionHandler([.banner, .sound, .badge])
         }
+
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        didReceive response: UNNotificationResponse,
+        withCompletionHandler completionHandler: @escaping () -> Void
+    ) {
+        FCMOrderNotificationRoute.enqueue(from: response.notification.request.content.userInfo)
+        completionHandler()
+    }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print("Failed to register for remote notifications: \(error.localizedDescription)")
     }
 }
 
+enum FCMOrderNotificationRoute {
+    static let notificationOpened = Foundation.Notification.Name("FCMOrderNotificationOpened")
+    private(set) static var pendingOrderID: String?
+
+    private static let orderTypes: Set<String> = [
+        "new_order", "new_offer", "offer_accepted", "rating_received",
+        "problem_reported", "problem_resolved", "problem_rejected", "order_status", "payment_received"
+    ]
+
+    static func enqueue(from userInfo: [AnyHashable: Any]) {
+        var payloads: [[String: Any]] = []
+        if let payload = userInfo as? [String: Any] { payloads.append(payload) }
+        if let payload = userInfo["data"] as? [String: Any] { payloads.append(payload) }
+        if let rawData = userInfo["data"] as? String,
+           let data = rawData.data(using: .utf8),
+           let payload = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
+            payloads.append(payload)
+        }
+
+        let type = payloads.compactMap { $0["type"] as? String ?? $0["notification_type"] as? String }
+            .first?.lowercased()
+        guard let type, orderTypes.contains(type) else { return }
+
+        let id = payloads.lazy.compactMap { payload -> String? in
+            for key in ["order_id", "orderId", "notify_id"] {
+                if let value = payload[key] as? String, !value.isEmpty { return value }
+                if let value = payload[key] as? Int { return String(value) }
+                if let value = payload[key] as? NSNumber { return value.stringValue }
+            }
+            return nil
+        }.first
+        guard let id else { return }
+
+        DispatchQueue.main.async {
+            pendingOrderID = id
+            NotificationCenter.default.post(name: notificationOpened, object: nil)
+        }
+    }
+
+    static func takePendingOrderID() -> String? {
+        defer { pendingOrderID = nil }
+        return pendingOrderID
+    }
+}

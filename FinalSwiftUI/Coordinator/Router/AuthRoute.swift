@@ -14,4 +14,5 @@ enum AuthRoute: Hashable {
     case addAddress
     case phone
     case verify(isForgetPass: Bool, phone: String)
+    case waitingForApproval
 }

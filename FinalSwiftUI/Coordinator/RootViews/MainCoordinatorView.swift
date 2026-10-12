@@ -127,5 +127,14 @@ struct MainCoordinatorView: View {
                 }
             }
         }
+        .onAppear(perform: openPendingFCMOrder)
+        .onReceive(NotificationCenter.default.publisher(for: FCMOrderNotificationRoute.notificationOpened)) { _ in
+            openPendingFCMOrder()
+        }
+    }
+
+    private func openPendingFCMOrder() {
+        guard let orderID = FCMOrderNotificationRoute.takePendingOrderID() else { return }
+        coordinator.showOrderDetails(orderId: orderID)
     }
 }

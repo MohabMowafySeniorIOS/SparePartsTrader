@@ -30,7 +30,7 @@ struct WalletMainView: View {
   
     var body: some View {
         ZStack {
-                   
+
             mainContent
                 .background(
                     Color(Color.backGroundColor)
@@ -149,24 +149,28 @@ struct WalletMainView: View {
         ScrollView {
             LazyVStack(spacing: 16) {
                 ForEach(viewModel.walletModel.indices, id: \.self) { index in
-                    let item = viewModel.walletModel[index]
-                  
-                    WalletBlockItem(
-                        item: item,
-                        itemIndex: index + 1,
-                        selectedTab: $selectedTab,
-                        banckDetailsTap: {
-                            viewModel.coordinator.BanckAccountDetails(model: item)
-                        },
-                        imageTap: {
-                            self.loadImage(urlString: item.transfer_image ?? "")
 
+                    if index < viewModel.walletModel.count {
+                        let item = viewModel.walletModel[index]
+
+                        WalletBlockItem(
+                            item: item,
+                            itemIndex: index + 1,
+                            selectedTab: $selectedTab,
+                            banckDetailsTap: {
+                                viewModel.coordinator.BanckAccountDetails(model: item)
+                            },
+                            imageTap: {
+                                self.loadImage(urlString: item.transfer_image ?? "")
+
+                            }
+                        )
+                        .onAppear {
+                            viewModel.loadMoreIfNeeded(currentItem: item)
                         }
-                    )
-                    .onAppear {
-                        viewModel.loadMoreIfNeeded(currentItem: item)
                     }
-                }
+                    }
+
                 
                 if viewModel.isLoadingMore {
                     ProgressView()

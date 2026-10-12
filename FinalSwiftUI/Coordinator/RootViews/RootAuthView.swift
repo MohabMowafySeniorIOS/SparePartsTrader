@@ -20,9 +20,7 @@ struct AuthCoordinatorView: View {
     var body: some View {
         NavigationStack(path: $coordinator.path) {
 
-            LoginVC(
-                viewModel: LoginViewModel(coordinator: coordinator)
-            )
+            LoginVC(viewModel: LoginViewModel(coordinator: coordinator))
             .navigationBarHidden(true)
             .navigationDestination(for: AuthRoute.self) { route in
                 switch route {
@@ -49,7 +47,7 @@ struct AuthCoordinatorView: View {
                     }, onDismiss: {
                         coordinator.path.removeLast(2)
                     }, onSuccess: {
-                        coordinator.path.removeLast(2)
+                        coordinator.showWaitingForApproval()
                     }), userModel: userModel)
                         .navigationBarHidden(true)
 
@@ -58,8 +56,53 @@ struct AuthCoordinatorView: View {
                             coordinator.path.removeLast()
                         }))
                             .navigationBarHidden(true)
+
+                case .waitingForApproval:
+                    TraderWaitingForApprovalView {
+                        coordinator.returnToLogin()
+                    }
+                    .navigationBarBackButtonHidden(true)
                 }
             }
         }
+    }
+}
+
+private struct TraderWaitingForApprovalView: View {
+    let onReturnToLogin: () -> Void
+
+    var body: some View {
+        VStack(spacing: 0) {
+            Spacer(minLength: 32)
+
+            Image(systemName: "clock.badge.checkmark")
+                .font(.system(size: 66, weight: .regular))
+                .foregroundStyle(Color.MainColor)
+                .frame(width: 144, height: 144)
+                .background(Color.MainColor.opacity(0.10), in: Circle())
+                .accessibilityHidden(true)
+
+            Text("trader_approval_title".localized)
+                .font(addFont(fontType: .bold, size: 24))
+                .foregroundStyle(Color.TitleColor)
+                .multilineTextAlignment(.center)
+                .padding(.top, 32)
+
+            Text("trader_approval_message".localized)
+                .font(addFont(fontType: .Regular, size: 17))
+                .foregroundStyle(Color.CGray1)
+                .multilineTextAlignment(.center)
+                .lineSpacing(6)
+                .padding(.horizontal, 30)
+                .padding(.top, 12)
+
+            Spacer()
+
+            ContentButtonView(title: "trader_approval_back_to_login".localized, action: onReturnToLogin)
+                .padding(.horizontal, 24)
+                .padding(.bottom, 24)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.backGroundColor.ignoresSafeArea())
     }
 }

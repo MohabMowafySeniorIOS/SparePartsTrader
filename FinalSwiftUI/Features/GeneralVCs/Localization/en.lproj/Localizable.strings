@@ -101,6 +101,9 @@
 "bank_account_number"     = "Bank Account Number";
 "agree_terms"             = "Agree to Terms and Conditions";
 "register_submit_button"  = "Register Account";
+"trader_approval_title" = "Your account is awaiting approval";
+"trader_approval_message" = "We’ve received your merchant registration. We’ll review your details and notify you when your account is approved.";
+"trader_approval_back_to_login" = "Back to sign in";
 
 /* ============================= */
 /* VerificationCode */
