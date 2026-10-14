@@ -134,6 +134,10 @@ struct MainCoordinatorView: View {
     }
 
     private func openPendingFCMOrder() {
+        if let chat = FCMOrderNotificationRoute.takePendingChat() {
+            coordinator.showChatView(roomId: chat.roomID, title: chat.title)
+            return
+        }
         guard let orderID = FCMOrderNotificationRoute.takePendingOrderID() else { return }
         coordinator.showOrderDetails(orderId: orderID)
     }

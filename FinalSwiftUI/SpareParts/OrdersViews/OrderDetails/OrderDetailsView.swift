@@ -64,6 +64,12 @@ struct OrderDetailsView: View {
     private func getClientScrollView(data: OrderDetailsModel) -> some View {
         ScrollView {
             VStack(spacing: 16) {
+                if isClient == false,
+                   let report = data.problemReport,
+                   let description = report.description?.trimmingCharacters(in: .whitespacesAndNewlines),
+                   !description.isEmpty {
+                    ReportedProblemSection(description: description)
+                }
                 OrderInfoSection(data: data, onChat: {
                     viewModel.openChat(with: data, title: "\(data.trader?.tradeName ?? "")-\(data.orderNumber ?? "")")
                 })
@@ -333,6 +339,29 @@ struct OrderDetailsView: View {
                         .cornerRadius(20)
                 )
         }
+    }
+}
+
+private struct ReportedProblemSection: View {
+    let description: String
+
+    var body: some View {
+        VStack(alignment: .trailing, spacing: 10) {
+            Text("problem details".localized)
+                .font(addFont(fontType: .bold, size: 16))
+                .foregroundStyle(Color.SecondaryColor)
+                .frame(maxWidth: .infinity, alignment: .trailing)
+
+            Text(description)
+                .font(addFont(fontType: .Regular, size: 15))
+                .foregroundStyle(Color.CBlack)
+                .multilineTextAlignment(.trailing)
+                .frame(maxWidth: .infinity, alignment: .trailing)
+        }
+        .padding(16)
+        .background(RoundedRectangle(cornerRadius: 18).fill(Color.CWhite))
+        .shadow(color: Color.black.opacity(0.08), radius: 8, x: 0, y: 3)
+        .padding(.horizontal)
     }
 }
 
@@ -683,7 +712,8 @@ struct OrderedPartsSection: View {
                         type: item.partType?.label ?? "",
                         notes: item.description
                     ),
-                    id: item.id ?? 0
+                    id: item.id ?? 0,
+                    hasPictures: !(item.images ?? []).isEmpty
                 ) {
                     print("show pictures tapped for item: \(item.id ?? 0)")
                     // Keep the images scoped to the exact part that was tapped.

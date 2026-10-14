@@ -103,6 +103,9 @@ class NotificationsViewModel: ObservableObject {
         APIClient.shared.performRequestWithAlamofire(urlString: url, method: methodType, parameters: ["_method": "PUT"]) { [weak self] (Model: BaseModel<String>? , err : String? )in
             guard let self = self else { return }
              if Model?.status == "success" {
+                 if notification_id.isEmpty {
+                     NotificationCenter.default.post(name: TraderNotificationEvent.markedAllRead, object: nil)
+                 }
                  
                  if self.notifications.count > 0 {
                      // reload from page 1 (calling fetchNotifications directly would append the next page)
@@ -133,4 +136,8 @@ class NotificationsViewModel: ObservableObject {
              }
         }
     }
+}
+
+enum TraderNotificationEvent {
+    static let markedAllRead = Foundation.Notification.Name("TraderNotificationsMarkedAllRead")
 }

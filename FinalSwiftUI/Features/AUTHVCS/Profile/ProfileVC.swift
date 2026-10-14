@@ -61,6 +61,11 @@ struct ProfileVC: View {
             .onAppear {
                 viewModel.getProfile()
             }
+            .onReceive(viewModel.$userModel.compactMap { $0 }) { user in
+                nameInput = user.full_name ?? ""
+                emailInput = user.email ?? ""
+                PhoneInput = (user.phone ?? "").replacingOccurrences(of: "+966", with: "")
+            }
         
     }
     

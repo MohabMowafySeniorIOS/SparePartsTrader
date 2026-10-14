@@ -24,6 +24,9 @@ struct HomeVendor: View {
             .background(
                 Color(Color.backGroundColor)
             )
+            .onReceive(NotificationCenter.default.publisher(for: TraderNotificationEvent.markedAllRead)) { _ in
+                viewModel.unreadNotificationsCount = 0
+            }
     }
     
     private var containView: some View {

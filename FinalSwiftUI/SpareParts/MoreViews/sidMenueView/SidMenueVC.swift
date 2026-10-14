@@ -145,7 +145,7 @@ struct SidMenueVC: View {
                 myMessages
                 settingView
                 FAQView
-               // pagesView
+                pagesView
                 contactUsView
                 shareView
                 rateView
@@ -222,19 +222,18 @@ struct SidMenueVC: View {
         }
     }
     
-//    private var pagesView: some View {
-//        ForEach(viewModel.pagesArray,id: \.self) { item in
-//            
-//            SidMEnueView(
-//                title: item.localized,
-//                textColor: normaltextinsideSideMenuColor,
-//                image: getImage(page: item)
-//            )
-//            .onTapGesture {
-//                self.viewModel.coordinator.showAboutUs(page: item)
-//            }
-//        }
-//    }
+    private var pagesView: some View {
+        ForEach(viewModel.pagesArray.filter { ["about", "terms", "privacy", "cancellation_policy"].contains($0) }, id: \.self) { item in
+            SidMEnueView(
+                title: item.localized,
+                textColor: normaltextinsideSideMenuColor,
+                image: getImage(page: item)
+            )
+            .onTapGesture {
+                self.viewModel.coordinator.showAboutUs(page: item)
+            }
+        }
+    }
     
     func getImage(page: String) -> String {
         var image = ""
@@ -245,6 +244,9 @@ struct SidMenueVC: View {
         }
         else if page == "privacy" {
             image = "privacy policy"
+        }
+        else if page == "cancellation_policy" {
+            image = "Cancellation policy"
         }
         
         return image

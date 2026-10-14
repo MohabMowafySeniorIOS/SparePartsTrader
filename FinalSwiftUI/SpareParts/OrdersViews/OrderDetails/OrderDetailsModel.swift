@@ -56,6 +56,7 @@ struct OrderDetailsModel: Codable, Hashable {
     let countries: [AttributeList]?
     let cities: [AttributeList]?
     let can_chat: Bool?
+    let problemReport: problem_reportModel?
 
     // 🔹 Rating (يظهر بعد تقييم الطلب)
     let rating: OrderRating?
@@ -98,6 +99,7 @@ struct OrderDetailsModel: Codable, Hashable {
         case createdAt = "created_at"
         case countries, cities
         case can_chat = "can_chat"
+        case problemReport = "problem_report"
         case rating = "rating"
         case myRating = "my_rating"
     }
@@ -158,8 +160,18 @@ struct problem_reportModel: Codable, Hashable {
     let addressText, description: String?
     let isDefault: Bool?
     let createdAt: String?
-    
-   
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case order_id
+        case order_number
+        case reporter_type
+        case latitude, longitude
+        case addressText = "address_text"
+        case description
+        case isDefault = "is_default"
+        case createdAt = "created_at"
+    }
 }
 
 

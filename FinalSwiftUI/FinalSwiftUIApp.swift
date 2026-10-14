@@ -143,6 +143,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 enum FCMOrderNotificationRoute {
     static let notificationOpened = Foundation.Notification.Name("FCMOrderNotificationOpened")
     private(set) static var pendingOrderID: String?
+    private(set) static var pendingChat: (roomID: String, title: String)?
 
     private static let orderTypes: Set<String> = [
         "new_order", "new_offer", "offer_accepted", "rating_received",
@@ -161,7 +162,31 @@ enum FCMOrderNotificationRoute {
 
         let type = payloads.compactMap { $0["type"] as? String ?? $0["notification_type"] as? String }
             .first?.lowercased()
-        guard let type, orderTypes.contains(type) else { return }
+        guard let type else { return }
+
+        let messageTypes: Set<String> = ["new_message", "message", "chat_message"]
+        if messageTypes.contains(type) {
+            let roomID = payloads.lazy.compactMap { payload -> String? in
+                for key in ["chat_id", "chatId", "room_id", "roomId", "notify_id"] {
+                    if let value = payload[key] as? String, !value.isEmpty { return value }
+                    if let value = payload[key] as? Int { return String(value) }
+                    if let value = payload[key] as? NSNumber { return value.stringValue }
+                }
+                return nil
+            }.first
+            guard let roomID else { return }
+            let title = payloads.lazy.compactMap {
+                $0["chat_title"] as? String ?? $0["sender_name"] as? String ?? $0["title"] as? String
+            }.first ?? "Messages".localized
+
+            DispatchQueue.main.async {
+                pendingChat = (roomID, title)
+                NotificationCenter.default.post(name: notificationOpened, object: nil)
+            }
+            return
+        }
+
+        guard orderTypes.contains(type) else { return }
 
         let id = payloads.lazy.compactMap { payload -> String? in
             for key in ["order_id", "orderId", "notify_id"] {
@@ -182,5 +207,10 @@ enum FCMOrderNotificationRoute {
     static func takePendingOrderID() -> String? {
         defer { pendingOrderID = nil }
         return pendingOrderID
+    }
+
+    static func takePendingChat() -> (roomID: String, title: String)? {
+        defer { pendingChat = nil }
+        return pendingChat
     }
 }

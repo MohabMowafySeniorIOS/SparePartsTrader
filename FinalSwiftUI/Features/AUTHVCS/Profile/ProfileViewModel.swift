@@ -57,17 +57,7 @@ class ProfileViewModel: ObservableObject {
             guard let self = self else { return }
              if Model?.status == "success" {
                 userModel = Model?.data
-                 cityArray.map { item in
-                     if item.id == self.userModel?.trader?.city?.id {
-                         self.selectedCity = item
-                     }
-                 }
-                 
-                 countryArray.map { item in
-                     if item.id == self.userModel?.trader?.country?.id {
-                         self.selectedCcountry = item
-                     }
-                 }
+                syncLocationSelections()
                  state = .loaded(data: Model?.data)
             }else {
                 state = .error(err ?? "")
@@ -120,6 +110,7 @@ class ProfileViewModel: ObservableObject {
             guard let self = self else { return }
              if Model?.status == "success" {
                 self.countryArray = Model?.data ?? []
+                self.syncLocationSelections()
              }else {
                  state = .error(err ?? "")
              }
@@ -133,9 +124,19 @@ class ProfileViewModel: ObservableObject {
             guard let self = self else { return }
              if Model?.status == "success" {
                 self.cityArray = Model?.data ?? []
+                self.syncLocationSelections()
              }else {
                  state = .error(err ?? "")
              }
+        }
+    }
+
+    private func syncLocationSelections() {
+        if let countryID = userModel?.trader?.country?.id {
+            selectedCcountry = countryArray.first { $0.id == countryID }
+        }
+        if let cityID = userModel?.trader?.city?.id {
+            selectedCity = cityArray.first { $0.id == cityID }
         }
     }
     
