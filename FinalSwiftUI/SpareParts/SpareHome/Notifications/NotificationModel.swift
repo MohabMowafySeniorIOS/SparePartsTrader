@@ -39,6 +39,7 @@ struct Notification: Identifiable, Codable {
     let title : String?
     let body : String?
     let notify_id : Int?
+    let order_id : Int?
     let sender_id : String?
 
     enum CodingKeys: String, CodingKey {
@@ -53,6 +54,7 @@ struct Notification: Identifiable, Codable {
         case title = "title"
         case body = "body"
         case notify_id = "notify_id"
+        case order_id = "order_id"
         case sender_id = "sender_id"
     }
 

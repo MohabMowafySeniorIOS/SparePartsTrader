@@ -108,8 +108,8 @@ final class MainCoordinator: ObservableObject {
         path.append(MainRoute.settings)
     }
     
-    func showOrderDetails(orderId: String) {
-        path.append(MainRoute.OrderDetailsView(orderId: orderId))
+    func showOrderDetails(orderId: String, problemId: String? = nil) {
+        path.append(MainRoute.OrderDetailsView(orderId: orderId, problemId: problemId))
     }
     
     func showAboutUs(page: String) {

@@ -10,6 +10,7 @@ import SwiftUI
 struct OrderDetailsView: View {
     @ObservedObject var viewModel: OrderDetailsViewModel
     @State private var showSheet = false
+    @State private var showEmptyOfferConfirmation = false
     @State private var bottomSheetType: BottomSheetType = .cancel
     @State private var showImages = false
     @State private var selectedImages: [OrderImage] = []
@@ -20,6 +21,14 @@ struct OrderDetailsView: View {
     
     var body: some View {
         mainContent
+            .alert("Cancel order".localized, isPresented: $showEmptyOfferConfirmation) {
+                Button("Cancel".localized, role: .cancel) { }
+                Button("Confirm".localized, role: .destructive) {
+                    viewModel.sendEmptyOfferForCancellation()
+                }
+            } message: {
+                Text("Are you sure you want to cancel this order?".localized)
+            }
             .onChange(of: showSheet) { newValue in
                 if newValue == false {
                     viewModel.getOrderData(orderId: viewModel.orderId)
@@ -64,12 +73,6 @@ struct OrderDetailsView: View {
     private func getClientScrollView(data: OrderDetailsModel) -> some View {
         ScrollView {
             VStack(spacing: 16) {
-                if isClient == false,
-                   let report = data.problemReport,
-                   let description = report.description?.trimmingCharacters(in: .whitespacesAndNewlines),
-                   !description.isEmpty {
-                    ReportedProblemSection(description: description)
-                }
                 OrderInfoSection(data: data, onChat: {
                     viewModel.openChat(with: data, title: "\(data.trader?.tradeName ?? "")-\(data.orderNumber ?? "")")
                 })
@@ -108,6 +111,14 @@ struct OrderDetailsView: View {
                         )
                     } onCancel: {
                         viewModel.cancelOffer(offerId: "\(data.myOffer?.id ?? 0)")
+                    }
+                }
+
+                if isClient == false, let report = viewModel.reportedProblem ?? data.problemReports?.first ?? data.problemReport {
+                    let problemType = report.problem_type?.label?.trimmingCharacters(in: .whitespacesAndNewlines)
+                    let description = report.description?.trimmingCharacters(in: .whitespacesAndNewlines)
+                    if (problemType?.isEmpty == false) || (description?.isEmpty == false) {
+                        ReportedProblemSection(problemType: problemType, description: description)
                     }
                 }
 
@@ -176,7 +187,7 @@ struct OrderDetailsView: View {
  
             if isClient == false {
                 if data.can_send_offer == true {
-                    sendPriceButton
+                    offerActionButtons
                 }
                
                 
@@ -186,10 +197,16 @@ struct OrderDetailsView: View {
                          
                 if data.status?.value == "PAID".lowercased() {
                     shippingButton(status: "PROCESSING".lowercased(), name: "On Progress".localized)
+
                 }
                 
                 if data.status?.value == "PROCESSING".lowercased() {
-                    shippingButton(status: "READY".lowercased(), name: "Running".localized)
+                    if data.deliveryType?.value == "pickup" {
+                        shippingButton(status: "WAITING_RECEIPT".lowercased(), name: "Waiting Receipt".localized)
+                    }else {
+                        shippingButton(status: "READY".lowercased(), name: "Running".localized)
+                    }
+
                 }
                 
                 if data.status?.value == "READY".lowercased() {
@@ -281,17 +298,31 @@ struct OrderDetailsView: View {
             heightValue: 50
         )
     }
-    private var sendPriceButton: some View {
-        SimpleSpareButton(
-            buttonTitle: "Send price offer".localized,
-            action: {
+    private var offerActionButtons: some View {
+        HStack(spacing: 12) {
+            Button {
                 if let data = viewModel.state.data {
                     viewModel.coordinator.sendOfferView(orderModel: data, ItemsModel: itemsPrefilledWithMyOffer(data: data))
                 }
-            },
-            widthValue: 300,
-            heightValue: 50
-        )
+            } label: {
+                Text("Send price offer".localized)
+                    .font(.custom(AppFont.bold.rawValue, size: 16))
+                    .foregroundStyle(Color.CWhite)
+                    .frame(maxWidth: .infinity, minHeight: 50)
+                    .background(Color.MainColor.cornerRadius(16))
+            }
+
+            Button {
+                showEmptyOfferConfirmation = true
+            } label: {
+                Text("Cancel order".localized)
+                    .font(.custom(AppFont.bold.rawValue, size: 16))
+                    .foregroundStyle(Color.CWhite)
+                    .frame(maxWidth: .infinity, minHeight: 50)
+                    .background(Color.CRed.cornerRadius(16))
+            }
+        }
+        .padding(.horizontal)
     }
     private func shippingButton(status: String, name: String)-> some View {
         WhiteSpareButton(
@@ -343,25 +374,47 @@ struct OrderDetailsView: View {
 }
 
 private struct ReportedProblemSection: View {
-    let description: String
+    let problemType: String?
+    let description: String?
+
+    // SwiftUI's leading edge follows the active layout direction: right in Arabic,
+    // left in English. Using trailing here would invert the requested alignment.
+    private var textAlignment: HorizontalAlignment { .leading }
+    private var frameAlignment: Alignment { .leading }
+    private var multilineAlignment: TextAlignment { .leading }
 
     var body: some View {
-        VStack(alignment: .trailing, spacing: 10) {
+        VStack(alignment: textAlignment, spacing: 10) {
             Text("problem details".localized)
                 .font(addFont(fontType: .bold, size: 16))
                 .foregroundStyle(Color.SecondaryColor)
-                .frame(maxWidth: .infinity, alignment: .trailing)
+                .frame(maxWidth: .infinity, alignment: frameAlignment)
 
-            Text(description)
-                .font(addFont(fontType: .Regular, size: 15))
-                .foregroundStyle(Color.CBlack)
-                .multilineTextAlignment(.trailing)
-                .frame(maxWidth: .infinity, alignment: .trailing)
+            if let problemType, !problemType.isEmpty {
+                detailRow(title: "problem type".localized, value: problemType)
+            }
+            if let description, !description.isEmpty {
+                detailRow(title: "problem description".localized, value: description)
+            }
         }
         .padding(16)
         .background(RoundedRectangle(cornerRadius: 18).fill(Color.CWhite))
         .shadow(color: Color.black.opacity(0.08), radius: 8, x: 0, y: 3)
         .padding(.horizontal)
+    }
+
+    private func detailRow(title: String, value: String) -> some View {
+        VStack(alignment: textAlignment, spacing: 4) {
+            Text(title)
+                .font(addFont(fontType: .bold, size: 14))
+                .foregroundStyle(Color.TitleColor)
+                .frame(maxWidth: .infinity, alignment: frameAlignment)
+            Text(value)
+                .font(addFont(fontType: .Regular, size: 15))
+                .foregroundStyle(Color.CBlack)
+                .multilineTextAlignment(multilineAlignment)
+                .frame(maxWidth: .infinity, alignment: frameAlignment)
+        }
     }
 }
 

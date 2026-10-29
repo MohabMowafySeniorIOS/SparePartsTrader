@@ -57,6 +57,7 @@ struct OrderDetailsModel: Codable, Hashable {
     let cities: [AttributeList]?
     let can_chat: Bool?
     let problemReport: problem_reportModel?
+    let problemReports: [problem_reportModel]?
 
     // 🔹 Rating (يظهر بعد تقييم الطلب)
     let rating: OrderRating?
@@ -100,6 +101,7 @@ struct OrderDetailsModel: Codable, Hashable {
         case countries, cities
         case can_chat = "can_chat"
         case problemReport = "problem_report"
+        case problemReports = "problem_reports"
         case rating = "rating"
         case myRating = "my_rating"
     }
@@ -154,26 +156,49 @@ struct OrderRating: Codable, Hashable {
 struct problem_reportModel: Codable, Hashable {
     let id: Int?
     let order_id: Int?
-    let order_number: Int?
+    let order_number: String?
     let reporter_type: String?
-    let latitude, longitude: Double?
-    let addressText, description: String?
-    let isDefault: Bool?
-    let createdAt: String?
+    let problem_type: ProblemReportType?
+    let description: String?
 
     enum CodingKeys: String, CodingKey {
         case id
         case order_id
         case order_number
         case reporter_type
-        case latitude, longitude
-        case addressText = "address_text"
+        case problem_type
         case description
-        case isDefault = "is_default"
-        case createdAt = "created_at"
+    }
+
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        id = try? values.decodeIfPresent(Int.self, forKey: .id)
+        order_id = try? values.decodeIfPresent(Int.self, forKey: .order_id)
+        reporter_type = try? values.decodeIfPresent(String.self, forKey: .reporter_type)
+        description = try? values.decodeIfPresent(String.self, forKey: .description)
+
+        if let stringValue = try? values.decodeIfPresent(String.self, forKey: .order_number) {
+            order_number = stringValue
+        } else if let intValue = try? values.decodeIfPresent(Int.self, forKey: .order_number) {
+            order_number = String(intValue)
+        } else {
+            order_number = nil
+        }
+
+        if let objectValue = try? values.decodeIfPresent(ProblemReportType.self, forKey: .problem_type) {
+            problem_type = objectValue
+        } else if let label = try? values.decodeIfPresent(String.self, forKey: .problem_type) {
+            problem_type = ProblemReportType(value: nil, label: label)
+        } else {
+            problem_type = nil
+        }
     }
 }
 
+struct ProblemReportType: Codable, Hashable {
+    let value: String?
+    let label: String?
+}
 
 // MARK: - Address
 struct Address: Codable, Hashable {

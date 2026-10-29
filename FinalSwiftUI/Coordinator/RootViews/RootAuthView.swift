@@ -45,7 +45,7 @@ struct AuthCoordinatorView: View {
                     AddMerchantView(viewModel: AddMerchantViewModel(onAddress: {
                         coordinator.showAddAddresses()
                     }, onDismiss: {
-                        coordinator.path.removeLast(2)
+                        coordinator.returnToLogin()
                     }, onSuccess: {
                         coordinator.showWaitingForApproval()
                     }), userModel: userModel)
@@ -67,7 +67,6 @@ struct AuthCoordinatorView: View {
         }
     }
 }
-
 private struct TraderWaitingForApprovalView: View {
     let onReturnToLogin: () -> Void
 

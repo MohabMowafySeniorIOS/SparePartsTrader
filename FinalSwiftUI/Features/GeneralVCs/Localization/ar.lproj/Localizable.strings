@@ -13,6 +13,8 @@
 "add_car"                   = "أضف سيارة";
 "choose_car_category"       = "اختار فئة السيارة";
 "choose_car_brand"          = "اختار ماركة السيارة";
+"choose_brand"              = "اختر الماركة";
+"search_car_brands" = "ابحث عن ماركة السيارة ...";
 "chose_car_model"           = "اختار مودل السيارة";
 "chose_manufacture_date"    = "اختار سنة التصنيع";
 "enter_chest_number"        = "أدخل رقم الشاسيه";
@@ -24,11 +26,13 @@
 "Take a photo"                    = "التقاط صورة";
 "Report a problem"          = "ابلاغ عن مشكلة";
 "Cancel"                    = "إلغاء العملية";
+"Confirm"                   = "تأكيد";
 "Rate"                      = "تقييم";
 "Confirm receipt"           = "تأكيد الإستلام";
 "Confirm cancellation"      = "تاكيد الالغاء";
 "Confirm report"            = "تاكيد الابلاغ";
 "Cancel order"              = "الغاء الطلب";
+"Are you sure you want to cancel this order?" = "هل أنت متأكد من إلغاء هذا الطلب؟";
 "Rating"                    = "التقييم";
 "Don't want"                = "لا أرغب";
 "Bad service"               = "الخدمة سيئة";
@@ -640,8 +644,10 @@
 "Total platform commission"                     = "إجمالي عمولة المنصة";
 "Amount Due"                                    = "إجمالي السعر";
 "Part Price"                                    = "سعر القطعة";
+"price_without_tax_hint" = "ادخل السعر بدون ضريبة";
 "Parts Count: "                                 = "عدد القطع: ";
 "Done"                                          = "تم";
+"Waiting Receipt"                               = "في انتظار الاستلام";
 "Expand Your Sales with Drivak.⁠" = "وسّع نطاق مبيعاتك مع درايفاك";
 "Receive daily spare parts requests from customers across Saudi Arabia and grow your business effortlessly.⁠" = "ستقبل طلبات قطع الغيار يومياً من عملاء في جميع أنحاء المملكة العربية السعودية، وزد من حجم مبيعاتك بكل سهولة.";
 
@@ -683,3 +689,5 @@
 "Additional description of the title" = "وصف إضافي للعنوان";
 "Search About Address" = "ابحث عن العنوان";
 "loading" = "جارٍ التحميل...";
+"problem type" = "نوع المشكلة";
+"problem description" = "وصف المشكلة";

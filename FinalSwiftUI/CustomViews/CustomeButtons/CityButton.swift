@@ -183,6 +183,7 @@ struct BrandMultiSelect: View {
     let items: [categoryModel]
     @State private var isPresented = false
     @State private var draftSelectedItems: [categoryModel] = []
+    @State private var brandSearchText = ""
 
     private var selectedNames: String {
         selectedItems.compactMap { $0.name }.joined(separator: ", ")
@@ -197,7 +198,7 @@ struct BrandMultiSelect: View {
             Button { isPresented = true } label: {
                 HStack {
                     if let first = selectedItems.first, let path = first.logo?.path, !path.isEmpty {
-                        RemoteImageView(imageUrl: path).frame(width: 32, height: 32)
+                        BrandLogoView(imageUrl: path, size: CGSize(width: 36, height: 36))
                     }
                     Text(selectedNames.isEmpty ? "choose_brand".localized : selectedNames)
                         .font(.custom(AppFont.Medium.rawValue, size: 16))
@@ -214,29 +215,63 @@ struct BrandMultiSelect: View {
             .buttonStyle(.plain)
             .sheet(isPresented: $isPresented, onDismiss: {
                 draftSelectedItems = selectedItems
+                brandSearchText = ""
             }) {
                 VStack(spacing: 12) {
                     Text(title.localized)
                         .font(.custom(AppFont.bold.rawValue, size: 18))
 
-                    ScrollView {
-                        LazyVStack(spacing: 0) {
-                            ForEach(items, id: \.id) { item in
-                                Button { toggle(item) } label: {
-                                    HStack(spacing: 12) {
-                                        if let path = item.logo?.path, !path.isEmpty {
-                                            RemoteImageView(imageUrl: path).frame(width: 40, height: 40)
+                    HStack(spacing: 10) {
+                        Image(systemName: "magnifyingglass")
+                            .foregroundStyle(Color.MainColor)
+                        TextField("search_car_brands".localized, text: $brandSearchText)
+                            .autocorrectionDisabled()
+                            .textInputAutocapitalization(.never)
+                        if !brandSearchText.isEmpty {
+                            Button {
+                                brandSearchText = ""
+                            } label: {
+                                Image(systemName: "xmark.circle.fill")
+                                    .foregroundStyle(Color.CGray2)
+                            }
+                            .buttonStyle(.plain)
+                        }
+                    }
+                    .padding(.horizontal, 14)
+                    .frame(height: 48)
+                    .background(Color.CWhite, in: RoundedRectangle(cornerRadius: 12))
+                    .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.TextBorderColor))
+                    .padding(.horizontal)
+
+                    let query = brandSearchText.trimmingCharacters(in: .whitespacesAndNewlines)
+                    let filteredItems = query.isEmpty ? items : items.filter {
+                        ($0.name ?? "").range(of: query, options: [.caseInsensitive, .diacriticInsensitive]) != nil
+                    }
+
+                    if filteredItems.isEmpty {
+                        Text(query.isEmpty ? "no_car_brands_available".localized : "no_search_results".localized)
+                            .foregroundStyle(Color.CGray2)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                    } else {
+                        ScrollView {
+                            LazyVStack(spacing: 0) {
+                                ForEach(filteredItems, id: \.id) { item in
+                                    Button { toggle(item) } label: {
+                                        HStack(spacing: 12) {
+                                            if let path = item.logo?.path, !path.isEmpty {
+                                                BrandLogoView(imageUrl: path, size: CGSize(width: 36, height: 36))
+                                            }
+                                            Text(item.name ?? "")
+                                            Spacer()
+                                            Image(systemName: draftSelectedItems.contains(where: { $0.id == item.id }) ? "checkmark.square.fill" : "square")
+                                                .font(.system(size: 24))
+                                                .foregroundStyle(draftSelectedItems.contains(where: { $0.id == item.id }) ? Color.MainColor : Color.CGray2)
                                         }
-                                        Text(item.name ?? "")
-                                        Spacer()
-                                        Image(systemName: draftSelectedItems.contains(where: { $0.id == item.id }) ? "checkmark.square.fill" : "square")
-                                            .font(.system(size: 24))
-                                            .foregroundStyle(draftSelectedItems.contains(where: { $0.id == item.id }) ? Color.MainColor : Color.CGray2)
+                                        .padding(.horizontal).padding(.vertical, 12)
                                     }
-                                    .padding(.horizontal).padding(.vertical, 12)
+                                    .buttonStyle(.plain)
+                                    Divider()
                                 }
-                                .buttonStyle(.plain)
-                                Divider()
                             }
                         }
                     }
@@ -250,7 +285,7 @@ struct BrandMultiSelect: View {
                 }
                 .padding(.top)
                 .onAppear { draftSelectedItems = selectedItems }
-                .modifier(DetentsIfAvailable(height: CGFloat(min(max(items.count, 1), 8) * 70 + 100)))
+                .modifier(DetentsIfAvailable(height: CGFloat(min(max(items.count, 1), 6) * 66 + 190)))
             }
         }
     }
@@ -261,5 +296,34 @@ struct BrandMultiSelect: View {
         } else {
             draftSelectedItems.append(item)
         }
+    }
+}
+
+/// Keeps logos in the merchant registration brand picker visually consistent
+/// without cropping brands whose source images have different aspect ratios.
+private struct BrandLogoView: View {
+    let imageUrl: String
+    let size: CGSize
+
+    var body: some View {
+        AsyncImage(url: URL(string: imageUrl)) { phase in
+            if let image = phase.image {
+                image
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: size.width, height: size.height)
+            } else if phase.error != nil {
+                Image(systemName: "car.side")
+                    .resizable()
+                    .scaledToFit()
+                    .foregroundStyle(Color.CGray2)
+                    .padding(min(size.width, size.height) * 0.2)
+                    .frame(width: size.width, height: size.height)
+            } else {
+                ProgressView()
+                    .frame(width: size.width, height: size.height)
+            }
+        }
+        .frame(width: size.width, height: size.height)
     }
 }

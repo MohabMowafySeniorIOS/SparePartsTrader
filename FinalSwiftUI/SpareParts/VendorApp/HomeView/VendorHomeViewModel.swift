@@ -15,6 +15,7 @@ class VendorHomeViewModel: ObservableObject {
     @Published var state: viewState<VendorHomeData?> = .idle
     @Published var isRecivingOrder: Bool = false
     @Published var unreadNotificationsCount: Int = 0
+    @Published var awaitingOfferCount: Int = 0
     @ObservedObject var coordinator: MainCoordinator
     
     init(coordinator: MainCoordinator) {
@@ -50,8 +51,11 @@ class VendorHomeViewModel: ObservableObject {
         APIClient.shared.performRequestWithAlamofire(urlString: url, method: .get, parameters:nil) { [weak self] (Model: BaseModel<VendorHomeData>? , err : String? )in
             guard let self = self else { return }
             if Model?.status == "success" {
-                self.state = .loaded(data: Model?.data)
-                self.isRecivingOrder = Model?.data?.is_receiving_orders ?? false
+                DispatchQueue.main.async {
+                    self.state = .loaded(data: Model?.data)
+                    self.isRecivingOrder = Model?.data?.is_receiving_orders ?? false
+                    self.awaitingOfferCount = Model?.data?.awaiting_offer ?? 0
+                }
             } else {
                 self.state = .error(err ?? "")
             }

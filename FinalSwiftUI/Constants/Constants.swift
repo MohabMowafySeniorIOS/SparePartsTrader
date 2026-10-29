@@ -14,7 +14,14 @@ let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? S
 // TODO: replace with the real numeric App Store Connect app ID (e.g. "id1234567890")
 let AppStoreAppId = "6759916278"
 let Currency = "R.S".localized
-let hostName = "https://drivak.com.sa/api/"
+enum APIEnvironment {
+    /// Set to `true` to send this app's API requests to the test server.
+    static let useTestBaseURL = true
+    static let baseURL = useTestBaseURL
+        ? "https://car-parts-new.e3gaz.com/api/"
+        : "https://drivak.com.sa/api/"
+}
+let hostName = APIEnvironment.baseURL
 let isClient = false
 let userType = isClient ? "client" : "trader"
 let appLanguage = Bundle.main.preferredLocalizations.first ?? "en"

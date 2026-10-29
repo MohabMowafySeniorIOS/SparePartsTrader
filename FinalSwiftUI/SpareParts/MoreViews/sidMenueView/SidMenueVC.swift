@@ -101,8 +101,8 @@ struct SidMenueVC: View {
                     .clipShape(Circle())
             }
 
-            if AuthService.userData?.full_name != nil{
-                Text(AuthService.userData?.full_name ?? "")
+            if let displayName = AuthService.userData?.trader?.displayStoreName ?? AuthService.userData?.full_name {
+                Text(displayName)
                     .font(addFont(fontType: .bold, size: 17))
                     .foregroundStyle(Color.CBlack)
             }else{

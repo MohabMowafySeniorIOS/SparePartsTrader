@@ -37,10 +37,6 @@ struct APIClient {
             if AuthService.userData?.token != "" && AuthService.userData?.token  != nil {
                 headers?["Authorization"] = "Bearer \(AuthService.userData?.token ?? "")"
             }
-            print("HEADERS-------->\(headers)")
-            print("parameters-------->\(parameters)")
-            print("method-------->\(method)")
-            print("urlString-------->\(urlString)")
           
             AF.request(
                 urlString,
@@ -56,34 +52,27 @@ struct APIClient {
                 switch response.result {
                 case .success(let data):
                     
-                    print(data, response.response?.statusCode)
                     guard let data = response.data else {
                         return
                     }
-                    print(data)
                     do {
                         
                         
                         if let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
                            let jsonDict = jsonObject as? [String: Any] {
-                            print("Dictionary response: \(jsonDict)")
                             if ((jsonDict["status"] as? String) == "fail") || ((jsonDict["status"] as? Bool) == false){
                                 completion(nil , jsonDict["message"] as? String)
                             }
                         } else {
-                            print("Response is not a dictionary")
                         }
                         let Posts = try JSONDecoder().decode(T.self, from: data)
-                        print(Posts)
                         completion(Posts, nil)
                     }catch let error {
                         completion(nil , "\(error)")
-                        print("----------->>>>>>>>>>>>>>>" ,error , "----------->>>>>>>>>>>>>>>>>>")
                         
                     }
                     
                 case .failure(let error):
-                    print("----------->>>>>>>>>>>>>>>" ,error.localizedDescription , "----------->>>>>>>>>>>>>>>>>>")
                     completion(nil, handleAlamofireError(response: response, error: error))
                 }
             }
@@ -110,18 +99,13 @@ struct APIClient {
         
         if let token = AuthService.userData?.token, !token.isEmpty {
             headers["Authorization"] = "Bearer \(token)"
-            headers["user-type"] = "client"
+            headers["user-type"] = userType
         }
         
-        print("HEADERS-------->\(headers)")
-        print("parameters-------->\(parameters)")
-       
-        print("urlString-------->\(urlString)")
 
         AF.upload(
             multipartFormData: { multipartFormData in
                 // Append images
-                print(images)
             
 //                if let imageData = UIImage(named: "image")?.jpegData(compressionQuality: 0.8) {
 //                        
@@ -161,23 +145,18 @@ struct APIClient {
             switch response.result {
             case .success(let data):
                 do {
-                    print(try? JSONSerialization.jsonObject(with: data, options: []))
                     if let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
                        let jsonDict = jsonObject as? [String: Any],
                        ((jsonDict["status"] as? String) == "fail" || (jsonDict["status"] as? Bool) == false) {
-                        print(jsonDict)
                         completion(nil, jsonDict["message"] as? String)
                         return
                     }
                     let decoded = try JSONDecoder().decode(T.self, from: data)
-                   print(decoded)
                     completion(decoded, nil)
                 } catch {
                     completion(nil, "\(error)")
-                    print("Decoding error: \(error)")
                 }
             case .failure(let error):
-                print("Upload failed: \(error.localizedDescription)")
                 completion(nil, handleAlamofireError(response: response, error: error))
             }
         }
@@ -188,7 +167,6 @@ struct APIClient {
     func handleAlamofireError(response: AFDataResponse<Data>, error: AFError) -> String {
         var err = ""
         if let responseCode = response.response?.statusCode {
-            print("HTTP Status Code: \(responseCode)")
             err = "User Not Authenticated"
             if let responseCode = response.response?.statusCode, responseCode == 401 {
                 // restart app to login screen
@@ -199,14 +177,10 @@ struct APIClient {
             }
         }
         
-        if let underlyingError = error.underlyingError {
-            print("Underlying Error: \(underlyingError.localizedDescription)")
-        }
         
         if let data = response.data  {
             let jsonObject = try? JSONSerialization.jsonObject(with: data, options: [])
            if let jsonDict = jsonObject as? [String: Any] {
-                print("Dictionary response: \(jsonDict)")
                if ((jsonDict["message"] as? String)?.count ?? 0) > 0 {
                    err = (jsonDict["message"] as? String)!
                    return err
@@ -218,19 +192,14 @@ struct APIClient {
         switch error {
         case .sessionTaskFailed(let sessionError):
             err = "Session Task Failed: \(sessionError.localizedDescription)"
-            print("Session Task Failed: \(sessionError.localizedDescription)")
         case .responseValidationFailed(let reason):
             err = "Validation Error: \(reason)"
-            print("Validation Error: \(reason)")
         case .responseSerializationFailed(let reason):
-            print("Serialization Error: \(reason)")
             err = "Serialization Error: \(reason)"
         default:
             
-            print("Other Error: \(error.localizedDescription)")
             err = "Other Error: \(error.localizedDescription)"
         }
-        print("----------->>>>>>>>>>>>>>>" ,err , "----------->>>>>>>>>>>>>>>>>>")
         return err
     }
 }

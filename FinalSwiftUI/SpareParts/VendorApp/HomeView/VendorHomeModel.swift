@@ -8,6 +8,7 @@
 import Foundation
 struct VendorHomeData : Codable {
     let is_receiving_orders : Bool?
+    let awaiting_offer : Int?
     let offers : Offers?
     let orders : Orders?
     let financial : Financial?
@@ -17,6 +18,7 @@ struct VendorHomeData : Codable {
     enum CodingKeys: String, CodingKey {
 
         case is_receiving_orders = "is_receiving_orders"
+        case awaiting_offer = "awaiting_offer"
         case offers = "offers"
         case orders = "orders"
         case financial = "financial"

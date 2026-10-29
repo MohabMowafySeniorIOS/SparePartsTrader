@@ -14,7 +14,7 @@ enum MainRoute: Equatable, Hashable {
     //case addPiece
     case vendorDetails(rating: Double , vendorId: String)
     case showNotification
-    case OrderDetailsView(orderId: String)
+    case OrderDetailsView(orderId: String, problemId: String?)
     case SendOfferView(orderModel: OrderDetailsModel?,ItemsModel:[DataItem])
     case BanckAccountDetails(model: TransactionItem?)
     //MARK: MoreVC

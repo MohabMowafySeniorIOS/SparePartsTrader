@@ -27,6 +27,8 @@
 "Next"                                                                                = "Next"                          ;
 "Confirm"                                                                             = "Confirm"                       ;
 "Cancel"                                                                              = "Cancel"                        ;
+"Cancel order"                                                                         = "Cancel order"                  ;
+"Are you sure you want to cancel this order?"                                          = "Are you sure you want to cancel this order?";
 "Language"                                                                            = "Language"                      ;
 "Save"                                                                                = "Save"                          ;
 "Add"                                                                                 = "Add"                           ;
@@ -320,6 +322,8 @@
 "add_car"                                 = "Add Car";
 "choose_car_category"                     = "Select Car Category";
 "choose_car_brand"                        = "Select Car Brand";
+"choose_brand"                            = "Choose brand";
+"search_car_brands" = "Search for a car brand ...";
 "chose_car_model"                         = "Select Car Model";
 "chose_manufacture_date"                  = "Select Year Of Manufacture";
 "enter_chest_number"                      = "ِEnter Chest Number";
@@ -483,6 +487,7 @@
 "Charge Price"                          = "Shipping Price";
 
 /* Parts details */
+"price_without_tax_hint" = "Enter the price without tax";
 "part notes"                            = "Part Notes";
 "part availability"                     = "Part availability";
 "selected_location" = "Selected location";
@@ -494,3 +499,6 @@
 "Additional description of the title" = "Additional address description";
 "Search About Address" = "Search for an address";
 "loading" = "Loading...";
+"problem type" = "Problem type";
+"problem description" = "Description";
+"problem details" = "Problem details";

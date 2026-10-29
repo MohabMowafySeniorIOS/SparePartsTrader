@@ -140,8 +140,6 @@ class AddMerchantViewModel: ObservableObject {
     func completeProfile(parameters:BaseParameters) {
         let url = "\(hostName)\(EndPoints.completeProfile.rawValue)"
         state = .loading(loading: .progress)
-        print(parameters.toDictionary())
-       
         APIClient.shared.performRequestWithAlamofire(urlString: url, method: .post, parameters:parameters.toDictionary()) { [weak self] (Model: BaseModel<HomeResponse>? , err : String? )in
             guard let self = self else { return }
             if Model?.status == "success" {

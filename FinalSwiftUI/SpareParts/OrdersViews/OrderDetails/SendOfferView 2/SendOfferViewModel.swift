@@ -46,11 +46,11 @@ class SendOfferViewModel: ObservableObject {
                 if parts[item].is_available == "true" {
                     dict["items[\(item)][order_item_id]"] = parts[item].order_item_id
                     dict["items[\(item)][price]"] = Double(parts[item].price) ?? 0.0
-                  //  dict["items[\(item)][is_available]"] = parts[item].is_available
+                    dict["items[\(item)][is_available]"] = 1
                 }else {
-//                    dict["items[\(item)][order_item_id]"] = parts[item].order_item_id
-//                    dict["items[\(item)][price]"] = parts[item].price
-//                    dict["items[\(item)][is_available]"] = parts[item].is_available
+                    dict["items[\(item)][order_item_id]"] = parts[item].order_item_id
+                    dict["items[\(item)][price]"] = Double(parts[item].price) ?? 0.0
+                    dict["items[\(item)][is_available]"] = 0
                 }
                
             }

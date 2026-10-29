@@ -58,11 +58,6 @@ struct RegisterVC: View {
     @State var is_city_validation_label: Bool = true
     @State var Validation_city_label: String = "City Is Required".localized
 
-    @State var is_brand_validation_label: Bool = true
-    @State var Validation_brand_label: String = "Brand Is Required".localized
-    
-   
-    
     @ObservedObject private var viewModel: RegisterViewModel
     init(viewModel: RegisterViewModel) {
         _viewModel = ObservedObject(wrappedValue: viewModel)
@@ -162,20 +157,6 @@ struct RegisterVC: View {
             .disabled(viewModel.selectedCcountry == nil)
             .opacity(viewModel.selectedCcountry == nil ? 0.55 : 1)
 
-            BrandMultiSelect(
-                title: "brand".localized,
-                selectedItems: $viewModel.selectedBrands,
-                items: viewModel.brandArray
-            )
-            if !is_brand_validation_label {
-                HStack {
-                    Text(Validation_brand_label.localized)
-                        .font(addFont(fontType: .bold, size: 12))
-                        .foregroundStyle(Color.CRed)
-                    Spacer()
-                }
-            }
-            
             CustomePasswordTF(
                 text: $passwordField.input,
                 title_label: passwordField.titleLabel,
@@ -211,7 +192,7 @@ struct RegisterVC: View {
         VStack {
             ContentButtonView(title: "register_submit_button".localized) {
                 if isValid() {
-                    viewModel.fetchUsers(urlEndPoint: .register, methodType: .post ,parameters: .init(full_name: nameField.input,email: emailField.input,phone: phoneField.input,city_id:"\(viewModel.selectedCity?.id ?? 0)", brand_id: "\(viewModel.selectedBrands.first?.id ?? 0)", brand_ids: viewModel.selectedBrands.compactMap(\.id), password: passwordField.input))
+                    viewModel.fetchUsers(urlEndPoint: .register, methodType: .post ,parameters: .init(full_name: nameField.input,email: emailField.input,phone: phoneField.input,city_id:"\(viewModel.selectedCity?.id ?? 0)", password: passwordField.input))
                 }
             }
             .padding(.top)
@@ -238,12 +219,6 @@ struct RegisterVC: View {
             is_city_validation_label = true
         }
 
-        if viewModel.selectedBrands.isEmpty {
-            is_brand_validation_label = false
-            x = false
-        }else{
-            is_brand_validation_label = true
-        }
         if !Check(fieldText: passwordField.input){
             passwordField.isValidationHidden = false
             x = false

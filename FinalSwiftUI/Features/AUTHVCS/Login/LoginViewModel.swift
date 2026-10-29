@@ -42,7 +42,11 @@ final class LoginViewModel: ObservableObject {
                 state = .loaded(data: Model?.data)
                 AuthService.userData = Model?.data
                 if Model?.data?.is_active == true {
-                    self.coordinator.loginSuccess()
+                    if Model?.data?.is_profile_complate == false {
+                        self.coordinator.openCompleteProfile(userModel: Model?.data)
+                    } else {
+                        self.coordinator.loginSuccess()
+                    }
                 }else {
                     
                     self.showOtp(phone: phone ?? "" , isForgetPass: false)

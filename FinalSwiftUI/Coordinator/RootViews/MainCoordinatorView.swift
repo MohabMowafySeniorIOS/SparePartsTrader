@@ -80,8 +80,8 @@ struct MainCoordinatorView: View {
                 case .updatePassword:
                     UpdatePasswordView(viewModel: UpdatePasswordViewModel(coordinator: coordinator))
                         .navigationBarHidden(true)
-                case .OrderDetailsView(let orderId):
-                    OrderDetailsView(viewModel: OrderDetailsViewModel(coordinator: coordinator, orderId: orderId))
+                case .OrderDetailsView(let orderId, let problemId):
+                    OrderDetailsView(viewModel: OrderDetailsViewModel(coordinator: coordinator, orderId: orderId, problemId: problemId))
                         .navigationBarHidden(true)
                     
                 case .updatePhone:

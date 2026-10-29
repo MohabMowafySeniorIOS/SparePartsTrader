@@ -33,11 +33,20 @@ class VerificationViewModel: ObservableObject {
     func VerifyAccount(urlEndPoint:EndPoints, methodType: HTTPMethodType  ,parameters : BaseParameters) {
         let url = "\(hostName)\(urlEndPoint.rawValue)"
         isLoading = true
-        print(parameters)
         APIClient.shared.performRequestWithAlamofire(urlString: url, method: methodType, parameters: parameters.toDictionary()) { [weak self] (Model: BaseModel<LoginData>? , err : String? )in
             guard let self = self else { return }
              if Model?.status == "success" {
-                 self.coordinator.openCompleteProfile(userModel: Model?.data)
+                 guard let verifiedUser = Model?.data,
+                       let token = verifiedUser.token,
+                       !token.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+                     self.errorMessage = err ?? "Unable to establish a secure session. Please try again."
+                     self.isLoading = false
+                     return
+                 }
+                 AuthService.userData = verifiedUser
+                 DispatchQueue.main.async {
+                     self.coordinator.openCompleteProfile(userModel: verifiedUser)
+                 }
                 
            }else {
             self.errorMessage = err
@@ -55,7 +64,6 @@ class VerificationViewModel: ObservableObject {
     func VerifyPassword(urlEndPoint:EndPoints = .password_verify, methodType: HTTPMethodType  ,parameters : BaseParameters) {
         let url = "\(hostName)\(urlEndPoint.rawValue)"
         isLoading = true
-        print(parameters)
         APIClient.shared.performRequestWithAlamofire(urlString: url, method: methodType, parameters: parameters.toDictionary()) { [weak self] (Model: BaseModel<LoginData>? , err : String? )in
             guard let self = self else { return }
              if Model?.status == "success" {

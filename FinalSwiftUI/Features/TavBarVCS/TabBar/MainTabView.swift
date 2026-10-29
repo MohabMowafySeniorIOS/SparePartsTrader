@@ -4,9 +4,11 @@ struct MainTabView: View {
     
     @State private var selectedTab = 3
     private let coordinator: MainCoordinator
+    @StateObject private var homeViewModel: VendorHomeViewModel
     
     init(coordinator: MainCoordinator) {
         self.coordinator = coordinator
+        _homeViewModel = StateObject(wrappedValue: VendorHomeViewModel(coordinator: coordinator))
     }
 
     var body: some View {
@@ -14,7 +16,7 @@ struct MainTabView: View {
                 
                 TabView(selection: $selectedTab) {
                   
-                    HomeVendor(viewModel: VendorHomeViewModel(coordinator: coordinator), selectedTab: $selectedTab)
+                    HomeVendor(viewModel: homeViewModel, selectedTab: $selectedTab)
                         .tabItem {
                             Image(systemName: "house.fill")
                             Text("home".localized)
@@ -33,6 +35,7 @@ struct MainTabView: View {
                                 Image.order
                                 Text("orders".localized)
                             }
+                            .badge(homeViewModel.awaitingOfferCount)
                             .tag(1)
                         
                       

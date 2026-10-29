@@ -102,8 +102,8 @@ extension MerchantProfileView {
 
             TitleLabel(title: "merchant.basic_info".localized)
 
-            InfoRowTrader(title: "merchant.name_ar".localized, value: viewModel.userModel?.trader?.trade_name ?? "")
-            InfoRowTrader(title: "merchant.name_en".localized, value: viewModel.userModel?.trader?.full_name_en ?? "")
+            InfoRowTrader(title: "merchant.name_ar".localized, value: viewModel.userModel?.trader?.trade_name_ar ?? "")
+            InfoRowTrader(title: "merchant.name_en".localized, value: viewModel.userModel?.trader?.trade_name_en ?? "")
 
             HStack {
                 Text("merchant.logo".localized)

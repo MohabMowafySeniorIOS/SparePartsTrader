@@ -202,14 +202,9 @@ struct SendOfferView: View {
             is_charge_validation_label = true
         }
         
-        // لازم يكون فيه قطعة واحدة على الأقل مفعلة.
-        let hasActivePart = items.contains { $0.isAvailable }
-        if !hasActivePart {
-            isValid = false
-            is_parts_validation_label = false
-        } else {
-            is_parts_validation_label = true
-        }
+        // يمكن إرسال العرض حتى لو لم تتوفر أي قطعة؛ عندها يُرسل العرض
+        // بتكلفة الشحن فقط، من دون عناصر.
+        is_parts_validation_label = true
         
         for index in items.indices {
             if items[index].isAvailable {
@@ -350,6 +345,12 @@ struct PartCardView: View {
                    
                     HStack {
                         Text("Part Price".localized)
+                        Spacer()
+                    }
+                    HStack {
+                        Text("price_without_tax_hint".localized)
+                            .font(addFont(fontType: .Regular, size: 12))
+                            .foregroundStyle(Color.CGray2)
                         Spacer()
                     }
                    

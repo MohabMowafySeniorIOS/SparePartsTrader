@@ -18,6 +18,7 @@ struct LoginData: Codable, Equatable, Hashable {
     var avatar : Avatar?
     var phone : String?
     var is_active : Bool?
+    var is_profile_complate: Bool?
     var locale : String?
     var is_notify : Bool?
     var token : String?
@@ -33,6 +34,7 @@ struct LoginData: Codable, Equatable, Hashable {
         case avatar = "avatar"
         case phone = "phone"
         case is_active = "is_active"
+        case is_profile_complate = "is_profile_complate"
         case locale = "locale"
         case is_notify = "is_notify"
         case token = "token"
@@ -84,6 +86,15 @@ struct LoginTrader : Codable, Equatable, Hashable {
     let rating_count : Int?
     let rejection_reason : String?
     let approved_at : String?
+
+    var displayStoreName: String? {
+        let isArabic = UserDefaults.standard.string(forKey: "selectedLanguage") == Language.arabic.rawValue
+        let localizedName = isArabic ? trade_name_ar : trade_name_en
+        let alternateName = isArabic ? trade_name_en : trade_name_ar
+        return [localizedName, alternateName, trade_name]
+            .compactMap { $0?.trimmingCharacters(in: .whitespacesAndNewlines) }
+            .first { !$0.isEmpty }
+    }
 
     enum CodingKeys: String, CodingKey {
 

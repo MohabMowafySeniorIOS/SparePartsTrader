@@ -54,7 +54,7 @@ struct HomeVendor: View {
     
     private var topParView: some View {
         HomeTopBar(
-            userName: AuthService.userData?.full_name ?? "",
+            userName: AuthService.userData?.trader?.displayStoreName ?? AuthService.userData?.full_name ?? "",
             notificationAction: {
                 viewModel.coordinator.showNotification()
             }, notificationCount: viewModel.unreadNotificationsCount)
