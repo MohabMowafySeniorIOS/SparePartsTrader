@@ -18,7 +18,18 @@ final class LoginViewModel: ObservableObject {
     }
     
     func showGuest() {
-        coordinator.loginSuccess()
+        guard let user = AuthService.userData else {
+            coordinator.loginSuccess()
+            return
+        }
+
+        if user.is_profile_complate == false {
+            coordinator.openCompleteProfile(userModel: user)
+        } else if user.trader?.isApproved != true {
+            coordinator.showWaitingForApproval()
+        } else {
+            coordinator.loginSuccess()
+        }
     }
     
     func showOtp(phone:String,isForgetPass: Bool) {
@@ -44,6 +55,8 @@ final class LoginViewModel: ObservableObject {
                 if Model?.data?.is_active == true {
                     if Model?.data?.is_profile_complate == false {
                         self.coordinator.openCompleteProfile(userModel: Model?.data)
+                    } else if Model?.data?.trader?.isApproved != true {
+                        self.coordinator.showWaitingForApproval()
                     } else {
                         self.coordinator.loginSuccess()
                     }

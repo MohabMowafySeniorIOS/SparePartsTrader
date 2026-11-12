@@ -15,6 +15,8 @@
 "choose_car_brand"          = "اختار ماركة السيارة";
 "choose_brand"              = "اختر الماركة";
 "search_car_brands" = "ابحث عن ماركة السيارة ...";
+"no_faq_available" = "لا توجد أسئلة شائعة متاحة حاليًا";
+"no_page_content_available" = "لا يوجد محتوى متاح لهذه الصفحة حاليًا";
 "chose_car_model"           = "اختار مودل السيارة";
 "chose_manufacture_date"    = "اختار سنة التصنيع";
 "enter_chest_number"        = "أدخل رقم الشاسيه";
@@ -32,6 +34,7 @@
 "Confirm cancellation"      = "تاكيد الالغاء";
 "Confirm report"            = "تاكيد الابلاغ";
 "Cancel order"              = "الغاء الطلب";
+"all_parts_unavailable_cancel_notice" = "لقد حددت جميع القطع كغير متاحة، سيتم إلغاء الطلب";
 "Are you sure you want to cancel this order?" = "هل أنت متأكد من إلغاء هذا الطلب؟";
 "Rating"                    = "التقييم";
 "Don't want"                = "لا أرغب";
@@ -470,6 +473,7 @@
 "merchant.cr_number"                     = "رقم السجل التجاري";
 
 "merchant.bank_info"                     = "بيانات الحساب البنكي";
+"merchant.car_brands" = "ماركات السيارات التي يخدمها المتجر";
 "merchant.bank_name"                     = "اسم البنك";
 "merchant.beneficiary_name"              = "اسم المستفيد";
 "merchant.account_number"                = "رقم الحساب";

@@ -30,12 +30,14 @@ class FAQViewModel: ObservableObject {
         state = .loading(loading: .progress)
         APIClient.shared.performRequestWithAlamofire(urlString: url, method: methodType, parameters:nil) { [weak self] (Model: BaseModel<[FAQ]>? , err : String? )in
             guard let self = self else { return }
-             if Model?.status == "success" {
-                ModelFAQ = Model?.data ?? []
-                 state = .loaded(data: Model?.data ?? [])
-             }else {
-                 state = .error(err ?? "")
-             }
+            DispatchQueue.main.async {
+                if Model?.status == "success" {
+                    self.ModelFAQ = Model?.data ?? []
+                    self.state = .loaded(data: self.ModelFAQ)
+                } else {
+                    self.state = .error(err ?? Model?.message ?? "")
+                }
+            }
         }
     }
 }

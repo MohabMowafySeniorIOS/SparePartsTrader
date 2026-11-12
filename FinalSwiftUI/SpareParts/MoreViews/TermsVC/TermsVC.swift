@@ -25,9 +25,16 @@ struct TermsVC: View {
      var body: some View {
          VStack {
             headerView
-             ShowViewState(state: viewModel.state) { Model in
-                 mainContent
+            ShowViewState(state: viewModel.state) { _ in
+                 if (viewModel.content ?? "").trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                     Text("no_page_content_available".localized)
+                         .foregroundStyle(Color.CGray2)
+                         .frame(maxWidth: .infinity, maxHeight: .infinity)
+                 } else {
+                     mainContent
+                 }
              }
+             .frame(maxWidth: .infinity, maxHeight: .infinity)
             
              .onAppear{
                     viewModel.getTerms(tailUrl: pageTitle ?? "")
@@ -58,7 +65,10 @@ struct TermsVC: View {
                 VStack(spacing: 16) {
                     Image.TermsImage
                   
-                    Text((viewModel.content ?? "").removingHTMLTags)  .font(addFont(fontType: .Regular, size: 14))
+                    Text((viewModel.content ?? "").htmlToPlainText)
+                        .font(addFont(fontType: .Regular, size: 14))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .fixedSize(horizontal: false, vertical: true)
                    
                   
                 }.padding()

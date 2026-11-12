@@ -78,14 +78,23 @@ struct LoginTrader : Codable, Equatable, Hashable {
     let bank_account_name : String?
     let bank_account_number : String?
     let bank_iban : String?
-    let status : String?
-    let is_verified : Bool?
+    var status : String?
+    var is_verified : Bool?
     let is_active : Bool?
     let is_receiving_orders : Bool?
     let rating_avg : Double?
     let rating_count : Int?
     let rejection_reason : String?
     let approved_at : String?
+
+    var isApproved: Bool {
+        if is_verified == true { return true }
+        if let approvedAt = approved_at?.trimmingCharacters(in: .whitespacesAndNewlines), !approvedAt.isEmpty {
+            return true
+        }
+        let normalizedStatus = status?.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        return ["approved", "verified"].contains(normalizedStatus ?? "")
+    }
 
     var displayStoreName: String? {
         let isArabic = UserDefaults.standard.string(forKey: "selectedLanguage") == Language.arabic.rawValue

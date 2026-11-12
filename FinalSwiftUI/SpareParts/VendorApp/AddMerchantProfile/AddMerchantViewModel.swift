@@ -143,6 +143,15 @@ class AddMerchantViewModel: ObservableObject {
         APIClient.shared.performRequestWithAlamofire(urlString: url, method: .post, parameters:parameters.toDictionary()) { [weak self] (Model: BaseModel<HomeResponse>? , err : String? )in
             guard let self = self else { return }
             if Model?.status == "success" {
+                if var user = AuthService.userData {
+                    user.is_profile_complate = true
+                    if var trader = user.trader {
+                        trader.status = "pending"
+                        trader.is_verified = false
+                        user.trader = trader
+                    }
+                    AuthService.userData = user
+                }
                 self.state = .loaded(data: Model?.data)
                 self.onSuccess()
             } else {

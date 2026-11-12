@@ -28,6 +28,7 @@
 "Confirm"                                                                             = "Confirm"                       ;
 "Cancel"                                                                              = "Cancel"                        ;
 "Cancel order"                                                                         = "Cancel order"                  ;
+"all_parts_unavailable_cancel_notice"                                                  = "You marked all parts as unavailable. The order will be cancelled.";
 "Are you sure you want to cancel this order?"                                          = "Are you sure you want to cancel this order?";
 "Language"                                                                            = "Language"                      ;
 "Save"                                                                                = "Save"                          ;
@@ -324,6 +325,8 @@
 "choose_car_brand"                        = "Select Car Brand";
 "choose_brand"                            = "Choose brand";
 "search_car_brands" = "Search for a car brand ...";
+"no_faq_available" = "No frequently asked questions are available right now.";
+"no_page_content_available" = "No content is available for this page right now.";
 "chose_car_model"                         = "Select Car Model";
 "chose_manufacture_date"                  = "Select Year Of Manufacture";
 "enter_chest_number"                      = "ِEnter Chest Number";
@@ -394,6 +397,7 @@
 "merchant.cr_number"            = "Commercial Register Number";
 
 "merchant.bank_info"            = "Bank Account Details";
+"merchant.car_brands" = "Car brands supported by the store";
 "merchant.bank_name"             = "Bank Name";
 "merchant.beneficiary_name"     = "Beneficiary Name";
 "merchant.account_number"       = "Account Number";

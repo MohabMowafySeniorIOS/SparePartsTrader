@@ -61,45 +61,80 @@ struct GenericDropdownSheet<T: Hashable>: View {
     let items: [T]
     let displayText: (T) -> String
     let imageUrl: ((T) -> String)?
+    @State private var searchText = ""
+
+    private var filteredItems: [T] {
+        let query = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !query.isEmpty else { return items }
+        return items.filter {
+            displayText($0).range(of: query, options: [.caseInsensitive, .diacriticInsensitive]) != nil
+        }
+    }
 
     var body: some View {
-        ScrollView {
-            LazyVStack(alignment: .leading, spacing: 0) {
-                ForEach(items, id: \.self) { item in
-                    Button {
-                        selectedItem = item
-                        isPresented = false
-                    } label: {
-                        HStack {
-                            if let imageUrl, !imageUrl(item).isEmpty {
-                                RemoteImageView(imageUrl: imageUrl(item))
-                                    .frame(width: 40, height: 40)
-                            }
-                            Text(displayText(item))
-                                .padding(.horizontal)
-
-                            Spacer()
-
-                            if item == selectedItem {
-                                Image(systemName: "checkmark")
-                                    .padding(.horizontal)
-                            }
-                        }
-                        .padding(.vertical, 14)
-                        .contentShape(Rectangle())
+        VStack(spacing: 10) {
+            HStack(spacing: 10) {
+                Image(systemName: "magnifyingglass")
+                    .foregroundStyle(Color.MainColor)
+                TextField("search".localized, text: $searchText)
+                    .autocorrectionDisabled()
+                    .textInputAutocapitalization(.never)
+                if !searchText.isEmpty {
+                    Button { searchText = "" } label: {
+                        Image(systemName: "xmark.circle.fill").foregroundStyle(Color.CGray2)
                     }
                     .buttonStyle(.plain)
-
-                    Divider()
-                        .padding(.leading)
                 }
             }
-            .padding(.top, 8)
+            .padding(.horizontal, 14)
+            .frame(height: 46)
+            .background(Color.CWhite, in: RoundedRectangle(cornerRadius: 12))
+            .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.TextBorderColor))
+            .padding(.horizontal)
+
+            if filteredItems.isEmpty {
+                Text("no_search_results".localized)
+                    .foregroundStyle(Color.CGray2)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            } else {
+                ScrollView {
+                    LazyVStack(alignment: .leading, spacing: 0) {
+                        ForEach(filteredItems, id: \.self) { item in
+                            Button {
+                                selectedItem = item
+                                isPresented = false
+                            } label: {
+                                HStack {
+                                    if let imageUrl, !imageUrl(item).isEmpty {
+                                        RemoteImageView(imageUrl: imageUrl(item))
+                                            .frame(width: 40, height: 40)
+                                    }
+                                    Text(displayText(item))
+                                        .padding(.horizontal)
+
+                                    Spacer()
+
+                                    if item == selectedItem {
+                                        Image(systemName: "checkmark")
+                                            .padding(.horizontal)
+                                    }
+                                }
+                                .padding(.vertical, 14)
+                                .contentShape(Rectangle())
+                            }
+                            .buttonStyle(.plain)
+
+                            Divider().padding(.leading)
+                        }
+                    }
+                    .padding(.top, 4)
+                }
+            }
         }
         .padding(.vertical, 12)
 
         // detents iOS16+
-        .modifier(DetentsIfAvailable(height: CGFloat(min(items.count, 8) * 70)))
+        .modifier(DetentsIfAvailable(height: CGFloat(min(max(items.count, 4), 8) * 70 + 70)))
     }
 }
 

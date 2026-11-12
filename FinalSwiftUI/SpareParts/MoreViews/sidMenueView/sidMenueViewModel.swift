@@ -30,7 +30,6 @@ class sidMenueViewModel: ObservableObject {
     }
     
     func showlogOut(){
-        AuthService.userData = nil
         self.coordinator.logOut()
     }
     
@@ -39,11 +38,13 @@ class sidMenueViewModel: ObservableObject {
         
         APIClient.shared.performRequestWithAlamofire(urlString: url, method: methodType, parameters: nil) { [weak self] (Model: BaseModel<[String]>? , err : String? )in
             guard let self = self else { return }
-             if Model?.status == "success" {
-                pagesArray = Model?.data ?? []
-           }else {
-               state = .error(err ?? "")
-           }
+            DispatchQueue.main.async {
+                if Model?.status == "success" {
+                    self.pagesArray = Model?.data ?? []
+                } else {
+                    self.state = .error(err ?? Model?.message ?? "")
+                }
+            }
         }
     }
     

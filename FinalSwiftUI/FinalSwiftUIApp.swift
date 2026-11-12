@@ -144,10 +144,15 @@ enum FCMOrderNotificationRoute {
     static let notificationOpened = Foundation.Notification.Name("FCMOrderNotificationOpened")
     private(set) static var pendingOrderID: String?
     private(set) static var pendingChat: (roomID: String, title: String)?
+    private(set) static var pendingApprovalRefresh = false
 
     private static let orderTypes: Set<String> = [
         "new_order", "new_offer", "offer_accepted", "rating_received",
         "problem_reported", "problem_resolved", "problem_rejected", "order_status", "payment_received"
+    ]
+    private static let approvalTypes: Set<String> = [
+        "approval", "account_approval", "account_approved", "trader_approval",
+        "trader_approved", "profile_approved", "admin_approved", "approved"
     ]
 
     static func enqueue(from userInfo: [AnyHashable: Any]) {
@@ -160,8 +165,19 @@ enum FCMOrderNotificationRoute {
             payloads.append(payload)
         }
 
+        let aps = userInfo["aps"] as? [String: Any]
+        let alert = aps?["alert"] as? [String: Any]
+        let title = payloads.compactMap { $0["title"] as? String ?? $0["notification_title"] as? String }.first
+            ?? alert?["title"] as? String ?? ""
+        let body = payloads.compactMap { $0["body"] as? String ?? $0["message"] as? String }.first
+            ?? alert?["body"] as? String ?? ""
         let type = payloads.compactMap { $0["type"] as? String ?? $0["notification_type"] as? String }
-            .first?.lowercased()
+            .first?.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+
+        if isApprovalNotification(type: type, title: title, body: body) {
+            requestApprovalRefresh()
+            return
+        }
         guard let type else { return }
 
         let messageTypes: Set<String> = ["new_message", "message", "chat_message"]
@@ -212,5 +228,27 @@ enum FCMOrderNotificationRoute {
     static func takePendingChat() -> (roomID: String, title: String)? {
         defer { pendingChat = nil }
         return pendingChat
+    }
+
+    static func requestApprovalRefresh() {
+        DispatchQueue.main.async {
+            pendingApprovalRefresh = true
+            NotificationCenter.default.post(name: notificationOpened, object: nil)
+        }
+    }
+
+    static func takePendingApprovalRefresh() -> Bool {
+        defer { pendingApprovalRefresh = false }
+        return pendingApprovalRefresh
+    }
+
+    static func isApprovalNotification(type: String?, title: String = "", body: String = "") -> Bool {
+        let normalizedType = type?.trimmingCharacters(in: .whitespacesAndNewlines).lowercased() ?? ""
+        if approvalTypes.contains(normalizedType) || normalizedType.contains("approv") || normalizedType.contains("verif") {
+            return true
+        }
+        let text = "\(title) \(body)".lowercased()
+        return ["approval", "approved", "تمت الموافقة", "تم قبول", "تم اعتماد", "اعتماد الحساب"]
+            .contains { text.contains($0) }
     }
 }

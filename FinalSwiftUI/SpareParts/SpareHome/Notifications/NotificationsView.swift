@@ -42,14 +42,22 @@ struct NotificationsView: View {
                         }
                         .onTapGesture {
                             let type = notification.type?.lowercased() ?? ""
-                            let orderID = type == "problem_reported"
-                                ? (notification.order_id ?? notification.notify_id)
-                                : notification.notify_id
-                            handleNotification(
+                            if FCMOrderNotificationRoute.isApprovalNotification(
                                 type: type,
-                                notifyId: "\(orderID ?? 0)",
-                                problemId: type == "problem_reported" ? notification.notify_id.map(String.init) : nil
-                            )
+                                title: notification.title ?? "",
+                                body: notification.body ?? ""
+                            ) {
+                                FCMOrderNotificationRoute.requestApprovalRefresh()
+                            } else {
+                                let orderID = type == "problem_reported"
+                                    ? (notification.order_id ?? notification.notify_id)
+                                    : notification.notify_id
+                                handleNotification(
+                                    type: type,
+                                    notifyId: "\(orderID ?? 0)",
+                                    problemId: type == "problem_reported" ? notification.notify_id.map(String.init) : nil
+                                )
+                            }
                             viewModel.markNotificationAsREad(notification_id: "\(notification.id ?? "")")
                             
                         }

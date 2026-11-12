@@ -10,14 +10,14 @@ import SwiftUI
 
 
 struct FAQScreen: View {
-    
-    
+
+
     @ObservedObject private var viewModel: FAQViewModel
-    
+
     init(viewModel: FAQViewModel) {
         _viewModel = ObservedObject(wrappedValue: viewModel)
     }
-  
+
     @State private var rotation: Double = 0
     @State private var isLoading = true
     var body: some View {
@@ -25,50 +25,54 @@ struct FAQScreen: View {
             AppHeaderView(Title: "menu_faq".localized) {
                 viewModel.disMiss()
             }
-            
+
             ShowViewState(state: viewModel.state) { Model in
-                mainContent
+                if Model?.isEmpty == true {
+                    Text("no_faq_available".localized)
+                        .foregroundStyle(Color.CGray2)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                } else {
+                    mainContent
+                }
             }
-            
-           
-            Spacer()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }.background(
             Color(Color.backGroundColor)
         )
-       
-        
+
+
     }
-    
-   
-    
+
+
+
     // MARK: - Main Content
-    
+
     private var mainContent: some View {
-        
+
         ScrollView {
             VStack(spacing: 12) {
                 ForEach(viewModel.ModelFAQ,id: \.id) { item in
                     FAQRow(
                         item: item
-                        
+
                     )
-                    
+
                 }
             }
             .padding([.top],16)
         }
-        
+
     }
 }
 
 struct FAQRow: View {
     @State var item: FAQ
-    
-    
+
+
     var body: some View {
         VStack(alignment: .trailing, spacing: 6) {
             HStack {
-                Text(item.question ?? "")
+                    Text((item.question ?? "").htmlToPlainText)
                     .font(.body)
                     .foregroundColor(.SecondaryColor)
                 Spacer()
@@ -84,7 +88,7 @@ struct FAQRow: View {
 
             if item.isExpanded {
                 HStack {
-                    Text(item.answer ?? "")
+                    Text((item.answer ?? "").htmlToPlainText)
                         .font(.subheadline)
                         .foregroundColor(.SecondaryColor)
                         .padding(16)
@@ -98,7 +102,7 @@ struct FAQRow: View {
             .cornerRadius(16)
             .shadow(color: Color.black.opacity(0.05), radius: 6, x: 0, y: 2)
             .padding(.horizontal)
-        
+
     }
 }
 

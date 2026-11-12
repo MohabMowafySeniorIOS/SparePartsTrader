@@ -40,6 +40,8 @@ struct MerchantProfileView: View {
 
                 basicInfoSection
 
+                brandsSection
+
                 imagesSection
 
                 descriptionSection
@@ -121,6 +123,49 @@ extension MerchantProfileView {
                 .fill(Color.CWhite)
         )
         .shadow(color: Color.black.opacity(0.08), radius: 8, x: 0, y: 3)
+    }
+}
+
+// MARK: Supported car brands
+extension MerchantProfileView {
+    var brandsSection: some View {
+        let trader = viewModel.userModel?.trader
+        var brands = trader?.brands ?? []
+        if brands.isEmpty, let brand = trader?.brand {
+            brands = [brand]
+        }
+
+        return VStack(alignment: .leading, spacing: 14) {
+            TitleLabel(title: "merchant.car_brands".localized)
+
+            if brands.isEmpty {
+                Text("no_car_brands_available".localized)
+                    .font(addFont(fontType: .Regular, size: 14))
+                    .foregroundStyle(Color.CGray2)
+            } else {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 12) {
+                        ForEach(Array(brands.enumerated()), id: \.offset) { entry in
+                            let brand = entry.element
+                            VStack(spacing: 8) {
+                                RemoteImageView(imageUrl: brand.logo?.path ?? "")
+                                    .scaledToFit()
+                                    .frame(width: 72, height: 48)
+                                Text(brand.name ?? "")
+                                    .font(addFont(fontType: .Medium, size: 13))
+                                    .foregroundStyle(Color.CBlack)
+                                    .lineLimit(1)
+                            }
+                            .frame(width: 96, height: 92)
+                            .background(Color.backGroundColor, in: RoundedRectangle(cornerRadius: 12))
+                        }
+                    }
+                }
+            }
+        }
+        .padding(16)
+        .background(RoundedRectangle(cornerRadius: 18).fill(Color.CWhite))
+        .shadow(color: .black.opacity(0.08), radius: 8, x: 0, y: 3)
     }
 }
 

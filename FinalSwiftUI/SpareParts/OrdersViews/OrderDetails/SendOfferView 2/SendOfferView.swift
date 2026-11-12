@@ -82,6 +82,12 @@ struct SendOfferView: View {
         viewModel.orderModel?.myOffer != nil
     }
 
+    /// When every requested item is unavailable, the same submission acts as
+    /// the cancellation flow. Keep the message and action visible together.
+    private var areAllPartsUnavailable: Bool {
+        !items.isEmpty && items.allSatisfy { !$0.isAvailable }
+    }
+
     private var screenTitle: String {
         isUpdatingOffer ? "Update offer".localized : "Send a price quote".localized
     }
@@ -105,8 +111,16 @@ struct SendOfferView: View {
         ShowViewState(state: viewModel.state) { Model in
             VStack {
                 scrollView
-                 Spacer()
-                 sendButton
+                Spacer(minLength: 8)
+                if areAllPartsUnavailable {
+                    Text("all_parts_unavailable_cancel_notice".localized)
+                        .font(addFont(fontType: .Regular, size: 15))
+                        .foregroundStyle(Color.CRed)
+                        .multilineTextAlignment(.center)
+                        .frame(maxWidth: .infinity)
+                        .padding(.horizontal)
+                }
+                sendButton
             }
         }
     }
@@ -166,21 +180,25 @@ struct SendOfferView: View {
     }
     
     private var sendButton: some View {
-        ContentButtonView(title: screenTitle) {
+        Button {
             if isValid() {
-                
-                var partsParam: [offerParts] = []
-                
-                for item in items {
-                    partsParam.append(offerParts(order_item_id: "\(item.id ?? 0)", price: item.partPrice, is_available: "\(item.isAvailable)"))
+                let partsParam = items.map {
+                    offerParts(order_item_id: "\($0.id ?? 0)", price: $0.partPrice, is_available: "\($0.isAvailable)")
                 }
-              
-                    viewModel.sendOffer(parts: partsParam, shipping_cost: isPickup ? "0" : chargePriceInput, orderId: "\(viewModel.orderModel?.id ?? 0)", offerId: "\(viewModel.orderModel?.myOffer?.id ?? 0)")
-                
-               
+                viewModel.sendOffer(
+                    parts: partsParam,
+                    shipping_cost: isPickup ? "0" : chargePriceInput,
+                    orderId: "\(viewModel.orderModel?.id ?? 0)",
+                    offerId: "\(viewModel.orderModel?.myOffer?.id ?? 0)"
+                )
             }
+        } label: {
+            Text((areAllPartsUnavailable ? "Cancel order" : screenTitle).localized)
+                .font(addFont(fontType: .bold, size: 17))
+                .foregroundColor(.white)
+                .frame(maxWidth: .infinity, minHeight: 48)
         }
-        .padding(.horizontal)
+        .mainButtunFormating(bgColor: areAllPartsUnavailable ? Color.CRed : Color.MainColor)
         .padding(.horizontal)
     }
     

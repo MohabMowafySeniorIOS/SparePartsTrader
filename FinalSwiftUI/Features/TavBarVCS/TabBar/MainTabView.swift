@@ -55,6 +55,12 @@ struct MainTabView: View {
 
             }
             .accentColor(Color.MainColor)
+            .onChange(of: selectedTab) { newTab in
+                if newTab == 3 {
+                    homeViewModel.getHomeData()
+                    homeViewModel.getUnreadNotificationsCount()
+                }
+            }
 
     }
 }

@@ -30,13 +30,15 @@ class TermsViewModel: ObservableObject {
         state = .loading(loading: .progress)
         APIClient.shared.performRequestWithAlamofire(urlString: url, method: methodType, parameters: nil) { [weak self] (Model: BaseModel<TermsResponse>? , err : String? )in
             guard let self = self else { return }
-             if Model?.status == "success" {
-                self.content = Model?.data?.content ?? ""
-                self.pageTitle = Model?.data?.title ?? ""
-                 state = .loaded(data: Model?.data?.content ?? "")
-             }else {
-                 state = .error(err ?? "")
-             }
+            DispatchQueue.main.async {
+                if Model?.status == "success" {
+                    self.content = Model?.data?.content ?? ""
+                    self.pageTitle = Model?.data?.title ?? ""
+                    self.state = .loaded(data: self.content)
+                } else {
+                    self.state = .error(err ?? Model?.message ?? "")
+                }
+            }
         }
     }
 }

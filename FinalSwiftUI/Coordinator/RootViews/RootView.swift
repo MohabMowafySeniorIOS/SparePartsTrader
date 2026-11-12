@@ -39,8 +39,16 @@ struct RootView: View {
         .onReceive(SessionEvents.shared.unauthorized) { _ in
             restartID = UUID()
         }
+        .onReceive(NotificationCenter.default.publisher(for: FCMOrderNotificationRoute.notificationOpened)) { _ in
+            if FCMOrderNotificationRoute.takePendingApprovalRefresh() {
+                coordinator.refreshAccountApproval()
+            }
+        }
         .onAppear {
             coordinator.start()
+            if FCMOrderNotificationRoute.takePendingApprovalRefresh() {
+                coordinator.refreshAccountApproval()
+            }
         }
     }
 }
